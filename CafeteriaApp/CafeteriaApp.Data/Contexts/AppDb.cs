@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using CafeteriaApp.Data.Models;
 
+
 namespace CafeteriaApp.Data.Contexts
 {
     public class AppDb : DbContext
@@ -13,7 +14,7 @@ namespace CafeteriaApp.Data.Contexts
             Configuration.LazyLoadingEnabled = true;
 
         }
-        public DbSet<UserAccount> UserAccounts { get; set; }
+        public DbSet<Category> Categories { get; set; }
        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

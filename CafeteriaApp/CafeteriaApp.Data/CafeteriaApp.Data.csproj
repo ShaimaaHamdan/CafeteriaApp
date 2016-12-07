@@ -55,12 +55,28 @@
   <ItemGroup>
     <Compile Include="Contexts\AppDb.cs" />
     <Compile Include="GenericRepository.cs" />
-    <Compile Include="Models\UserAccount.cs" />
+    <Compile Include="Migrations\201612071628387_AddCategoryTable.cs" />
+    <Compile Include="Migrations\201612071628387_AddCategoryTable.Designer.cs">
+      <DependentUpon>201612071628387_AddCategoryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612071637361_AddCategoryTable1.cs" />
+    <Compile Include="Migrations\201612071637361_AddCategoryTable1.Designer.cs">
+      <DependentUpon>201612071637361_AddCategoryTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="ProjectionExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryableExtensions.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612071628387_AddCategoryTable.resx">
+      <DependentUpon>201612071628387_AddCategoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612071637361_AddCategoryTable1.resx">
+      <DependentUpon>201612071637361_AddCategoryTable1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CafeteriaApp.Data.Contexts;
 
 namespace CafeteriaApp.Web.Controllers
 {
@@ -23,6 +24,7 @@ namespace CafeteriaApp.Web.Controllers
         public ActionResult Login()
         {
             ViewBag.Title = "Login Page";
+            
 
             return View();
         }
