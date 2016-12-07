@@ -15,7 +15,9 @@ namespace CafeteriaApp.Data.Contexts
 
         }
         public DbSet<Category> Categories { get; set; }
-       
+
+        public DbSet<Order> Orders { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
-    [Table("Category")]
-    public class Category
+    [Table("Order")]
+    public class Order
     {
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public DateTime DeliveryTime { get; set; }
     }
 }
