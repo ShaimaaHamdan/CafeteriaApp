@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
-    [Table("Category")]
-    public class Category
+    [Table("AspNetUsers")]
+    public class Person
     {
         [Key]
         public int Id { get; set; }
-
-        public string Name { get; set; }
-
-
-        public ICollection<MenuItem>  MenuItems { get; set; }
     }
 }

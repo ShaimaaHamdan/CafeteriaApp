@@ -18,6 +18,8 @@ namespace CafeteriaApp.Data.Contexts
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<MenuItem> MenuItems { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

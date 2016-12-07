@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
-    [Table("Category")]
-    public class Category
+    public class MenuItem
     {
         [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
 
+        public int CategoryId { get; set; }
 
-        public ICollection<MenuItem>  MenuItems { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
     }
 }

@@ -13,6 +13,11 @@ namespace CafeteriaApp.Web.Controllers
         {
             ViewBag.Title = "Home Page";
 
+            var context = new AppDb();
+
+            //var customer = context.person.Where(i => i.Role.Name == "Customer");
+
+
             return View();
         }
         public ActionResult Register()
@@ -24,6 +29,7 @@ namespace CafeteriaApp.Web.Controllers
         public ActionResult Login()
         {
             ViewBag.Title = "Login Page";
+
             
 
             return View();
