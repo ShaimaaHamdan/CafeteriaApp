@@ -8,22 +8,20 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
-    public class MenuItem
+    public class Customer
     {
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public double Credit { get; set; }
 
-        public double Price { get; set; }
+        public double LimitedCredit { get; set; }
 
-        public string Description { get; set; }
+        //public int PersonId { get; set; }
 
-        public string Type { get; set; }
+        //[ForeignKey("PersonId")]
+        //public Person Person { get; set; }
 
-        public int CategoryId { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
     }
 }

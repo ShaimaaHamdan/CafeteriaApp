@@ -14,12 +14,17 @@ namespace CafeteriaApp.Data.Contexts
             Configuration.LazyLoadingEnabled = true;
 
         }
+
+        public DbSet<Addition> Additions { get; set; }
         public DbSet<Category> Categories { get; set; }
-
-        public DbSet<Order> Orders { get; set; }
-
-        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderedItem> OrderedItems { get; set; }
+        //public DbSet<Person> Persons { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

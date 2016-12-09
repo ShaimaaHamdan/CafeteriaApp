@@ -14,6 +14,16 @@ namespace CafeteriaApp.Data.Models
         [Key]
         public int Id { get; set; }
 
+        public bool PaymentDone { get; set; } 
+
+        public DateTime OrderTime { get; set; }
+
+        public string PaymentMethod { get; set; }
+
+        public string DeliveryPlace { get; set; }
+
+        public string OrderStatus { get; set; }
+
         public DateTime DeliveryTime { get; set; }
     }
 }

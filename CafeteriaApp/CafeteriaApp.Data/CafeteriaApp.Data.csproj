@@ -79,8 +79,16 @@
     <Compile Include="Migrations\201612081127255_AddItem.Designer.cs">
       <DependentUpon>201612081127255_AddItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612082331088_AddRegularEntities.cs" />
+    <Compile Include="Migrations\201612082331088_AddRegularEntities.Designer.cs">
+      <DependentUpon>201612082331088_AddRegularEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\OrderedItem.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\Order.cs" />
@@ -107,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612081127255_AddItem.resx">
       <DependentUpon>201612081127255_AddItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612082331088_AddRegularEntities.resx">
+      <DependentUpon>201612082331088_AddRegularEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
