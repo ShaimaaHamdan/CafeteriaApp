@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace CafeteriaApp.Data.Models
 {
     [Table("AspNetUsers")]
-    public class Person
+    public class User
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Email { get; set; }
 

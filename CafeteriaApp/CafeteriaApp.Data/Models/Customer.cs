@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
+    [Table("Customer")]
+
     public class Customer
     {
         [Key]
@@ -17,10 +19,10 @@ namespace CafeteriaApp.Data.Models
 
         public double LimitedCredit { get; set; }
 
-        public int PersonId { get; set; }
+        public string UserId { get; set; }
 
-        [ForeignKey("PersonId")]
-        public Person Person { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 

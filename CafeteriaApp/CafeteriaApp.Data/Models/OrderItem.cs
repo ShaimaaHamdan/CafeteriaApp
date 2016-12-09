@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
+    [Table("OrderItem")]
+
     public class OrderItem
     {
         [Key]

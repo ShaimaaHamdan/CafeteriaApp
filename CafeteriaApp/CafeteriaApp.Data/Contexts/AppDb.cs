@@ -24,7 +24,7 @@ namespace CafeteriaApp.Data.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<User> Persons { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -66,7 +66,7 @@ namespace CafeteriaApp.Data.Contexts
                  cs.ToTable("CustomerRestrict");
              });
 
-            modelBuilder.Entity<Person>()
+            modelBuilder.Entity<User>()
            .HasMany<Role>(s => s.Roles)
            .WithMany(c => c.Persons)
            .Map(cs =>

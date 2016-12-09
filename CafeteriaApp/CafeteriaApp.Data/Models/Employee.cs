@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
+    [Table("Employee")]
+
     public class Employee
     {
         [Key]
         public int Id { get; set; }
 
-        public int PersonId { get; set; }
+        public string UserId { get; set; }
 
-        [ForeignKey("PersonId")]
-        public Person Person { get; set; }
-
+        [ForeignKey("UserId")]
+        public User User { get; set; }
 
     }
 }

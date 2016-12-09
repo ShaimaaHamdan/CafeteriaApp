@@ -119,6 +119,22 @@
     <Compile Include="Migrations\201612092231292_RemoveRoleString.Designer.cs">
       <DependentUpon>201612092231292_RemoveRoleString.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612092248474_RemoveCustomerUserRelation.cs" />
+    <Compile Include="Migrations\201612092248474_RemoveCustomerUserRelation.Designer.cs">
+      <DependentUpon>201612092248474_RemoveCustomerUserRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092301146_RemoveCustomerUserRelation2.cs" />
+    <Compile Include="Migrations\201612092301146_RemoveCustomerUserRelation2.Designer.cs">
+      <DependentUpon>201612092301146_RemoveCustomerUserRelation2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092302419_RemoveCustomerUserRelation3.cs" />
+    <Compile Include="Migrations\201612092302419_RemoveCustomerUserRelation3.Designer.cs">
+      <DependentUpon>201612092302419_RemoveCustomerUserRelation3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092312436_RenameTables.cs" />
+    <Compile Include="Migrations\201612092312436_RenameTables.Designer.cs">
+      <DependentUpon>201612092312436_RenameTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
@@ -128,7 +144,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="ProjectionExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,6 +198,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612092231292_RemoveRoleString.resx">
       <DependentUpon>201612092231292_RemoveRoleString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092248474_RemoveCustomerUserRelation.resx">
+      <DependentUpon>201612092248474_RemoveCustomerUserRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092301146_RemoveCustomerUserRelation2.resx">
+      <DependentUpon>201612092301146_RemoveCustomerUserRelation2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092302419_RemoveCustomerUserRelation3.resx">
+      <DependentUpon>201612092302419_RemoveCustomerUserRelation3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092312436_RenameTables.resx">
+      <DependentUpon>201612092312436_RenameTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
