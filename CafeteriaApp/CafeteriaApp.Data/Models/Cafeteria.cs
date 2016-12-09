@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
-    public class OrderedItem
+    public class Cafeteria
     {
         [Key]
         public int Id { get; set; }
 
-        public int Quantity { get; set; }
+        public string name { get; set; }
 
+        public virtual ICollection<Category> Categories { get; set; }
 
 
     }

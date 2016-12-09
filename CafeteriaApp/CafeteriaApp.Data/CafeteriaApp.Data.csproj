@@ -83,13 +83,41 @@
     <Compile Include="Migrations\201612082331088_AddRegularEntities.Designer.cs">
       <DependentUpon>201612082331088_AddRegularEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612092052554_CreateCustomerEmployeeOrdereditem.cs" />
+    <Compile Include="Migrations\201612092052554_CreateCustomerEmployeeOrdereditem.Designer.cs">
+      <DependentUpon>201612092052554_CreateCustomerEmployeeOrdereditem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092101276_RenameOrderItem.cs" />
+    <Compile Include="Migrations\201612092101276_RenameOrderItem.Designer.cs">
+      <DependentUpon>201612092101276_RenameOrderItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092107394_AddRelationBettweenOrderAndOderItems.cs" />
+    <Compile Include="Migrations\201612092107394_AddRelationBettweenOrderAndOderItems.Designer.cs">
+      <DependentUpon>201612092107394_AddRelationBettweenOrderAndOderItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092123474_AddRelationBettweenMenuItemAndAddition.cs" />
+    <Compile Include="Migrations\201612092123474_AddRelationBettweenMenuItemAndAddition.Designer.cs">
+      <DependentUpon>201612092123474_AddRelationBettweenMenuItemAndAddition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092158235_AddRelationsBettweenNenuItemAndCustomer.cs" />
+    <Compile Include="Migrations\201612092158235_AddRelationsBettweenNenuItemAndCustomer.Designer.cs">
+      <DependentUpon>201612092158235_AddRelationsBettweenNenuItemAndCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092212075_AddPersonTable.cs" />
+    <Compile Include="Migrations\201612092212075_AddPersonTable.Designer.cs">
+      <DependentUpon>201612092212075_AddPersonTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612092214161_UpdatePersonTable.cs" />
+    <Compile Include="Migrations\201612092214161_UpdatePersonTable.Designer.cs">
+      <DependentUpon>201612092214161_UpdatePersonTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
+    <Compile Include="Models\Cafeteria.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\OrderedItem.cs" />
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Person.cs" />
@@ -118,6 +146,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612082331088_AddRegularEntities.resx">
       <DependentUpon>201612082331088_AddRegularEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092052554_CreateCustomerEmployeeOrdereditem.resx">
+      <DependentUpon>201612092052554_CreateCustomerEmployeeOrdereditem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092101276_RenameOrderItem.resx">
+      <DependentUpon>201612092101276_RenameOrderItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092107394_AddRelationBettweenOrderAndOderItems.resx">
+      <DependentUpon>201612092107394_AddRelationBettweenOrderAndOderItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092123474_AddRelationBettweenMenuItemAndAddition.resx">
+      <DependentUpon>201612092123474_AddRelationBettweenMenuItemAndAddition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092158235_AddRelationsBettweenNenuItemAndCustomer.resx">
+      <DependentUpon>201612092158235_AddRelationsBettweenNenuItemAndCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092212075_AddPersonTable.resx">
+      <DependentUpon>201612092212075_AddPersonTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612092214161_UpdatePersonTable.resx">
+      <DependentUpon>201612092214161_UpdatePersonTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

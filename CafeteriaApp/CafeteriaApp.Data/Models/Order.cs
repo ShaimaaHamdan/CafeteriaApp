@@ -25,5 +25,12 @@ namespace CafeteriaApp.Data.Models
         public string OrderStatus { get; set; }
 
         public DateTime DeliveryTime { get; set; }
+
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+
+        public int CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public Customer Customer { get; set; }
     }
 }

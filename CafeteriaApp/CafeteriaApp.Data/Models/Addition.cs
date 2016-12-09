@@ -15,7 +15,7 @@ namespace CafeteriaApp.Data.Models
         public string Name { get; set; }
 
 
-
+        public virtual ICollection<MenuItem> MenuItems { get; set; }
 
     }
 }

@@ -25,5 +25,11 @@ namespace CafeteriaApp.Data.Models
 
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+        public virtual ICollection<Addition> Additions { get; set; }
+
+        public virtual ICollection<Customer> CustomersFavourite { get; set; }
+
+        public virtual ICollection<Customer> CustomersRestricts { get; set; }
     }
 }

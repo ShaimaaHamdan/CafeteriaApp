@@ -17,6 +17,11 @@ namespace CafeteriaApp.Data.Models
         public string Name { get; set; }
 
 
-        public ICollection<MenuItem>  MenuItems { get; set; }
+        public virtual  ICollection<MenuItem>  MenuItems { get; set; }
+
+        public int CafeteriaId { get; set; }
+
+        [ForeignKey("CafeteriaId")]
+        public Cafeteria Cafeteria { get; set; }
     }
 }

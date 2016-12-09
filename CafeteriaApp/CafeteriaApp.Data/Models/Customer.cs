@@ -17,11 +17,16 @@ namespace CafeteriaApp.Data.Models
 
         public double LimitedCredit { get; set; }
 
-        //public int PersonId { get; set; }
+        public int PersonId { get; set; }
 
-        //[ForeignKey("PersonId")]
-        //public Person Person { get; set; }
+        [ForeignKey("PersonId")]
+        public Person Person { get; set; }
 
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<MenuItem> Favourites { get; set; }
+
+        public virtual ICollection<MenuItem> Restricts { get; set; }
 
     }
 }
