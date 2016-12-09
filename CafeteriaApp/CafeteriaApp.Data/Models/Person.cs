@@ -40,5 +40,6 @@ namespace CafeteriaApp.Data.Models
 
         public string LastName { get; set; }
 
+        public virtual ICollection<Role> Roles { get; set; }
     }
 }

@@ -65,6 +65,16 @@ namespace CafeteriaApp.Data.Contexts
                  cs.MapRightKey("MenuItemId");
                  cs.ToTable("CustomerRestrict");
              });
+
+            modelBuilder.Entity<Person>()
+           .HasMany<Role>(s => s.Roles)
+           .WithMany(c => c.Persons)
+           .Map(cs =>
+           {
+               cs.MapLeftKey("UserId");
+               cs.MapRightKey("RoleId");
+               cs.ToTable("AspNetUserRoles");
+           });
         }
     }
 }

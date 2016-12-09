@@ -8,16 +8,13 @@ using System.Threading.Tasks;
 
 namespace CafeteriaApp.Data.Models
 {
-    public class Employee
+    [Table("AspNetRoles")]
+    public class Role
     {
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
 
-        public int PersonId { get; set; }
-
-        [ForeignKey("PersonId")]
-        public Person Person { get; set; }
-
-
+        public virtual ICollection<Person> Persons { get; set; }
     }
 }
