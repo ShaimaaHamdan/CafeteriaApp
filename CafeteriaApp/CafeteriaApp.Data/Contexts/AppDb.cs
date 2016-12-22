@@ -16,6 +16,7 @@ namespace CafeteriaApp.Data.Contexts
         }
 
         public DbSet<Addition> Additions { get; set; }
+        public DbSet<Cafeteria> Cafeterias { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
