@@ -10,7 +10,7 @@ namespace CafeteriaApp.Web.Controllers
 {
     public class CafeteriaController : ApiController
     {
-        public AppDb appdb=new AppDb();
+        public AppDb appdb = new AppDb();
         public IHttpActionResult GetCafeteria(int id)
         {
             var cafeteria = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
@@ -41,6 +41,22 @@ namespace CafeteriaApp.Web.Controllers
                 c1.name=c.name;
                 appdb.SaveChanges();
                 return Ok(c1);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        {
+            return appdb.Cafeterias;
+        }
+        {
+            var cafeteriaToDelete = appdb.Cafeterias.FirstOrDefault(c => c.name == name);
+            if (cafeteriaToDelete != null)
+            {
+                appdb.Cafeterias.Remove(cafeteriaToDelete);
+                appdb.SaveChanges();
+                return Ok();
             }
             else
             {
