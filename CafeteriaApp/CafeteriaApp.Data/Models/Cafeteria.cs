@@ -16,7 +16,7 @@ namespace CafeteriaApp.Data.Models
 
         public string name { get; set; }
 
-        public virtual ICollection<Category> Categories { get; set; }
+        public virtual IEnumerable<Category> Categories { get; set; }
 
 
     }

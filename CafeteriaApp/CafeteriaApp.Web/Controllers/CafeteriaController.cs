@@ -47,15 +47,10 @@ namespace CafeteriaApp.Web.Controllers
                 return NotFound();
             }
         }
-        public IQueryable<Cafeteria> GetAllCafeterias()
+        public IEnumerable<Cafeteria> GetAllCafeterias()
         {
             return appdb.Cafeterias;
         }
-        //public IHttpActionResult GetAllCafeterias()
-        //{
-        //    var cafeteria = appdb.Cafeterias;
-        //    return Ok(cafeteria);
-        //}
         public IHttpActionResult DeleteCafeteria(int id)
         {
             var cafeteriaToDelete = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
