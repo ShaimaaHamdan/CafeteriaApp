@@ -51,9 +51,14 @@ namespace CafeteriaApp.Web.Controllers
         {
             return appdb.Cafeterias;
         }
-        public IHttpActionResult DeleteCafeteria(string name)
+        //public IHttpActionResult GetAllCafeterias()
+        //{
+        //    var cafeteria = appdb.Cafeterias;
+        //    return Ok(cafeteria);
+        //}
+        public IHttpActionResult DeleteCafeteria(int id)
         {
-            var cafeteriaToDelete = appdb.Cafeterias.FirstOrDefault(c => c.name == name);
+            var cafeteriaToDelete = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
             if (cafeteriaToDelete != null)
             {
                 appdb.Cafeterias.Remove(cafeteriaToDelete);
