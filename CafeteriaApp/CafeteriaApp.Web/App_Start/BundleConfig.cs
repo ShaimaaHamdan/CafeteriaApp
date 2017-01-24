@@ -26,7 +26,7 @@ namespace CafeteriaApp.Web
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                      "~/Scripts/knockout-{version}.js",
-                     "~/Scripts/app.js"));
+                     "~/Scripts/app.js", "~/Scripts/admin/menuItem.js"));
         }
     }
 }
