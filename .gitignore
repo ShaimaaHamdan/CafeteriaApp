@@ -210,3 +210,11 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+*.config
+CafeteriaApp/CafeteriaApp.Data/App.config
+CafeteriaApp/CafeteriaApp.Data/App.config
+CafeteriaApp/CafeteriaApp.Web/Models/CafeteriaViewModel.cs
+CafeteriaApp/CafeteriaApp.Data/App.config
+*.config
+CafeteriaApp/CafeteriaApp.Data/App.config
+*.config
