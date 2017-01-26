@@ -5,16 +5,12 @@ using System.Web;
 
 namespace CafeteriaApp.Web.Models
 {
-    public class CategoryViewModel
+    public class AdditionViewModel
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public int CafeteriaId { get; set; }
 
-        public ICollection<MenuItemViewModel> MenuItems { get; set; }
-
-        // public CafeteriaViewModel Cafeteria { get; set; }
     }
 }
