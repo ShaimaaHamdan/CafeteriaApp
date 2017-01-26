@@ -19,6 +19,7 @@ namespace CafeteriaApp.Web.Controllers
             //lamda expression
             var menuItems = appdb.MenuItems.Select(menuitem => new MenuItemViewModel()
             {
+
                 CategoryId = menuitem.CategoryId,
                 Description = menuitem.Description,
                 Id = menuitem.Id,
@@ -82,5 +83,57 @@ namespace CafeteriaApp.Web.Controllers
                 return NotFound();
             }
         }
+
+        [HttpPost]
+        public IHttpActionResult Add(MenuItemViewModel menuitem)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            var m = appdb.MenuItems.Add(new MenuItem()
+            {
+
+                CategoryId = menuitem.CategoryId,
+                Description = menuitem.Description,
+                Id = menuitem.Id,
+                Name = menuitem.Name,
+                Price = menuitem.Price,
+                Type = menuitem.Type,
+            });
+            appdb.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(MenuItemViewModel menuitem)
+        {
+            if (!ModelState.IsValid)
+            { 
+                return BadRequest("Not a valid data");
+            }
+
+            var existingMenuitem = appdb.MenuItems.Where(x => x.Id == menuitem.Id).FirstOrDefault<MenuItem>();
+         
+            if (existingMenuitem != null)
+            {
+                existingMenuitem.Id = menuitem.Id;
+                existingMenuitem.Name = menuitem.Name;
+                existingMenuitem.Type = menuitem.Type;
+                existingMenuitem.Price = menuitem.Price;
+                existingMenuitem.Description = menuitem.Description;
+              //  existingMenuitem.CategoryId = menuitem.CategoryId;
+                appdb.SaveChanges();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+
+            return Ok();
+        }
+
     }
 }
