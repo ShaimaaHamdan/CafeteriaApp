@@ -6,52 +6,41 @@ using System.Net.Http;
 using System.Web.Http;
 using CafeteriaApp.Data.Contexts;
 using CafeteriaApp.Data.Models;
+using CafeteriaApp.Web.Models;
+
 namespace CafeteriaApp.Web.Controllers
 {
     public class CafeteriaController : ApiController
     {
         public AppDb appdb = new AppDb();
-        public IHttpActionResult GetCafeteria(int id)
+        public IHttpActionResult Get()
+        {
+            //lamda expression
+            var cafeteria = appdb.Cafeterias.Select(cafeteria1 => new CafeteriaViewModel()
+            {
+                Id = cafeteria1.Id,
+                name = cafeteria1.name,
+            }).ToList();
+
+            return Ok(cafeteria);
+        }
+        public IHttpActionResult Get(int id)
         {
             var cafeteria = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
             if (cafeteria == null)
             {
                 return NotFound();
             }
-            return Ok(cafeteria);
-        }
-        public IHttpActionResult AddCafeteria(Cafeteria c)
-        {
-            if (c != null)
+
+            CafeteriaViewModel model = new CafeteriaViewModel()
             {
-                appdb.Cafeterias.Add(c);
-                appdb.SaveChanges();
-                return Ok(c);
-            }
-            else
-            {
-                return BadRequest();
-            }
+                Id = cafeteria.Id,
+                name = cafeteria.name,
+            };
+            return Ok(model);
         }
-        public IHttpActionResult PutCafeteria(int id,Cafeteria c)
-        {
-            Cafeteria c1=appdb.Cafeterias.Find(id);
-            if (c1 != null)
-            {
-                c1.name=c.name;
-                appdb.SaveChanges();
-                return Ok(c1);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-        public IEnumerable<Cafeteria> GetAllCafeterias()
-        {
-            return appdb.Cafeterias;
-        }
-        public IHttpActionResult DeleteCafeteria(int id)
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
         {
             var cafeteriaToDelete = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
             if (cafeteriaToDelete != null)
@@ -64,6 +53,44 @@ namespace CafeteriaApp.Web.Controllers
             {
                 return NotFound();
             }
+        }
+        [HttpPost]
+        public IHttpActionResult Add(CafeteriaViewModel cafeteria)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            var m = appdb.Cafeterias.Add(new Cafeteria()
+            {
+                Id = cafeteria.Id,
+                name = cafeteria.name,
+            });
+            appdb.SaveChanges();
+            return Ok();
+        }
+        [HttpPut]
+        public IHttpActionResult Put(CafeteriaViewModel cafeteria)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Not a valid data");
+            }
+
+            var existingCafeteria = appdb.Cafeterias.Where(x => x.Id == cafeteria.Id).FirstOrDefault<Cafeteria>();
+
+            if (existingCafeteria != null)
+            {
+                existingCafeteria.Id = cafeteria.Id;
+                existingCafeteria.name = cafeteria.name;
+                appdb.SaveChanges();
+            }
+            else
+            {
+                return NotFound();
+            }
+            return Ok();
         }
     }
 }
