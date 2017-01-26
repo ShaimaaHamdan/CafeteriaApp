@@ -22,6 +22,7 @@ namespace CafeteriaApp.Data.Contexts
         public DbSet<Employee> Employees { get; set; }
        
         public DbSet<MenuItem> MenuItems { get; set; }
+        
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
