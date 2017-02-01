@@ -10,11 +10,11 @@ using CafeteriaApp.Web.Models;
 
 namespace CafeteriaApp.Web.Controllers
 {
+    [RoutePrefix("api/Category")]
     public class CategoryController : ApiController
     {
 
         public AppDb appdb = new AppDb();
-        [HttpGet]
         public IHttpActionResult Get()
         {
             var category = appdb.Categories.Select(category1 => new CategoryViewModel()
@@ -33,7 +33,6 @@ namespace CafeteriaApp.Web.Controllers
 
             return Ok(category);
         }
-        [HttpGet]
         public IHttpActionResult Get(int id)
         {
             var category = appdb.Categories.FirstOrDefault(c => c.Id == id);
@@ -59,10 +58,8 @@ namespace CafeteriaApp.Web.Controllers
 
         }
 
-        [HttpGet]
-        [Route("GetByCafetria")]
-
-        public IHttpActionResult GetByCafetria(int cafetriaId)
+        [Route("GetByCafetria/{id}")]
+        public IHttpActionResult GetByCafetria(int id)
         {
             var category = appdb.Categories.Select(category1 => new CategoryViewModel()
             {
@@ -80,8 +77,6 @@ namespace CafeteriaApp.Web.Controllers
 
             return Ok(category);
         }
-
-
 
         [HttpPost]
         public IHttpActionResult Add(Category c)
@@ -103,7 +98,7 @@ namespace CafeteriaApp.Web.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult PUT(CategoryViewModel c)
+        public IHttpActionResult Put(CategoryViewModel c)
         {
             if (!ModelState.IsValid)
             {
