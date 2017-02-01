@@ -61,7 +61,7 @@ namespace CafeteriaApp.Web.Controllers
         [Route("GetByCafetria/{id}")]
         public IHttpActionResult GetByCafetria(int id)
         {
-            var category = appdb.Categories.Select(category1 => new CategoryViewModel()
+            var category = appdb.Categories.Where(item=>item.CafeteriaId == id).Select(category1 => new CategoryViewModel()
             {
                 CafeteriaId = category1.CafeteriaId,
                 Id = category1.Id,
