@@ -14,104 +14,118 @@ namespace CafeteriaApp.Web.Controllers
     {
 
         public AppDb appdb = new AppDb();
+        [HttpGet]
+        public IHttpActionResult Get()
+        {
+            var category = appdb.Categories.Select(category1 => new CategoryViewModel()
+            {
+                CafeteriaId = category1.CafeteriaId,
+                Id = category1.Id,
+                Name = category1.Name,
+                Cafeteria = new CafeteriaViewModel()
+                {
+                    
+                    Name = category1.Cafeteria.Name,
+                    Id = category1.Cafeteria.Id,
+                  
+                }
+            }).ToList();
 
-        //public IHttpActionResult GetAllCategories()
-        //{
-        //    var category = appdb.Categories.Select(category1 => new CategoryViewModel()
-        //    {
-        //        CafeteriaId = category1.CafeteriaId,
-        //        Id = category1.Id,
-        //        Name = category1.Name,
-        //        Cafeteria = new CafeteriaViewModel()
-        //        {
-        //            Name = category1.Cafeteria.Name,
-        //            Id = category1.Cafeteria.Id,
-        //            CafeteriaId = category1.CafeteriaId,
-        //        }
-        //    }).ToList();
+            return Ok(category);
+        }
+        [HttpGet]
+        public IHttpActionResult Get(int id)
+        {
+            var category = appdb.Categories.FirstOrDefault(c => c.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(category);
-        //}
-
-        //public IHttpActionResult Get(int id)
-        //{
-        //    var cate = appdb.Categories.FirstOrDefault(c => c.Id == id);
-        //    if (cate == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    CategoryViewModel cat = new CategoryViewModel()
-        //    {
-        //        Id = cate.Id,
-        //        Name = cate.Name,
-        //        Cafeteria = new CafeteriaViewModel()
-        //        {
-        //            Name = cate.Cafeteria.Name,
-        //            Id = cate.Cafeteria.Id,
-        //            CafeteriaId = Cate.Cafeteria.CafeteriaId,
-        //        }
-        //    };
-        //    return Ok(cat);
-
-
-        //}
-
+            CategoryViewModel model = new CategoryViewModel()
+            {
+                CafeteriaId = category.CafeteriaId,
+                Id = category.Id,
+                Name = category.Name,
+                Cafeteria = new CafeteriaViewModel()
+                {
+                    Name = category.Cafeteria.Name,
+                    Id = category.Cafeteria.Id,
+                    
+                }
+            };
+            return Ok(model);
 
 
-        //[HttpPost]
-        //public IHttpActionResult Add(Category c)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest("Invalid data.");
-        //    }
-        //    var m = appdb.Categories.Add(new Category()
-        //    {
-        //        Id = c.Id,
-        //        Name = c.Name,
-         //         Cafeteria = new CafeteriaViewModel()
-        //        {
-        //            Name = cate.Cafeteria.Name,
-        //            Id = cate.Cafeteria.Id,
-        //            CafeteriaId = Cate.Cafeteria.CafeteriaId,
-        //        }
+        }
 
-        //    });
-        //    appdb.SaveChanges();
-        //    return Ok();
-        //}
+        [HttpGet]
+        [Route("GetByCafetria")]
 
-        //[HttpPut]
-        //public IHttpActionResult PUT(CategoryViewModel c)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest("Not a valid data");
-        //    }
+        public IHttpActionResult GetByCafetria(int cafetriaId)
+        {
+            var category = appdb.Categories.Select(category1 => new CategoryViewModel()
+            {
+                CafeteriaId = category1.CafeteriaId,
+                Id = category1.Id,
+                Name = category1.Name,
+                Cafeteria = new CafeteriaViewModel()
+                {
 
-        //    var existingCategory= appdb.Categories.Where(x => x.Id == c.Id).FirstOrDefault<Category>();
+                    Name = category1.Cafeteria.Name,
+                    Id = category1.Cafeteria.Id,
 
-        //    if (existingCategory != null)
-        //    {
-        //        existingCategory.Id = c.Id;
-        //        existingCategory.Name = c.Name;
-        //        Cafeteria = new CafeteriaViewModel()
-        //        {
-        //            Name = existingCategory.Cafeteria.Name,
-        //            Id = existingCategory.Cafeteria.Id,
-        //            CafeteriaId = existingCategory.Cafeteria.CafeteriaId,
-        //        }
-        //       appdb.SaveChanges();
-        //    }
-        //    else
-        //    {
-        //        return NotFound();
-        //    }
+                }
+            }).ToList();
+
+            return Ok(category);
+        }
 
 
-        //    return Ok();
-        //}
+
+        [HttpPost]
+        public IHttpActionResult Add(Category c)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data.");
+            }
+            var m = appdb.Categories.Add(new Category()
+            {
+               
+                CafeteriaId =c.CafeteriaId,
+                Id = c.Id,
+                Name = c.Name,
+                
+            });
+            appdb.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPut]
+        public IHttpActionResult PUT(CategoryViewModel c)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Not a valid data");
+            }
+
+            var existingCategory = appdb.Categories.Where(x => x.Id == c.Id).FirstOrDefault<Category>();
+
+            if (existingCategory != null)
+            {
+                existingCategory.Id = c.Id;
+                existingCategory.Name = c.Name;
+               
+               appdb.SaveChanges();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+                return Ok();
+        }
 
 
         [HttpDelete]

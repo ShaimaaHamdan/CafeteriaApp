@@ -23,6 +23,8 @@ namespace CafeteriaApp.Web.Areas.Admin.Controllers
         // GET: Admin/MenuItem/Details/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Id = id;
+
             return View();
         }
 

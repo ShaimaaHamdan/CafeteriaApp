@@ -206,6 +206,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CafeteriaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -245,6 +247,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701271229173_EditNameInCafeteria.cs" />
+    <Compile Include="Migrations\201701271229173_EditNameInCafeteria.Designer.cs">
+      <DependentUpon>201701271229173_EditNameInCafeteria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -265,6 +271,8 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\admin\category.js" />
+    <Content Include="Scripts\admin\cafeteria.js" />
     <Content Include="Scripts\admin\menuItem.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -300,6 +308,10 @@
     <Content Include="Areas\Admin\Views\Addition\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Addition\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Addition\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Cafeteria\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Cafeteria\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -353,6 +365,11 @@
       <Project>{d53fa9cb-52c5-4ba1-80f1-491c7d0d7a20}</Project>
       <Name>CafeteriaApp.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201701271229173_EditNameInCafeteria.resx">
+      <DependentUpon>201701271229173_EditNameInCafeteria.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,60 @@
+﻿
+<div class="panel panel-default">
+
+    <div class="panel-heading">Categories</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: categories">
+            <tr>
+                <td data-bind="text:Name"></td>
+
+                <td>
+                    <button type="button" id="myButton" data-bind="attr:{categoryid:Id}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>
+                    @*<a id="myButton" data-bind="attr:{href:'/admin/menuitem/edit/'+Id}"  class="btn btn-success" >Edit</a>*@
+                </td>
+            </tr>
+
+
+
+        </tbody>
+        <tbody>
+            <tr data-bind="visible:categories.length == 0">
+                <td colspan="5"> there is no records.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning !!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are You Sure You Want To Delete This Item?.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bind="click:deleteCategory">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    var app = new CategoryViewModel();
+    ko.applyBindings(app);
+</script>

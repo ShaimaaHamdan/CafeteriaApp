@@ -16,10 +16,10 @@ namespace CafeteriaApp.Web.Controllers
         public IHttpActionResult Get()
         {
             //lamda expression
-            var cafeteria = appdb.Cafeterias.Select(cafeteria1 => new CafeteriaViewModel()
+            var cafeteria = appdb.Cafeterias.Select(c => new CafeteriaViewModel()
             {
-                Id = cafeteria1.Id,
-                name = cafeteria1.name,
+                Id = c.Id,
+                Name = c.Name,
             }).ToList();
 
             return Ok(cafeteria);
@@ -35,38 +35,8 @@ namespace CafeteriaApp.Web.Controllers
             CafeteriaViewModel model = new CafeteriaViewModel()
             {
                 Id = cafeteria.Id,
-                name = cafeteria.name,
+                Name = cafeteria.Name,
             };
-            return Ok(model);
-        }
-        [HttpDelete]
-        public IHttpActionResult Delete(int id)
-        {
-            var cafeteriaToDelete = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
-            if (cafeteriaToDelete != null)
-            {
-                appdb.Cafeterias.Remove(cafeteriaToDelete);
-                appdb.SaveChanges();
-                return Ok();
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-        [HttpPost]
-        public IHttpActionResult Add(CafeteriaViewModel cafeteria)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Invalid data.");
-            }
-
-            var m = appdb.Cafeterias.Add(new Cafeteria()
-            {
-                Id = cafeteria.Id,
-                name = cafeteria.name,
-            });
             appdb.SaveChanges();
             return Ok();
         }
@@ -83,13 +53,46 @@ namespace CafeteriaApp.Web.Controllers
             if (existingCafeteria != null)
             {
                 existingCafeteria.Id = cafeteria.Id;
-                existingCafeteria.name = cafeteria.name;
+                existingCafeteria.Name = cafeteria.Name;
                 appdb.SaveChanges();
             }
             else
             {
                 return NotFound();
             }
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            var cafeteriaToDelete = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
+            if (cafeteriaToDelete != null)
+            {
+                appdb.Cafeterias.Remove(cafeteriaToDelete);
+                appdb.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult Add(CafeteriaViewModel cafeteria)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            var m = appdb.Cafeterias.Add(new Cafeteria()
+            {
+                Id = cafeteria.Id,
+                Name = cafeteria.Name,
+            });
+            appdb.SaveChanges();
             return Ok();
         }
     }
