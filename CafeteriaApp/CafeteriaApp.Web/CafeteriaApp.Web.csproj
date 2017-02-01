@@ -247,10 +247,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701271229173_EditNameInCafeteria.cs" />
-    <Compile Include="Migrations\201701271229173_EditNameInCafeteria.Designer.cs">
-      <DependentUpon>201701271229173_EditNameInCafeteria.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -365,11 +361,6 @@
       <Project>{d53fa9cb-52c5-4ba1-80f1-491c7d0d7a20}</Project>
       <Name>CafeteriaApp.Data</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701271229173_EditNameInCafeteria.resx">
-      <DependentUpon>201701271229173_EditNameInCafeteria.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
