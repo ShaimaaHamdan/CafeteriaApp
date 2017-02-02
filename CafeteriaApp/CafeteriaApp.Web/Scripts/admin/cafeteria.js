@@ -101,8 +101,8 @@ function CafeteriaEditViewModel(id) {
             url: '/api/Category/GetByCafetria/' + self.cafeteriaId(),
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
-            console.log(data)
-            self.categories(data)        
+            self.categories(data.categories);
+            self.name(data.cafetria.name);
         }).fail(self.showError);
     };
 

@@ -24,10 +24,10 @@ namespace CafeteriaApp.Web.Controllers
                 Name = category1.Name,
                 Cafeteria = new CafeteriaViewModel()
                 {
-                    
+
                     Name = category1.Cafeteria.Name,
                     Id = category1.Cafeteria.Id,
-                  
+
                 }
             }).ToList();
 
@@ -50,7 +50,7 @@ namespace CafeteriaApp.Web.Controllers
                 {
                     Name = category.Cafeteria.Name,
                     Id = category.Cafeteria.Id,
-                    
+
                 }
             };
             return Ok(model);
@@ -61,7 +61,8 @@ namespace CafeteriaApp.Web.Controllers
         [Route("GetByCafetria/{id}")]
         public IHttpActionResult GetByCafetria(int id)
         {
-            var category = appdb.Categories.Where(item=>item.CafeteriaId == id).Select(category1 => new CategoryViewModel()
+            var cafetria = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
+            var categories = appdb.Categories.Where(item => item.CafeteriaId == id).Select(category1 => new CategoryViewModel()
             {
                 CafeteriaId = category1.CafeteriaId,
                 Id = category1.Id,
@@ -75,7 +76,15 @@ namespace CafeteriaApp.Web.Controllers
                 }
             }).ToList();
 
-            return Ok(category);
+            return Ok(new
+            {
+                categories = categories,
+                cafetria = new CafeteriaViewModel()
+                {
+                    Name = cafetria.Name,
+                    Id = cafetria.Id,
+                }
+            });
         }
 
         [HttpPost]
@@ -87,11 +96,11 @@ namespace CafeteriaApp.Web.Controllers
             }
             var m = appdb.Categories.Add(new Category()
             {
-               
-                CafeteriaId =c.CafeteriaId,
+
+                CafeteriaId = c.CafeteriaId,
                 Id = c.Id,
                 Name = c.Name,
-                
+
             });
             appdb.SaveChanges();
             return Ok();
@@ -111,15 +120,15 @@ namespace CafeteriaApp.Web.Controllers
             {
                 existingCategory.Id = c.Id;
                 existingCategory.Name = c.Name;
-               
-               appdb.SaveChanges();
+
+                appdb.SaveChanges();
             }
             else
             {
                 return NotFound();
             }
 
-                return Ok();
+            return Ok();
         }
 
 
@@ -127,7 +136,7 @@ namespace CafeteriaApp.Web.Controllers
         public IHttpActionResult Delete(int id)
         {
             var categoryDeleted = appdb.Categories.FirstOrDefault(d => d.Id == id);
-            
+
             if (categoryDeleted != null)
             {
                 appdb.Categories.Remove(categoryDeleted);

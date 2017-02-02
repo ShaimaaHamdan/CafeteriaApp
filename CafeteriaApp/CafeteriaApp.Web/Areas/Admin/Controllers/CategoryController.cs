@@ -16,8 +16,9 @@ namespace CafeteriaApp.Web.Areas.Admin.Controllers
                
 
         // GET: Admin/Category/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewBag.cafeteriaId = id;
             return View();
         }
 
