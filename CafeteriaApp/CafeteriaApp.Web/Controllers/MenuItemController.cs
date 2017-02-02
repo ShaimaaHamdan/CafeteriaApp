@@ -11,6 +11,7 @@ using CafeteriaApp.Web.Models;
 namespace CafeteriaApp.Web.Controllers
 {
 
+    [RoutePrefix("api/MenuItem")]
     public class MenuItemController : ApiController
     {
         public AppDb appdb = new AppDb();
@@ -66,6 +67,30 @@ namespace CafeteriaApp.Web.Controllers
 
 
             return Ok(model);
+        }
+
+        [Route("GetByCategory/{id}")]
+        public IHttpActionResult GetByCategory(int id)
+        {
+            //lamda expression
+            var menuItems = appdb.MenuItems.Where(item => item.CategoryId == id).Select(menuitem => new MenuItemViewModel()
+            {
+                CategoryId = menuitem.CategoryId,
+                Description = menuitem.Description,
+                Id = menuitem.Id,
+                Name = menuitem.Name,
+                Price = menuitem.Price,
+                Type = menuitem.Type,
+                Category = new CategoryViewModel()
+                {
+                    Name = menuitem.Category.Name,
+                    Id = menuitem.Category.Id,
+                    CafeteriaId = menuitem.Category.CafeteriaId,
+                }
+            }).ToList();
+
+            return Ok(menuItems);
+
         }
 
         [HttpDelete]

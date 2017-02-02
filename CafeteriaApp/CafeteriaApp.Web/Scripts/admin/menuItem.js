@@ -40,26 +40,7 @@
     self.getAllMenuItems();
 
 
-    $('#myModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)[0];
-        self.menuItemId(button.attributes["menuItemid"].value)
-    });
-
-
-    self.deleteMenuItem = function () {
-        console.log("id=" + self.menuItemId());
-        $.ajax({
-            type: 'Delete',
-            url: '/api/MenuItem/' + self.menuItemId(),
-            contentType: 'application/json; charset=utf-8',
-            //data:{id:self.menuItemId()}
-        }).done(function (data) {
-            console.log(data)
-            $('#myModal').modal('hide')
-            self.getAllMenuItems();
-        }).fail(self.showError);
-
-    }
+   
 
 }
 
@@ -128,7 +109,7 @@ function MenuItemEditViewModel(id) {
             data: JSON.stringify(data)
         }).done(function (result) {
             console.log(result)
-            document.location = '/admin/menuitem/index';
+            document.location = '/admin/cafeteria/index';
         }).fail(self.showError);
 
     }

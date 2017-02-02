@@ -430,6 +430,8 @@
     <Content Include="Scripts\adminTheme\font-awesome\scss\_stacked.scss" />
     <Content Include="Scripts\adminTheme\font-awesome\scss\_variables.scss" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Cafeteria\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\adminTheme\sb-admin-2.css" />
     <Content Include="Scripts\adminTheme\sb-admin-2.min.css" />
