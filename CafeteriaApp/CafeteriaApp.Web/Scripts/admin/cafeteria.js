@@ -94,6 +94,29 @@ function CafeteriaEditViewModel(id) {
         }
     }
 
+
+    self.getCafeteria = function () {
+        $.ajax({
+            type: 'Get',
+            url: '/api/Cafeteria/' + self.cafeteriaId(),
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (data) {
+            self.name(data.Name);
+        }).fail(self.showError);
+    };
+
+    self.getCafeteria();
+
+
+    self.save = function() {
+        
+    }
+
+    self.cancel = function() {
+        document.location = '/Admin/Cafeteria/Index';
+    }
+
+
     self.getCategoryByCafeteriaId = function () {
         console.log(self.cafeteriaId())
         $.ajax({
@@ -102,7 +125,6 @@ function CafeteriaEditViewModel(id) {
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
             self.categories(data.categories);
-            self.name(data.cafetria.name);
         }).fail(self.showError);
     };
 
@@ -110,11 +132,6 @@ function CafeteriaEditViewModel(id) {
     self.getCategoryByCafeteriaId();
 
    
-   //add
-
-    
-
-
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)[0];
         self.categoryId(button.attributes["categoryid"].value)
@@ -135,7 +152,6 @@ function CafeteriaEditViewModel(id) {
         }).fail(self.showError);
 
     }
-
     
         
 }

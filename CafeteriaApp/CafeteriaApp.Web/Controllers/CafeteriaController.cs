@@ -32,13 +32,13 @@ namespace CafeteriaApp.Web.Controllers
                 return NotFound();
             }
 
-            CafeteriaViewModel model = new CafeteriaViewModel()
+            var cafeteriaModel = new CafeteriaViewModel()
             {
                 Id = cafeteria.Id,
                 Name = cafeteria.Name,
             };
-            appdb.SaveChanges();
-            return Ok();
+            
+            return Ok(cafeteriaModel);
         }
         [HttpPut]
         public IHttpActionResult Put(CafeteriaViewModel cafeteria)
