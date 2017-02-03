@@ -52,7 +52,7 @@
             type: 'Delete',
             url: '/api/Cafeteria/' + self.cafeteriaId(),
             contentType: 'application/json; charset=utf-8',
-            data:{id:self.cafeteriaId()}
+            data: { id: self.cafeteriaId() }
         }).done(function (data) {
             console.log(data)
             $('#myModal').modal('hide')
@@ -69,8 +69,12 @@ function CafeteriaEditViewModel(id) {
     self.cafeteriaId = ko.observable(id);
     self.categoryId = ko.observable();
     self.categories = ko.observableArray();
-    self.name = ko.observable();
-    
+
+    self.model = ko.validatedObservable({
+        name: ko.observable().extend({ required: true , maxLength : 100 })
+    });
+
+
     self.showError = function (jqXHR) {
 
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
@@ -101,7 +105,7 @@ function CafeteriaEditViewModel(id) {
             url: '/api/Cafeteria/' + self.cafeteriaId(),
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
-            self.name(data.Name);
+            self.model().name(data.Name);
         }).fail(self.showError);
     };
 
@@ -110,25 +114,27 @@ function CafeteriaEditViewModel(id) {
 
     self.save = function () {
 
-        var data = {
-            
-            name: self.name(),
-            id : self.cafeteriaId()
-            
+        if (self.model.isValid()) {
+            var data = {
+                name: self.model().name(),
+                id: self.cafeteriaId()
+            }
+
+            $.ajax({
+                type: 'PUT',
+                url: '/api/Cafeteria/' + self.cafeteriaId(),
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                document.location = '/admin/cafeteria/index';
+            }).fail(self.showError);
+        } else {
+            alertify.error("Error,Some fileds are invalid !");
         }
-        $.ajax({
-            type: 'PUT',
-            url: '/api/Cafeteria/' + self.cafeteriaId(),
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (result) {
-            console.log(result)
-           // document.location = '/admin/cafeteria/index';
-        }).fail(self.showError);
-        
+
     }
 
-    self.cancel = function() {
+    self.cancel = function () {
         document.location = '/Admin/Cafeteria/Index';
     }
 
@@ -144,10 +150,10 @@ function CafeteriaEditViewModel(id) {
         }).fail(self.showError);
     };
 
-    
+
     self.getCategoryByCafeteriaId();
 
-   
+
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)[0];
         self.categoryId(button.attributes["categoryid"].value)
@@ -168,14 +174,14 @@ function CafeteriaEditViewModel(id) {
         }).fail(self.showError);
 
     }
-      
-        
+
+
 }
 
 function CafeteriaNewViewModel() {
     var self = this;
     self.name = ko.observable();
-    
+
     self.showError = function (jqXHR) {
 
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
@@ -201,7 +207,7 @@ function CafeteriaNewViewModel() {
 
     self.save = function () {
         var data = {
-             name: self.name(),
+            name: self.name(),
         }
         console.log(data);
         $.ajax({

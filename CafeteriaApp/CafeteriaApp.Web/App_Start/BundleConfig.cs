@@ -21,13 +21,21 @@ namespace CafeteriaApp.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css"
-                      ));
-            //"~/Content/site.css"
+                      "~/Content/bootstrap.css","~/Content/site.css",
+                       "~/Content/alertify/alertify.bootstrap.css",
+                     "~/Content/alertify/alertify.core.css",
+                     "~/Content/alertify/alertify.default.css"
 
+                      ));
+            
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                      "~/Scripts/knockout-{version}.js",
-                     "~/Scripts/app.js", "~/Scripts/admin/menuItem.js", "~/Scripts/admin/cafeteria.js", "~/Scripts/admin/category.js", "~/Scripts/knockout.validation.js"));
+                     "~/Scripts/knockout.validation.js",
+                     "~/Scripts/alertify/alertify.js",
+                     "~/Scripts/app.js", "~/Scripts/admin/menuItem.js",
+                     "~/Scripts/admin/cafeteria.js",
+                     "~/Scripts/admin/category.js"
+                     ));
         }
     }
 }
