@@ -41,7 +41,7 @@ namespace CafeteriaApp.Web.Controllers
             return Ok(cafeteriaModel);
         }
         [HttpPut]
-        public IHttpActionResult Put(CafeteriaViewModel cafeteria)
+        public IHttpActionResult PUT(CafeteriaViewModel cafeteria) 
         {
             if (!ModelState.IsValid)
             {

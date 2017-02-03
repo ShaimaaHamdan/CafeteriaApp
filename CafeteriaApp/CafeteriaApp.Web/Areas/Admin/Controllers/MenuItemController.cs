@@ -15,8 +15,9 @@ namespace CafeteriaApp.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/MenuItem/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewBag.categoryId = id;
             return View();
         }
 

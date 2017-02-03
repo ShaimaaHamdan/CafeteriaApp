@@ -69,6 +69,7 @@ function CategoryEditViewModel(id) {
     self.menuItemId = ko.observable();
     self.menuItems = ko.observableArray();
     self.name = ko.observable();
+    self.cafeteriaId = ko.observable();
 
     self.showError = function (jqXHR) {
 
@@ -93,6 +94,44 @@ function CategoryEditViewModel(id) {
         }
     }
 
+    self.getCategory = function () {
+        $.ajax({
+            type: 'Get',
+            url: '/api/Category/' + self.categoryId(),
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (data) {
+            self.cafeteriaId(data.CafeteriaId);
+            self.name(data.Name);
+        }).fail(self.showError);
+    };
+
+    self.getCategory();
+
+    self.save = function () {
+
+        var data = {
+
+            name: self.name(),
+            id: self.categoryId()
+
+        }
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Category/' + self.categoryId(),
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (result) {
+            console.log(result)
+            // document.location = '/admin/cafeteria/index';
+        }).fail(self.showError);
+
+    }
+
+    self.cancel = function () {
+        document.location = '/Admin/Cafeteria/edit/'+ self.cafeteriaId();
+    }
+    
+
     self.getMenuItemByCategoryId = function () {
         console.log(self.categoryId())
         $.ajax({
@@ -101,7 +140,7 @@ function CategoryEditViewModel(id) {
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
             console.log(data)
-            self.menuItems(data)
+            self.menuItems(data.menuItems)
         }).fail(self.showError);
     };
 
@@ -176,6 +215,10 @@ function CategoryNewViewModel(cafetriaId) {
             document.location = '/admin/cafeteria/edit/' + self.cafeteriaId();
         }).fail(self.showError);
 
+    }
+
+    self.cancel = function () {
+        document.location = '/Admin/Cafeteria/edit/' + self.cafeteriaId();
     }
 
 

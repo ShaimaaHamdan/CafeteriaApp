@@ -89,7 +89,7 @@ namespace CafeteriaApp.Web.Controllers
                 }
             }).ToList();
 
-            return Ok(menuItems);
+            return Ok(new { menuItems =  menuItems });
 
         }
 
