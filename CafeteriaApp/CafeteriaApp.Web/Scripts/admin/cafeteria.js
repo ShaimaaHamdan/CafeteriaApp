@@ -2,6 +2,8 @@
     var self = this;
     self.cafeterias = ko.observableArray();
     self.cafeteriaId = ko.observable();
+    self.categories = ko.observableArray();
+    self.name = ko.observable();
 
     self.showError = function (jqXHR) {
 
@@ -43,10 +45,28 @@
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)[0];
         self.cafeteriaId(button.attributes["cafeteriaid"].value)
+        self.name(button.attributes["name"].value)
+        console.log( self.name());
+        self.getCategoryByCafeteriaId();
     });
 
+    self.getCategoryByCafeteriaId = function () {
+        console.log(self.cafeteriaId())
+        $.ajax({
+            type: 'Get',
+            url: '/api/Category/GetByCafetria/' + self.cafeteriaId(),
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (data) {
+            self.categories(data.categories);
+        }).fail(self.showError);
+    };
+
+    
 
     self.deleteCafeteria = function () {
+        
+        if (self.categories().length==0){
+        console.log(self.categories().length)
         console.log("id=" + self.cafeteriaId());
         $.ajax({
             type: 'Delete',
@@ -56,8 +76,13 @@
         }).done(function (data) {
             console.log(data)
             $('#myModal').modal('hide')
+            alertify.success( self.name() + " cafeteria is deleted ");
             self.getAllCafeterias();
         }).fail(self.showError);
+        } else {
+            alertify.error("Error, You Must delete categories of " + self.name() + " cafeteria first!");
+            
+        }
 
     }
 }
@@ -69,6 +94,8 @@ function CafeteriaEditViewModel(id) {
     self.cafeteriaId = ko.observable(id);
     self.categoryId = ko.observable();
     self.categories = ko.observableArray();
+    self.menuItems = ko.observableArray();
+    self.name = ko.observable();
 
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true , maxLength : 100 })
@@ -157,23 +184,45 @@ function CafeteriaEditViewModel(id) {
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)[0];
         self.categoryId(button.attributes["categoryid"].value)
+        self.name(button.attributes["name"].value)
+        self.getMenuItemByCategoryId();
     });
 
-
-    self.deleteCategory = function () {
-        console.log("id=" + self.categoryId());
+    self.getMenuItemByCategoryId = function () {
+        console.log(self.categoryId())
         $.ajax({
-            type: 'Delete',
-            url: '/api/Category/' + self.categoryId(),
+            type: 'Get',
+            url: '/api/MenuItem/GetByCategory/' + self.categoryId(),
             contentType: 'application/json; charset=utf-8',
-            data: { id: self.categoryId() }
         }).done(function (data) {
             console.log(data)
-            $('#myModal').modal('hide')
-            self.getCategoryByCafeteriaId();
+            self.menuItems(data.menuItems)
         }).fail(self.showError);
+    };
 
+    self.deleteCategory = function () {
+
+        console.log(self.menuItems())
+        console.log(self.menuItems().length)
+
+        if (self.menuItems().length == 0) {
+            console.log("id=" + self.categoryId());
+            $.ajax({
+                type: 'Delete',
+                url: '/api/Category/' + self.categoryId(),
+                contentType: 'application/json; charset=utf-8',
+                data: { id: self.categoryId() }
+            }).done(function (data) {
+                console.log(data)
+                $('#myModal').modal('hide')
+                alertify.success(self.name() + " category is deleted ");
+                self.getCategoryByCafeteriaId();
+            }).fail(self.showError);
+        } else {
+            alertify.error("Error, You Must delete menuitems of " + self.name() + " category first!");
+        }
     }
+    
 
 
 }
@@ -216,8 +265,8 @@ function CafeteriaNewViewModel() {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (result) {
-            console.log(result);
-            document.location = '/admin/cafeteria/index';
+            console.log(result);             
+            document.location = '/admin/cafeteria/index';           
         }).fail(self.showError);
 
     }

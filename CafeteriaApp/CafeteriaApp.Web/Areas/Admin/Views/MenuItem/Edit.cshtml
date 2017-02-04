@@ -18,20 +18,22 @@
                         <form role="form">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" data-bind="textInput:name" id="name">
+                                <input type="text" class="form-control" data-bind="textInput:model().name" name="name" id="name"  required>
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
-                                <input type="text" class="form-control" data-bind="textInput:price" id="price">
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <input type="text" class="form-control" data-bind="textInput:description" id="description">
+                                <input type="text" class="form-control" data-bind="textInput:model().price" name="price" id="price"  required>
                             </div>
                             <div class="form-group">
                                 <label>Type</label>
-                                <input type="text" class="form-control" data-bind="textInput:type" id="type">
+                                <input type="text" class="form-control" data-bind="textInput:model().type" name="type" id="type" required>
                             </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea rows="20" type="text" class="form-control" data-bind="textInput:model().description" name="description" id="description" required></textarea>
+
+                            </div>
+                            
                             <div class="form-group" style="float: right">
                                 <button data-bind="click:save" class="btn btn-primary">Save</button>
                                 <button data-bind="click:cancel" class="btn btn-danger">Cancel</button>

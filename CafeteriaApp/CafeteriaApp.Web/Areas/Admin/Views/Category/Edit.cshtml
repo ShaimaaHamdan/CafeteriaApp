@@ -18,7 +18,7 @@
                         <form role="form">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" data-bind="textInput:name" id="name">
+                                <input type="text" class="form-control" data-bind="textInput:model().name" name="name" id="name"  required>
                             </div>
                             <div class="form-group" style="float: right">
                                 <button data-bind="click:save" class="btn btn-primary">Save</button>
@@ -73,7 +73,7 @@
                             <td data-bind="text:Type"></td>
 
                             <td class="center">
-                                <button type="button" id="myButton" data-bind="attr:{menuItemid:Id}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>
+                                <button type="button" id="myButton" data-bind="attr:{menuItemid:Id, name:Name}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>
                                 <a id="myButton" data-bind="attr:{href:'/admin/menuitem/edit/'+Id}" class="btn btn-success">Edit</a>
                             </td>
                         </tr>

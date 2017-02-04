@@ -47,12 +47,17 @@
 function MenuItemEditViewModel(id) {
 
     var self = this;
-    self.menuItemId = ko.observable(id);
-    self.description = ko.observable();
-    self.name = ko.observable();
-    self.type = ko.observable();
-    self.price = ko.observable();
+    self.menuItemId = ko.observable(id);    
     self.categoryId = ko.observable();
+    self.model = ko.validatedObservable({
+        name: ko.observable().extend({ required: true, maxLength: 100 }),
+        price: ko.observable().extend({ required: true,pattern:'^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$'}),
+        type: ko.observable().extend({ required: true, maxLength: 100 }),
+        description: ko.observable().extend({ required: true, maxLength: 500 })
+    });
+    
+    self.result = ko.observable();
+    self.errors = ko.observableArray([]);
 
     self.showError = function (jqXHR) {
 
@@ -85,34 +90,36 @@ function MenuItemEditViewModel(id) {
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
             console.log(data)
-            self.description(data.Description)
-            self.name(data.Name)
-            self.type(data.Type)
-            self.price(data.Price)
+            self.model().description(data.Description)
+            self.model().name(data.Name)
+            self.model().type(data.Type)
+            self.model().price(data.Price)
             self.categoryId(data.CategoryId)
         }).fail(self.showError);
     };
-
-    
     self.getMenuItemById();
 
     self.save = function () {
-        var data = {
-            id: self.menuItemId(),
-            name: self.name(),
-            price: self.price(),
-            description: self.description(),
-            type: self.type()
+        if (self.model.isValid() ) {
+            var data = {
+                id: self.menuItemId(),
+                name: self.model().name(),
+                price: self.model().price(),
+                description: self.model().description(),
+                type: self.model().type()
+            }
+            $.ajax({
+                type: 'PUT',
+                url: '/api/menuitem',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                console.log(result)
+                document.location = '/admin/category/edit/' + self.categoryId();
+            }).fail(self.showError);
+        } else {
+            alertify.error("Error,Some fileds are invalid !");
         }
-        $.ajax({
-            type: 'PUT',
-            url: '/api/menuitem',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (result) {
-            console.log(result)
-            document.location = '/admin/category/edit/' + self.categoryId();
-        }).fail(self.showError);
 
     }
 

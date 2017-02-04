@@ -65,7 +65,7 @@
                             <td data-bind="text:Name"></td>
 
                             <td class="center">
-                                <button type="button" id="myButton" data-bind="attr:{categoryid:Id}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>
+                                <button type="button" id="myButton" data-bind="attr:{categoryid:Id,  name:Name}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>
                                 <a id="myButton" data-bind="attr:{href:'/admin/category/edit/'+Id}" class="btn btn-success">Edit</a>
                              </td>
                         </tr>
