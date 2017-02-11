@@ -133,10 +133,12 @@ function MenuItemEditViewModel(id) {
 
 function MenuItemNewViewModel(categoryId) {
     var self = this;
-    self.description = ko.observable();
-    self.name = ko.observable();
-    self.type = ko.observable();
-    self.price = ko.observable();
+    self.model = ko.validatedObservable({
+        name: ko.observable().extend({ required: true, maxLength: 100 }),
+        price: ko.observable().extend({ required: true, pattern: '^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$' }),
+        type: ko.observable().extend({ required: true, maxLength: 100 }),
+        description: ko.observable().extend({ required: true, maxLength: 500 })
+    });
     self.categoryId = ko.observable(categoryId);
 
     self.showError = function (jqXHR) {
@@ -163,24 +165,29 @@ function MenuItemNewViewModel(categoryId) {
     }
 
     self.save = function () {
-        var data = {
-            categoryId: self.categoryId(),
-            name: self.name(),
-            price: self.price(),
-            description: self.description(),
-            type: self.type()
-        }
-        console.log(data);
-        $.ajax({
-            type: 'Post',
-            url: '/api/menuitem',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (result) {
-            console.log(result);
-            document.location = '/admin/category/edit/' + self.categoryId();
-        }).fail(self.showError);
 
+        if (self.model.isValid()) {
+            var data = {
+                categoryId: self.categoryId(),
+                name: self.model().name(),
+                price: self.model().price(),
+                description: self.model().description(),
+                type: self.model().type()
+            }
+
+            console.log(data);
+            $.ajax({
+                type: 'Post',
+                url: '/api/menuitem',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                console.log(result);
+                document.location = '/admin/category/edit/' + self.categoryId();
+            }).fail(self.showError);
+        } else {
+            alertify.error("Error,Some fileds are invalid !");
+        }
     }
 
     self.cancel = function () {

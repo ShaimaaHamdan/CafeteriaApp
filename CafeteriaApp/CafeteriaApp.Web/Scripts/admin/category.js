@@ -184,8 +184,11 @@ function CategoryEditViewModel(id) {
 
 function CategoryNewViewModel(cafetriaId) {
         var self = this;
-        self.name = ko.observable();
+        
         self.cafeteriaId = ko.observable(cafetriaId);
+        self.model = ko.validatedObservable({
+            name: ko.observable().extend({ required: true, maxLength: 100 })
+        });
 
         self.showError = function (jqXHR) {
 
@@ -211,20 +214,27 @@ function CategoryNewViewModel(cafetriaId) {
         }
 
         self.save = function () {
-            var data = {
-                cafeteriaId: self.cafeteriaId(),
-                name: self.name()
+            if (self.model.isValid()) {
+                var data = {
+
+                    name: self.model().name(),
+                    cafeteriaId: self.cafeteriaId(),
+
+                }
+
+                console.log(data);
+                $.ajax({
+                    type: 'Post',
+                    url: '/api/category',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function (result) {
+                    console.log(result);
+                    document.location = '/admin/cafeteria/edit/' + self.cafeteriaId();
+                }).fail(self.showError);
+            } else {
+                alertify.error("Error,Some fileds are invalid !");
             }
-            console.log(data);
-            $.ajax({
-                type: 'Post',
-                url: '/api/category',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function (result) {
-                console.log(result);
-                document.location = '/admin/cafeteria/edit/' + self.cafeteriaId();
-            }).fail(self.showError);
 
         }
 

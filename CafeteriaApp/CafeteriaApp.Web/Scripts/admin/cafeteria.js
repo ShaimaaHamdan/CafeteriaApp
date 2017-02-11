@@ -229,8 +229,11 @@ function CafeteriaEditViewModel(id) {
 
 function CafeteriaNewViewModel() {
     var self = this;
-    self.name = ko.observable();
+    
 
+    self.model = ko.validatedObservable({
+        name: ko.observable().extend({ required: true, maxLength: 100 })
+    });
     self.showError = function (jqXHR) {
 
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
@@ -255,9 +258,12 @@ function CafeteriaNewViewModel() {
     }
 
     self.save = function () {
-        var data = {
-            name: self.name(),
-        }
+
+        if (self.model.isValid()) {
+            var data = {
+                name: self.model().name(),
+                
+            }
         console.log(data);
         $.ajax({
             type: 'Post',
@@ -268,6 +274,11 @@ function CafeteriaNewViewModel() {
             console.log(result);             
             document.location = '/admin/cafeteria/index';           
         }).fail(self.showError);
+        } else {
+
+            alertify.error("Error,Some fileds are invalid !");
+
+        }
 
     }
 
