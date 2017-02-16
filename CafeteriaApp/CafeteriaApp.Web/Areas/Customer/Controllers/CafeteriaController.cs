@@ -13,7 +13,7 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
         {
             return View();
         }
-        // GET: Customer/Cafeteria/5
+        // GET: Customer/Cafeteria/show/5
         public ActionResult show(int id)
         {
             ViewBag.Id = id;

@@ -210,6 +210,9 @@
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
+    <Compile Include="Areas\Customer\Controllers\CafeteriaController.cs" />
+    <Compile Include="Areas\Customer\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -261,6 +264,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Areas\Customer\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\Customer\Views\_ViewStart.cshtml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\alertify\alertify.bootstrap.css" />
     <Content Include="Content\alertify\alertify.core.css" />
@@ -437,6 +442,10 @@
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Cafeteria\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
+    <Content Include="Areas\Customer\Views\web.config" />
+    <Content Include="Areas\Customer\Views\Cafeteria\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\Cafeteria\show.cshtml" />
+    <Content Include="Areas\Customer\Views\Dashboard\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\adminTheme\sb-admin-2.css" />
     <Content Include="Scripts\adminTheme\sb-admin-2.min.css" />
@@ -480,6 +489,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Customer\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
