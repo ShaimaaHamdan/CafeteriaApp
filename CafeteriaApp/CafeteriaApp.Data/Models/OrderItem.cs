@@ -20,12 +20,12 @@ namespace CafeteriaApp.Data.Models
         public int OrderId { get; set; }
 
         [ForeignKey("OrderId")]
-        public Order Order { get; set; }
+        public virtual Order Order { get; set; }
 
         public int MenuItemId { get; set; }
 
         [ForeignKey("MenuItemId")]
-        public MenuItem MenuItem { get; set; }
+        public virtual MenuItem MenuItem { get; set; }
 
     }
 }

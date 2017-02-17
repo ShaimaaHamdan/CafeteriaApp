@@ -31,6 +31,6 @@ namespace CafeteriaApp.Data.Models
         public int CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]
-        public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }
