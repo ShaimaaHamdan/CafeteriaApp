@@ -32,7 +32,7 @@ namespace CafeteriaApp.Data.Models
 
         public Boolean LockoutEnabled { get; set; }
 
-        public int IAccessFailedCountd { get; set; }
+        public int AccessFailedCount { get; set; }
 
         public string UserName { get; set; }
 

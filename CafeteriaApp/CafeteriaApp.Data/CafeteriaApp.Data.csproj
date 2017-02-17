@@ -139,6 +139,10 @@
     <Compile Include="Migrations\201612100452391_CreateAllEntitiesAndRelations.Designer.cs">
       <DependentUpon>201612100452391_CreateAllEntitiesAndRelations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702171652562_EditeInUserEntity.cs" />
+    <Compile Include="Migrations\201702171652562_EditeInUserEntity.Designer.cs">
+      <DependentUpon>201702171652562_EditeInUserEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
@@ -217,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612100452391_CreateAllEntitiesAndRelations.resx">
       <DependentUpon>201612100452391_CreateAllEntitiesAndRelations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702171652562_EditeInUserEntity.resx">
+      <DependentUpon>201702171652562_EditeInUserEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
