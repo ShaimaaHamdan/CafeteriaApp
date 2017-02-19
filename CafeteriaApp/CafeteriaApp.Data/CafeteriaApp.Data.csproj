@@ -154,6 +154,9 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="ProjectionExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryableExtensions.cs" />
@@ -225,10 +228,55 @@
     <EmbeddedResource Include="Migrations\201702171652562_EditeInUserEntity.resx">
       <DependentUpon>201702171652562_EditeInUserEntity.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable1.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddItem.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddMenuItemAndRelationTOCateogry.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddOrderTable.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddPersonTable.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddRegularEntities.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddRelationBettweenMenuItemAndAddition.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddRelationBettweenOrderAndOderItems.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddRelationsBettweenNenuItemAndCustomer.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddRoleTable.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.CreateAllEntitiesAndRelations.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.CreateCustomerEmployeeOrdereditem.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.EditeInUserEntity.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.ModifyOrderCategoryTable.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.RemoveCustomerUserRelation.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.RemoveCustomerUserRelation2.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.RemoveCustomerUserRelation3.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.RemoveRoleString.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.RenameOrderItem.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.RenameTables.resources" />
+    <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.UpdatePersonTable.resources" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="bin\Debug\CafeteriaApp.Data.dll.config" />
+    <None Include="obj\Debug\CafeteriaApp.Data.csproj.GenerateResource.Cache" />
+    <None Include="obj\Debug\CafeteriaApp.Data.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\CafeteriaApp.Data.dll" />
+    <Content Include="bin\Debug\CafeteriaApp.Data.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\LinqKit.dll" />
+    <Content Include="bin\Debug\LinqKit.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="obj\Debug\CafeteriaApp.Data.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\CafeteriaApp.Data.dll" />
+    <Content Include="obj\Debug\CafeteriaApp.Data.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
