@@ -210,6 +210,8 @@
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
+    <Compile Include="Areas\Admin\SuperAdminAuthorize.cs" />
+    <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -243,6 +245,7 @@
     <Compile Include="Controllers\CafeteriaController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuItemController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -353,6 +356,7 @@
     <Content Include="Scripts\adminTheme\raphael\raphael.min.js" />
     <Content Include="Scripts\admin\category.js" />
     <Content Include="Scripts\admin\cafeteria.js" />
+    <Content Include="Scripts\admin\login.js" />
     <Content Include="Scripts\admin\menuItem.js" />
     <Content Include="Scripts\alertify\alertify.js" />
     <Content Include="Scripts\alertify\alertify.min.js" />
@@ -437,6 +441,11 @@
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Cafeteria\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Login\Login.cshtml" />
+    <None Include="Areas\Admin\Views\Login\Register.cshtml" />
+    <None Include="Areas\Admin\Views\Login\Unauthorized.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Areas\Customer\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\adminTheme\sb-admin-2.css" />
     <Content Include="Scripts\adminTheme\sb-admin-2.min.css" />
@@ -476,10 +485,26 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Views\Login\ConfirmEmail.cshtml" />
+    <Content Include="Views\Login\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Login\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Login\ForgotPasswordConfirmation.cshtml" />
+    <None Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\Login\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Login\SendCode.cshtml" />
+    <Content Include="Views\Login\VerifyCode.cshtml" />
+    <Content Include="Views\Login\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Customer\Controllers\" />
+    <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Customer\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

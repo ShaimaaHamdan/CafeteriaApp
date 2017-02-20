@@ -34,7 +34,8 @@ namespace CafeteriaApp.Web
                      "~/Scripts/alertify/alertify.js",
                      "~/Scripts/app.js", "~/Scripts/admin/menuItem.js",
                      "~/Scripts/admin/cafeteria.js",
-                     "~/Scripts/admin/category.js"
+                     "~/Scripts/admin/category.js",
+                     "~/Scripts/admin/login.js"
                      ));
         }
     }

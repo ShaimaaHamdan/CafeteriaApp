@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 namespace CafeteriaApp.Web.Areas.Admin.Controllers
 {
+
+    //[SuperAdminAuthorize(Roles = "Admin")]
     public class MenuItemController : Controller
     {
         // GET: Admin/MenuItem
@@ -28,7 +30,6 @@ namespace CafeteriaApp.Web.Areas.Admin.Controllers
 
             return View();
         }
-
 
     }
 }

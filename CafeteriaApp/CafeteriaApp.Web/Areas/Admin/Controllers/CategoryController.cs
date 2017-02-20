@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace CafeteriaApp.Web.Areas.Admin.Controllers
 {
+    //[SuperAdminAuthorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         // GET: Admin/Category

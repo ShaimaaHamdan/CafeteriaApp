@@ -81,4 +81,16 @@ namespace CafeteriaApp.Web.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class LoginUserBindingModel
+    {
+        [Required]
+        public string Username { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        public bool RemmberMe { get; set; }
+    }
 }

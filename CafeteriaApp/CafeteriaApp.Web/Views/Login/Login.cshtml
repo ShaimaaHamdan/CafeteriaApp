@@ -1,0 +1,57 @@
+﻿@using CafeteriaApp.Web.Models
+@model CafeteriaApp.Web.Models.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Areas/Admin/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-4 col-md-offset-4">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sign In</h3>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("Login", "Login", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to log in.</h4>
+                    <hr/>
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", @placeholder = "E-mail"})
+                        @Html.ValidationMessageFor(m => m.Email, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Password"})
+                        @Html.ValidationMessageFor(m => m.Password, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-lg btn-success btn-block"/>
+                        </div>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
