@@ -16,13 +16,13 @@ namespace CafeteriaApp.Web.Controllers
         public IHttpActionResult Get()
         {
             //lamda expression
-            var cafeteria = appdb.Cafeterias.Select(c => new CafeteriaViewModel()
+            var cafeterias = appdb.Cafeterias.Select(c => new CafeteriaViewModel()
             {
                 Id = c.Id,
                 Name = c.Name,
             }).ToList();
 
-            return Ok(cafeteria);
+            return Ok(new  { cafeterias = cafeterias });
         }
         public IHttpActionResult Get(int id)
         {
@@ -38,7 +38,7 @@ namespace CafeteriaApp.Web.Controllers
                 Name = cafeteria.Name,
             };
             
-            return Ok(cafeteriaModel);
+            return Ok(new { cafeteria = cafeteriaModel});
         }
         [HttpPut]
         public IHttpActionResult PUT(CafeteriaViewModel cafeteria) 

@@ -32,8 +32,8 @@
             url: '/api/MenuItem',
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
-            console.log(data)
-            self.menuItems(data)
+            console.log(data.menuItems)
+            self.menuItems(data.menuItems)
         }).fail(self.showError);
     };
 
@@ -88,13 +88,14 @@ function MenuItemEditViewModel(id) {
             type: 'Get',
             url: '/api/MenuItem/' + self.menuItemId(),
             contentType: 'application/json; charset=utf-8',
-        }).done(function (data) {
-            console.log(data)
-            self.model().description(data.Description)
-            self.model().name(data.Name)
-            self.model().type(data.Type)
-            self.model().price(data.Price)
-            self.categoryId(data.CategoryId)
+        }).done(function (result) {
+            var data = result.menuitem;
+            console.log(data);
+            self.model().description(data.Description);
+            self.model().name(data.Name);
+            self.model().type(data.Type);
+            self.model().price(data.Price);
+            self.categoryId(data.CategoryId);
         }).fail(self.showError);
     };
     self.getMenuItemById();

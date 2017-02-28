@@ -35,7 +35,7 @@ namespace CafeteriaApp.Web.Controllers
                 }
             }).ToList();
 
-            return Ok(menuItems);
+            return Ok(new { menuItems = menuItems });
 
         }
 
@@ -66,7 +66,7 @@ namespace CafeteriaApp.Web.Controllers
             };
 
 
-            return Ok(model);
+            return Ok(new { menuitem =model});
         }
 
         [Route("GetByCategory/{id}")]

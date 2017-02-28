@@ -35,7 +35,7 @@
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
             console.log(data)
-            self.cafeterias(data)
+            self.cafeterias(data.cafeterias)
         }).fail(self.showError);
     };
 
@@ -132,7 +132,7 @@ function CafeteriaEditViewModel(id) {
             url: '/api/Cafeteria/' + self.cafeteriaId(),
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
-            self.model().name(data.Name);
+            self.model().name(data.cafeteria.Name);
         }).fail(self.showError);
     };
 
@@ -171,7 +171,7 @@ function CafeteriaEditViewModel(id) {
         $.ajax({
             type: 'Get',
             url: '/api/Category/GetByCafetria/' + self.cafeteriaId(),
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'application/json; charset=utf-8'
         }).done(function (data) {
             self.categories(data.categories);
         }).fail(self.showError);
@@ -183,8 +183,8 @@ function CafeteriaEditViewModel(id) {
 
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)[0];
-        self.categoryId(button.attributes["categoryid"].value)
-        self.name(button.attributes["name"].value)
+        self.categoryId(button.attributes["categoryid"].value);
+        self.name(button.attributes["name"].value);
         self.getMenuItemByCategoryId();
     });
 
@@ -193,17 +193,15 @@ function CafeteriaEditViewModel(id) {
         $.ajax({
             type: 'Get',
             url: '/api/MenuItem/GetByCategory/' + self.categoryId(),
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'application/json; charset=utf-8'
         }).done(function (data) {
-            console.log(data)
-            self.menuItems(data.menuItems)
+            console.log(data);
+            self.menuItems(data.menuItems);
         }).fail(self.showError);
     };
 
     self.deleteCategory = function () {
 
-        console.log(self.menuItems())
-        console.log(self.menuItems().length)
 
         if (self.menuItems().length == 0) {
             console.log("id=" + self.categoryId());
@@ -213,8 +211,8 @@ function CafeteriaEditViewModel(id) {
                 contentType: 'application/json; charset=utf-8',
                 data: { id: self.categoryId() }
             }).done(function (data) {
-                console.log(data)
-                $('#myModal').modal('hide')
+                console.log(data);
+                $('#myModal').modal('hide');
                 alertify.success(self.name() + " category is deleted ");
                 self.getCategoryByCafeteriaId();
             }).fail(self.showError);

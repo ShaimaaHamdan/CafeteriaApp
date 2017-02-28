@@ -17,7 +17,7 @@ namespace CafeteriaApp.Web.Controllers
         public AppDb appdb = new AppDb();
         public IHttpActionResult Get()
         {
-            var category = appdb.Categories.Select(category1 => new CategoryViewModel()
+            var categories = appdb.Categories.Select(category1 => new CategoryViewModel()
             {
                 CafeteriaId = category1.CafeteriaId,
                 Id = category1.Id,
@@ -31,7 +31,7 @@ namespace CafeteriaApp.Web.Controllers
                 }
             }).ToList();
 
-            return Ok(category);
+            return Ok(new { categories = categories });
         }
         public IHttpActionResult Get(int id)
         {
@@ -53,7 +53,7 @@ namespace CafeteriaApp.Web.Controllers
 
                 }
             };
-            return Ok(model);
+            return Ok(new { category  = model});
 
 
         }

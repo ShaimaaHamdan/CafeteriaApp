@@ -34,7 +34,7 @@
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
             console.log(data)
-            self.categories(data)
+            self.categories(data.categories)
         }).fail(self.showError);
     };
 
@@ -106,8 +106,8 @@ function CategoryEditViewModel(id) {
             url: '/api/Category/' + self.categoryId(),
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
-            self.cafeteriaId(data.CafeteriaId);
-            self.model().name(data.Name);
+            self.cafeteriaId(data.category.CafeteriaId);
+            self.model().name(data.category.Name);
         }).fail(self.showError);
     };
 
