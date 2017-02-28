@@ -214,7 +214,6 @@
     <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\Customer\Controllers\CafeteriaController.cs" />
     <Compile Include="Areas\Customer\Controllers\DashboardController.cs" />
-    
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -458,10 +457,11 @@
     <None Include="Areas\Admin\Views\Login\Unauthorized.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Areas\Customer\Views\web.config" />
-    
     <Content Include="Areas\Customer\Views\Cafeteria\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Cafeteria\show.cshtml" />
     <Content Include="Areas\Customer\Views\Dashboard\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\adminTheme\sb-admin-2.css" />
     <Content Include="Scripts\adminTheme\sb-admin-2.min.css" />
@@ -518,9 +518,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Customer\Controllers\" />
     <Folder Include="Areas\Customer\Models\" />
-    <Folder Include="Areas\Customer\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -535,6 +533,9 @@
       <Project>{d53fa9cb-52c5-4ba1-80f1-491c7d0d7a20}</Project>
       <Name>CafeteriaApp.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

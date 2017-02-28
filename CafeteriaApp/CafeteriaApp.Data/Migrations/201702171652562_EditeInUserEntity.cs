@@ -7,14 +7,14 @@ namespace CafeteriaApp.Data.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.AspNetUsers", "AccessFailedCount", c => c.Int(nullable: false));
-            DropColumn("dbo.AspNetUsers", "IAccessFailedCountd");
+            //AddColumn("dbo.AspNetUsers", "AccessFailedCount", c => c.Int(nullable: false));
+            //DropColumn("dbo.AspNetUsers", "IAccessFailedCountd");
         }
         
         public override void Down()
         {
-            AddColumn("dbo.AspNetUsers", "IAccessFailedCountd", c => c.Int(nullable: false));
-            DropColumn("dbo.AspNetUsers", "AccessFailedCount");
+            //AddColumn("dbo.AspNetUsers", "IAccessFailedCountd", c => c.Int(nullable: false));
+            //DropColumn("dbo.AspNetUsers", "AccessFailedCount");
         }
     }
 }
