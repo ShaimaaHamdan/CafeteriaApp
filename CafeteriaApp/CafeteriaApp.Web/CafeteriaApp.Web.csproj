@@ -273,8 +273,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Areas\Customer\Views\Shared\_Layout.cshtml" />
-    <None Include="Areas\Customer\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Customer\Views\_ViewStart.cshtml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\alertify\alertify.bootstrap.css" />
     <Content Include="Content\alertify\alertify.core.css" />
@@ -458,7 +458,7 @@
     <Content Include="Areas\Admin\Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Areas\Customer\Views\web.config" />
     <Content Include="Areas\Customer\Views\Cafeteria\Index.cshtml" />
-    <Content Include="Areas\Customer\Views\Cafeteria\show.cshtml" />
+    <Content Include="Areas\Customer\Views\Cafeteria\Show.cshtml" />
     <Content Include="Areas\Customer\Views\Dashboard\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
