@@ -1,12 +1,11 @@
 ﻿
-<div class="row">
+@*<div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Cafeterias</h1>
     </div>
-    <!-- /.col-lg-12 -->
-</div>
+</div>*@
 
-<div class="row">
+@*<div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">  
             <!-- /.panel-heading -->
@@ -33,9 +32,33 @@
         <!-- /.panel -->
     </div>
     <!-- /.col-lg-12 -->
-</div>
+</div>*@
 <!-- /.row -->
 <!-- Modal -->
+
+<!-- ko foreach: cafeterias -->
+    <div class="grid_4">
+        <div class="gall_block">
+            <div class="maxheight">
+                <a data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>
+                <div class="gall_bot">
+                    <div class="text1">
+                        <a href="#">
+                            <span data-bind="text:Name"></span>
+                        </a>
+                    </div>
+                    Rehoncus. Aliquam nibh antegestas id ictum a, commodo. Praesenterto faucibus maleada faucibusnec laeet metus id laoreet
+                    <br>
+                    <a data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="btn">more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
+<!-- /ko -->
+
 <script>
 
 
