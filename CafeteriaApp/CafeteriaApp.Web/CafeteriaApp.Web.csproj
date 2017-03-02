@@ -470,6 +470,12 @@
     <Content Include="Areas\Customer\Views\Dashboard\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
+    <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\CustomerTheme\PIE.php" />
+    <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\CustomerTheme\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\adminTheme\sb-admin-2.css" />
     <Content Include="Scripts\adminTheme\sb-admin-2.min.css" />
@@ -525,6 +531,7 @@
     <Content Include="Scripts\CustomerTheme\jquery.mobilemenu.js" />
     <Content Include="Scripts\CustomerTheme\jquery.ui.totop.js" />
     <Content Include="Scripts\CustomerTheme\modal.js" />
+    <Content Include="Scripts\CustomerTheme\PIE.htc" />
     <Content Include="Scripts\CustomerTheme\script.js" />
     <Content Include="Scripts\CustomerTheme\superfish.js" />
     <Content Include="Scripts\CustomerTheme\TMForm.js" />
