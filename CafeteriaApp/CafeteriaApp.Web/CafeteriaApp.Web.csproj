@@ -211,6 +211,8 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\Admin\SuperAdminAuthorize.cs" />
+    <Compile Include="Areas\Customer\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Customer\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\Customer\Controllers\CafeteriaController.cs" />
     <Compile Include="Areas\Customer\Controllers\DashboardController.cs" />
@@ -256,6 +258,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CafeteriaViewModel.cs" />
@@ -468,6 +471,7 @@
     <Content Include="Areas\Customer\Views\Cafeteria\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Cafeteria\Show.cshtml" />
     <Content Include="Areas\Customer\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\Category\Show.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
     <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.svg" />
@@ -591,6 +595,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Customer\Views\MenuItem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

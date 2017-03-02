@@ -10,6 +10,10 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <!-- /.panel-heading -->
+
+            @*<a data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="col-lg-12"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>*@
+
+
             <div class="panel-body">
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-category">
                     <thead>
@@ -18,8 +22,18 @@
                         </tr>
                     </thead>
                     <tbody data-bind="foreach: categories">
-                        <tr class="odd gradeX">
+                        @*<tr class="odd gradeX">
                             <td data-bind="text:Name"></td>
+                            <a data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="btn">more</a>
+                        </tr>*@
+                        
+                        <tr class="odd gradeX">
+                            @*<td>
+                                <a data-bind="attr:{href:'/Customer/Category/show/'+Id}" width="15px" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>
+                            </td>*@
+                            <td>
+                                <a data-bind="attr:{href:'/Customer/Category/show/'+Id}"><div data-bind="text:Name"></div></a>
+                            </td>
                         </tr>
 
                     </tbody>
@@ -31,6 +45,8 @@
                 </table>
                 <!-- /.table-responsive -->
 
+                @*<a data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="btn">more</a>*@
+
             </div>
             <!-- /.panel-body -->
         </div>
@@ -39,6 +55,29 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
+
+
+
+@*<div class="grid_4">
+    <div class="gall_block">
+        <div class="maxheight">
+            <a data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>
+            <div class="gall_bot">
+                <div class="text1">
+                    <a href="#">
+                        <span data-bind="text:Name"></span>
+                    </a>
+                </div>
+                Rehoncus. Aliquam nibh antegestas id ictum a, commodo. Praesenterto faucibus maleada faucibusnec laeet metus id laoreet
+                <br>
+                <a data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="btn">more</a>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+
 <script>
     //var app = new CategoryViewModel();
     var app = new CafeteriaEditViewModel(@ViewBag.Id);
