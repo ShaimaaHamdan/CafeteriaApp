@@ -213,6 +213,7 @@
     <Compile Include="Areas\Admin\SuperAdminAuthorize.cs" />
     <Compile Include="Areas\Customer\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Customer\Controllers\MenuItemController.cs" />
+    <Compile Include="Areas\Customer\Controllers\OrderController.cs" />
     <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\Customer\Controllers\CafeteriaController.cs" />
     <Compile Include="Areas\Customer\Controllers\DashboardController.cs" />
@@ -472,6 +473,8 @@
     <Content Include="Areas\Customer\Views\Cafeteria\Show.cshtml" />
     <Content Include="Areas\Customer\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Category\Show.cshtml" />
+    <Content Include="Areas\Customer\Views\Order\Create.cshtml" />
+    <Content Include="Areas\Customer\Views\Order\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
     <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.svg" />
@@ -541,6 +544,8 @@
     <Content Include="Scripts\CustomerTheme\TMForm.js" />
     <Content Include="Scripts\CustomerTheme\tmStickUp.js" />
     <Content Include="Scripts\CustomerTheme\touchTouch.jquery.js" />
+    <Content Include="Scripts\customer\order.js" />
+    <Content Include="Scripts\customer\orderitem.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

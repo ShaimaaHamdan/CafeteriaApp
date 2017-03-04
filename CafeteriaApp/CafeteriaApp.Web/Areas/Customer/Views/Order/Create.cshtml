@@ -1,0 +1,75 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Make Your Order</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            @*<div class="panel-heading">
+                Adding New Category MenuItem
+            </div>*@
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <form role="form">
+                            <div class="form-group">
+                                <label>Delivery Time</label>
+                                <input type="text" class="form-control" autofocus="autofocus" data-bind="value:model().DeliveryTime" name="DeliveryTime" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Delivery Place</label>
+                                <input type="text" class="form-control" data-bind="value:model().DeliveryPlace" name="DeliveryPlace" id="price" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Method</label>
+                                <input type="text" class="form-control" data-bind="value:model().PaymentMethod" name="PaymentMethod" id="type" required>
+                            </div>
+                            <div class="form-group">
+                                <label>id</label>
+                                <input type="text" class="form-control" data-bind="value:model().id" name="Id" id="type" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Order Time</label>
+                                <input type="text" class="form-control" data-bind="value:model().ordertime" name="OrderTime" id="type" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Done</label>
+                                <input type="text" class="form-control" data-bind="value:model().paymentdone" name="PaymentDone" id="type" required>
+                            </div>
+                            <div class="form-group">
+                                <label>order status</label>
+                                <input type="text" class="form-control" data-bind="value:model().orderstatus" name="OrderStatus" id="type" required>
+                            </div>
+                            @*<div class="form-group">
+                                <label>Payment Method</label>
+                                <input type="text" class="form-control" data-bind="textInput:model().PaymentMethod" name="type" id="type" required>
+                            </div>*@
+                            @*<div class="form-group">
+                                <label>Description</label>
+                                <textarea rows="20" type="text" class="form-control" data-bind="textInput:model().description" name="description" id="description" required></textarea>
+
+                            </div>*@
+                            <div class="form-group" style="float: right">
+                                <button data-bind="click:add" class="btn btn-primary">Make Order</button>
+                                <button data-bind="click:cancel" class="btn btn-danger">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var app = new OrderNewViewModel();
+    ko.applyBindings(app);
+</script>
+
+
