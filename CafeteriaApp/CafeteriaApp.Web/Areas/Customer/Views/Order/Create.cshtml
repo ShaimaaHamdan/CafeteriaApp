@@ -17,31 +17,31 @@
                         <form role="form">
                             <div class="form-group">
                                 <label>Delivery Time</label>
-                                <input type="text" class="form-control" autofocus="autofocus" data-bind="value:model().DeliveryTime" name="DeliveryTime" id="name" required>
+                                <input type="text" class="form-control" autofocus="autofocus" data-bind="textInput:model().deliverytime" name="DeliveryTime" id="DeliveryTime" required>
                             </div>
                             <div class="form-group">
                                 <label>Delivery Place</label>
-                                <input type="text" class="form-control" data-bind="value:model().DeliveryPlace" name="DeliveryPlace" id="price" required>
+                                <input type="text" class="form-control" data-bind="textInput:model().deliveryplace" name="deliveryplace" id="deliveryplace" required>
                             </div>
                             <div class="form-group">
                                 <label>Payment Method</label>
-                                <input type="text" class="form-control" data-bind="value:model().PaymentMethod" name="PaymentMethod" id="type" required>
+                                <input type="text" class="form-control" data-bind="textInput:model().paymentmethod" name="paymentmethod" id="paymentmethod" required>
                             </div>
-                            <div class="form-group">
+                            @*<div class="form-group">
                                 <label>id</label>
-                                <input type="text" class="form-control" data-bind="value:model().id" name="Id" id="type" required>
-                            </div>
+                                <input type="text" class="form-control" data-bind="textInput:model().id" name="Id" id="name" required>
+                            </div>*@
                             <div class="form-group">
                                 <label>Order Time</label>
-                                <input type="text" class="form-control" data-bind="value:model().ordertime" name="OrderTime" id="type" required>
+                                <input type="text" class="form-control" data-bind="textInput:model().ordertime" name="ordertime" id="ordertime" required>
                             </div>
                             <div class="form-group">
                                 <label>Payment Done</label>
-                                <input type="text" class="form-control" data-bind="value:model().paymentdone" name="PaymentDone" id="type" required>
+                                <input type="text" class="form-control" data-bind="textInput:model().paymentdone" name="paymentdone" id="paymentdone" required>
                             </div>
                             <div class="form-group">
                                 <label>order status</label>
-                                <input type="text" class="form-control" data-bind="value:model().orderstatus" name="OrderStatus" id="type" required>
+                                <input type="text" class="form-control" data-bind="textInput:model().orderstatus" name="orderstatus" id="orderstatus" required>
                             </div>
                             @*<div class="form-group">
                                 <label>Payment Method</label>

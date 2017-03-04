@@ -544,8 +544,8 @@
     <Content Include="Scripts\CustomerTheme\TMForm.js" />
     <Content Include="Scripts\CustomerTheme\tmStickUp.js" />
     <Content Include="Scripts\CustomerTheme\touchTouch.jquery.js" />
-    <Content Include="Scripts\customer\order.js" />
-    <Content Include="Scripts\customer\orderitem.js" />
+    <Content Include="Scripts\Customer\order.js" />
+    <Content Include="Scripts\Customer\orderitem.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
