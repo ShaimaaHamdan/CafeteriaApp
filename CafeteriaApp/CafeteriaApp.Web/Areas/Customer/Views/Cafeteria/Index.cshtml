@@ -1,4 +1,13 @@
-﻿
+﻿@*<div style="float:right;margin-right:160px">
+
+    Your Orders
+    <div data-bind="foreach: orders">
+        <div data-bind="text:id"></div>
+
+
+    </div>
+
+</div>*@
 @*<div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Cafeterias</h1>
@@ -37,23 +46,24 @@
 <!-- Modal -->
 
 <!-- ko foreach: cafeterias -->
-    <div class="grid_4">
-        <div class="gall_block">
-            <div class="maxheight">
-                <a data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>
+    <div class="grid_2">
+        @*<div class="gall_block">
+            <div class="maxheight">*@
+                <a style="margin-bottom:50px" data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>
                 <div class="gall_bot">
                     <div class="text1">
                         <a href="#">
-                            <span data-bind="text:Name"></span>
+                            <span style="margin-bottom:50px" data-bind="text:Name"></span>
                         </a>
                     </div>
                     Rehoncus. Aliquam nibh antegestas id ictum a, commodo. Praesenterto faucibus maleada faucibusnec laeet metus id laoreet
                     <br>
                     <a data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="btn">more</a>
                 </div>
-            </div>
-        </div>
+            @*</div>
+        </div>*@
     </div>
+
 
 
    
@@ -61,7 +71,11 @@
 
 <script>
 
-
+    
     var app = new CafeteriaViewModel();
     ko.applyBindings(app);
 </script>
+@*<script>
+    
+
+</script>*@
