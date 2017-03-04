@@ -237,10 +237,13 @@
     function OrderNewViewModel() {
         var self = this;
 
+        self.model = ko.validatedObservable({
+            name: ko.observable(),
+            email : ko.observable().extend({required:true})
+        });
 
-        //self.model = ko.validatedObservable({
-        //    name: ko.observable().extend({ required: true, maxLength: 100 })
-        //});
+        //dah el model bt3 el page ely bahto 3leeh el validation we bn3rf gowah el proprties bt3ty like name email ....etc
+
         self.showError = function (jqXHR) {
 
             self.result(jqXHR.status + ': ' + jqXHR.statusText);

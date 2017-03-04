@@ -271,11 +271,6 @@
                                         <a style="margin-top:20px" data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="btn"><div data-bind="text:Name"></div></a>
 
                                     </li>*@
-                                    <li>
-                                        <a style="float: right;margin-top: -23px;" title="Add Cafeteria" id="creatNewCafeteria" data-bind="attr:{href:'/Customer/Order/create'}"
-                                           class="btn btn-success btn-circle"><i class="fa fa-plus"></i></a>
-                                    </li>
-                                    <li><a href="http://localhost:4477/Customer/Order/Index">Your Orders</a></li>
                                     <li><a href="index.html">home</a></li>
                                     <li class="current"><a href="index-1.html">menu</a></li>
                                     <li><a href="index-2.html">reservation</a></li>
@@ -333,9 +328,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
-<script>
-    var app = new CafeteriaViewModel();
-    ko.applyBindings(app);
-
-</script>
 

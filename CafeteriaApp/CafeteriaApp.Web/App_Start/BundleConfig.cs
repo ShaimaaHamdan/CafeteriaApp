@@ -36,6 +36,9 @@ namespace CafeteriaApp.Web
                      "~/Scripts/admin/cafeteria.js",
                      "~/Scripts/admin/category.js",
                      "~/Scripts/admin/login.js",
+                     "~/Scripts/Customer/cafeteria.js",
+                     "~/Scripts/Customer/category.js",
+                     "~/Scripts/Customer/menuitem.js",
                      "~/Scripts/Customer/order.js",
                      "~/Scripts/Customer/orderitem.js"
                      ));

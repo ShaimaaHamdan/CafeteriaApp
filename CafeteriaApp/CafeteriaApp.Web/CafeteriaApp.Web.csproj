@@ -285,6 +285,7 @@
     <Content Include="Content\alertify\alertify.default.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Customer\booking.css" />
     <Content Include="Content\Customer\font-awesome.css" />
     <Content Include="Content\Customer\form.css" />
     <Content Include="Content\Customer\grid.css" />
@@ -544,6 +545,9 @@
     <Content Include="Scripts\CustomerTheme\TMForm.js" />
     <Content Include="Scripts\CustomerTheme\tmStickUp.js" />
     <Content Include="Scripts\CustomerTheme\touchTouch.jquery.js" />
+    <Content Include="Scripts\Customer\cafeteria.js" />
+    <Content Include="Scripts\Customer\category.js" />
+    <Content Include="Scripts\Customer\menuitem.js" />
     <Content Include="Scripts\Customer\order.js" />
     <Content Include="Scripts\Customer\orderitem.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

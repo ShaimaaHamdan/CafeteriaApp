@@ -1,84 +1,124 @@
 ﻿
-@*@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Show</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>*@
 
 
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">MenuItems</h1>
 
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <!-- /.panel-heading -->
 
+
+<section class="content">
+    <div class="ic">More Website Templates  TemplateMonster.com - July 30, 2014!</div>
+    <div class="container">
+        <div class="row">
+            <div class="grid_8">
+                <h2>Reserve Your Table</h2>
+                <img src="/Scripts/CustomerTheme/images/page3_img1.jpg" alt="" class="img_inner fleft inn__1">
+                <div class="extra_wrapper">
+                    <div class="text1 tx__1"><a href="#">Vivamus at magna non nunc </a></div>
+                    <p>Rehoncus. Aliquam nibh antegestas id ictum ado. Praesenterto faucibus maleada faucibusnec laeetert metus id laoreet </p>
+                    <p>Nullam consectetur orci sed nulla facilisisequaterto. Curabitur vel lorem sit amet nulla perermentum. Aliquam nibh ante, egestas id dictum a, commodo luctus libero.</p>
+                    Praesent faucibus malesuada faucibus. Donecertolin laoreet metus id laoreet malesuada.  orem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div>
+                <div class="clear"></div>
+                <h2>Menu Items</h2>
+                
            
 
-            <div class="panel-body">
-                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-cafeteria">
-                    <tbody data-bind="foreach: menuItems">
-                        <tr class="odd gradeX">
-                            <td data-bind="text:Name"></td>
+
+                @*<div data-bind="foreach:getAllMenuItems">*@
+                <div data-bind="foreach:menuItems">
+                    @*<a style="margin-bottom:50px" data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>*@
+                    <div class="gall_bot">
+                        <div class="text1">
+                            <a style="float:right;margin-top: 23px;margin-right:250px" title="Add Item To Cart" id="creatNewCafeteria" data-bind="attr:{href:'/admin/cafeteria/create'}"
+                               class="btn btn-success btn-circle"><i class="fa fa-plus"></i></a>
+                            <a href="#">
+                                <span data-bind="text:Name"></span>
+                                
+                                <div><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></div>
+
+                            </a>
                             
-                            @*<td class="center">
+                        </div>
+                       
+                        <br>
+                        
+                        <p>Price:<span data-bind="text:Price"></span></p>
+                        
+                        <p>Type:<span data-bind="text:Type"></span></p>
+                        
+                        <p>Description:<span data-bind="text:Description"></span></p>
+                        @*<a data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="btn">more</a>*@
+                    </div>
+                </div>
 
-                                <a style="float: right;margin-top: -23px;" title="Add Item to Cart" id="creatNewCafeteria" data-bind="attr:{href:'//cafeteria/create'}"
-                                   class="btn btn-success btn-circle"><i class="fa fa-plus"></i></a>
 
-                                <button type="button" id="myButton" data-bind="attr:{cafeteriaid:Id, name:Name}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>
-                                <a id="myButton" data-bind="attr:{href:'/admin/cafeteria/edit/'+Id}" class="btn btn-success">Edit</a>
-                            </td>*@
-                            
-                        </tr>
-
-                    </tbody>
-                    <tbody>
-                        <tr data-bind="visible:menuItems().length == 0">
-                            <td colspan="5"> there is no records.</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- /.table-responsive -->
-
-                
 
             </div>
-            <!-- /.panel-body -->
+            <div class="grid_4">
+                <h2>Our Hours</h2>
+                <div class="form_title color1">
+                    We are open 7 days a week - 8 AM to 12 PM <br>+1 101 889 9898
+                </div>
+                <form id="bookingForm">
+                    <div class="tmInput">
+                        @*<div class="form-group">
+                            <label>Delivery Time</label>
+                        <input placeHolder="Delivery Time:" type="text" data-bind="textInput:model().deliverytime" name="DeliveryTime" id="DeliveryTime" required>
+                            @*<input type="text" class="form-control" autofocus="autofocus" data-bind="textInput:model().deliverytime" name="DeliveryTime" id="DeliveryTime" required>*@
+                        </div>
+                    <div class="tmInput">
+                        <input placeHolder="Delivery Place:" type="text" data-bind="textInput:model().deliveryplace" name="DeliveryPlace" id="DeliveryPlace" required>
+                        
+                    </div>
+                    <div class="clear f_sep1"></div>
+                    <strong class="dt">Check-in</strong>
+                    <label class="tmDatepicker">
+                        <input type="text" name="Date" placeHolder='10/05/2014'>  @*data-constraints="@NotEmpty @Required @Date"*@
+                    </label>
+                    <div class="clear"></div>
+                    <strong class="dt">Check-out</strong>
+                    <label class="tmDatepicker">
+                        <input type="text" name="Date" placeHolder='20/05/2014'>
+                    </label>
+                    <div class="clear"></div>
+                    <div class="fl1 ">
+                        <em>Adults</em>
+                        <select name="Adults" class="tmSelect auto" data-class="tmSelect tmSelect2" data-constraints="">
+                            <option>1</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                        <div class="clear height1"></div>
+
+
+                    </div>
+                    <div class="fl1">
+                        <em>Children</em>
+                        <select name="Children" class="tmSelect auto" data-class="tmSelect tmSelect2" data-constraints="">
+                            <option>0</option>
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="tmTextarea">     
+                        <textarea name="Message" placeHolder="Message:"></textarea>   @*data-constraints='@NotEmpty @Required @Length(min = 20, max = 999999)'*@
+                    </div>
+                    <div class="ta__right">
+                        <a href="#" class="btn" data-type="reset">clear</a>
+                        <a href="#" class="btn" data-type="submit">send</a>
+                    </div>
+                </form>
+            </div>
         </div>
-        <!-- /.panel -->
     </div>
-    <!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-
-
-
-
-
-
-
+</section>
 <script>
-    //var app = new CategoryViewModel();
-   
-    var app = new CategoryEditViewModel(@ViewBag.Id);
-    ko.applyBindings(app);
-</script>
+    var app = new CustomerMenuItemViewModel(@ViewBag.id);
+    ko.applyBindings(app)
 
+</script>
