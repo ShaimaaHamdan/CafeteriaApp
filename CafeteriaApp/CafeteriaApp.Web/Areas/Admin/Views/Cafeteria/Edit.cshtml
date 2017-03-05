@@ -17,7 +17,15 @@
                         <form role="form">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" data-bind="textInput:model().name" name="name" id="name"  required>
+                                <input type="text" class="form-control" data-bind="textInput:model().name" name="name" id="name" required>
+                            </div>
+                            <div data-bind="fileDrag: fileData">
+                                <div class="image-upload-preview">
+                                    <img width="370" height="266" data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL">
+                                </div>
+                                <div class="image-upload-input">
+                                    <input type="file" data-bind="fileInput: fileData,customFileInput: {}">
+                                </div>
                             </div>
                             <div class="form-group" style="float: right">
                                 <button data-bind="click:save" class="btn btn-primary">Save</button>

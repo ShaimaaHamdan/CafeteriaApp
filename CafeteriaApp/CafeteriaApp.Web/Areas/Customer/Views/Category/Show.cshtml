@@ -1,4 +1,5 @@
-﻿
+﻿@model CafeteriaApp.Data.Models.MenuItem
+
 
 
 
@@ -26,6 +27,8 @@
 
                 @*<div data-bind="foreach:getAllMenuItems">*@
                 <div data-bind="foreach:menuItems">
+                
+                   
                     @*<a style="margin-bottom:50px" data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>*@
                     <div class="gall_bot">
                         <div class="text1">
@@ -33,7 +36,11 @@
                             <a href="#">
                                 <span data-bind="text:Name"></span>
                                 
-                                <div><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></div>
+                                @*<div> @Html.DisplayNameFor(m=>m.photo) alt="" </div>*@
+                                @*<div><img src="@Url.Content(@Model.photo)" alt=""></div>*@
+                                <img data-bind="attr:{src:Photo}">
+                                @*<img src="@Url.Content(@Model.photo)" />*@
+
 
                             </a>
                             <a  title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"

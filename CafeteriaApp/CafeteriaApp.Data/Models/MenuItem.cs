@@ -25,6 +25,10 @@ namespace CafeteriaApp.Data.Models
 
         public int CategoryId { get; set; }
 
+
+        public string photo { get; set; }
+        public string alternatetext { get; set; }
+
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
