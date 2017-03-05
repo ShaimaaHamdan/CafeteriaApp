@@ -24,7 +24,6 @@ namespace CafeteriaApp.Web.Models
         public int customerid { get; set; }
 
         public CustomerViewModel customer { get; set; }
-
-
+        public List<OrderItemViewModel> OrderItems { get; internal set; }
     }
 }

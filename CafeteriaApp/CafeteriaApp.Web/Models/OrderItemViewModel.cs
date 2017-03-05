@@ -18,5 +18,6 @@ namespace CafeteriaApp.Web.Models
         public int MenuItemId { get; set; }
 
         public MenuItemViewModel MenuItem { get; set; }
+        public int CustomerId { get;  set; }
     }
 }

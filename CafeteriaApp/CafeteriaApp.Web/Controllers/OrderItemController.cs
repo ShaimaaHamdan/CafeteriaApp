@@ -112,11 +112,35 @@ namespace CafeteriaApp.Web.Controllers
         }
 
         [HttpPost]
+        //[Route("AddToCart")]
         public IHttpActionResult Add(OrderItemViewModel orderitem)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Invalid data.");
+            }
+
+            Order order;
+
+            if(orderitem.OrderId == 0)
+            {
+                order = new Order()
+                {
+                    OrderTime = DateTime.Now,
+                    CustomerId = orderitem.CustomerId,
+                    DeliveryTime = DateTime.Now,
+                    PaymentMethod = "Test",
+                    PaymentDone = true,
+                    DeliveryPlace = "test",
+                    OrderStatus = "TEEST"
+                };
+
+                appdb.Orders.Add(order);
+                appdb.SaveChanges();
+            }
+            else
+            {
+                order = appdb.Orders.FirstOrDefault(i => i.Id == orderitem.OrderId);
             }
 
             var m = appdb.OrderItems.Add(new OrderItem()
@@ -125,7 +149,7 @@ namespace CafeteriaApp.Web.Controllers
                 Id = orderitem.Id,
                 Quantity = orderitem.Quantity,
                 MenuItemId = orderitem.MenuItemId,
-                OrderId = orderitem.OrderId,
+                OrderId = order.Id,
             });
             appdb.SaveChanges();
             return Ok();

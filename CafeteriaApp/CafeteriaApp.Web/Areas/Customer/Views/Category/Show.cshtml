@@ -29,14 +29,15 @@
                     @*<a style="margin-bottom:50px" data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>*@
                     <div class="gall_bot">
                         <div class="text1">
-                            <a style="float:right;margin-top: 23px;margin-right:250px" title="Add Item To Cart" id="creatNewCafeteria" data-bind="attr:{href:'/admin/cafeteria/create'}"
-                               class="btn btn-success btn-circle"><i class="fa fa-plus"></i></a>
+                           
                             <a href="#">
                                 <span data-bind="text:Name"></span>
                                 
                                 <div><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></div>
 
                             </a>
+                            <a  title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
+                               class="btn btn-success btn-circle">Add To Cart</a>
                             
                         </div>
                        
@@ -55,66 +56,33 @@
 
             </div>
             <div class="grid_4">
-                <h2>Our Hours</h2>
-                <div class="form_title color1">
-                    We are open 7 days a week - 8 AM to 12 PM <br>+1 101 889 9898
-                </div>
+                <h2>Your order</h2>
                 <form id="bookingForm">
-                    <div class="tmInput">
-                        @*<div class="form-group">
-                            <label>Delivery Time</label>
-                        <input placeHolder="Delivery Time:" type="text" data-bind="textInput:model().deliverytime" name="DeliveryTime" id="DeliveryTime" required>
-                            @*<input type="text" class="form-control" autofocus="autofocus" data-bind="textInput:model().deliverytime" name="DeliveryTime" id="DeliveryTime" required>*@
-                        </div>
-                    <div class="tmInput">
-                        <input placeHolder="Delivery Place:" type="text" data-bind="textInput:model().deliveryplace" name="DeliveryPlace" id="DeliveryPlace" required>
-                        
+                    
+                    <span>Item</span>
+                    &nbsp;&nbsp;
+                    <span>Price</span>
+                    <br />
+                    <div data-bind="foreach:orderItems">
+                        <span data-bind="text:MenuItem.Name"></span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span data-bind="text:MenuItem.Price"></span>
+                        <br />
                     </div>
-                    <div class="clear f_sep1"></div>
-                    <strong class="dt">Check-in</strong>
-                    <label class="tmDatepicker">
-                        <input type="text" name="Date" placeHolder='10/05/2014'>  @*data-constraints="@NotEmpty @Required @Date"*@
-                    </label>
-                    <div class="clear"></div>
-                    <strong class="dt">Check-out</strong>
-                    <label class="tmDatepicker">
-                        <input type="text" name="Date" placeHolder='20/05/2014'>
-                    </label>
-                    <div class="clear"></div>
-                    <div class="fl1 ">
-                        <em>Adults</em>
-                        <select name="Adults" class="tmSelect auto" data-class="tmSelect tmSelect2" data-constraints="">
-                            <option>1</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                        <div class="clear height1"></div>
-
-
+                    <hr />
+                    <div>
+                        <span>Total</span>
+                        <span data-bind="text:total"></span>
                     </div>
-                    <div class="fl1">
-                        <em>Children</em>
-                        <select name="Children" class="tmSelect auto" data-class="tmSelect tmSelect2" data-constraints="">
-                            <option>0</option>
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                        </select>
-
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="tmTextarea">     
-                        <textarea name="Message" placeHolder="Message:"></textarea>   @*data-constraints='@NotEmpty @Required @Length(min = 20, max = 999999)'*@
-                    </div>
-                    <div class="ta__right">
-                        <a href="#" class="btn" data-type="reset">clear</a>
-                        <a href="#" class="btn" data-type="submit">send</a>
+                    
+                    <div data-bind="visible:orderItems().length>0" class="ta__right">
+                        <a href="#" class="btn" data-type="submit">  Proceed to checkout </a>
                     </div>
                 </form>
             </div>
+
         </div>
+
     </div>
 </section>
 <script>

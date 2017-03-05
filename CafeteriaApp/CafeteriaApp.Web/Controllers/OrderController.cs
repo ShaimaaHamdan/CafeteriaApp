@@ -77,6 +77,58 @@ namespace CafeteriaApp.Web.Controllers
             return Ok(model);
         }
 
+        [HttpGet]
+        [Route("GetbyCustomerId/{id}")]
+        public IHttpActionResult GetbyCustomerId(int id)
+        {
+            var order = appdb.Orders.Where(o => o.CustomerId == id).OrderByDescending(i=>i.Id).FirstOrDefault();
+            if (order == null)
+            {
+                return Ok(new {  });
+            }
+
+
+            var model = new OrderViewModel()
+            {
+
+                Id = order.Id,
+                OrderTime = order.OrderTime,
+                OrderStatus = order.OrderStatus,
+                DeliveryTime = order.DeliveryTime,
+                DeliveryPlace = order.DeliveryPlace,
+                PaymentMethod = order.PaymentMethod,
+                PaymentDone = order.PaymentDone,
+                customerid = order.CustomerId,
+                customer = new CustomerViewModel()
+                {
+                    Id = order.Customer.Id,
+                    Credit = order.Customer.Credit,
+                    LimitedCredit = order.Customer.LimitedCredit,
+                    UserId = order.Customer.UserId
+
+                },
+                OrderItems = order.OrderItems?.Select(orderitem => new OrderItemViewModel {
+                    Id = orderitem.Id,
+                    Quantity = orderitem.Quantity,
+                    MenuItemId = orderitem.MenuItemId,
+                    OrderId = orderitem.OrderId,
+                    MenuItem = new MenuItemViewModel()
+                    {
+                        Id = orderitem.MenuItem.Id,
+                        Name = orderitem.MenuItem.Name,
+                        Description = orderitem.MenuItem.Description,
+                        Price = orderitem.MenuItem.Price,
+                        Type = orderitem.MenuItem.Type,
+                        CategoryId = orderitem.MenuItem.CategoryId
+                    }
+
+                }).ToList()
+            };
+
+
+            return Ok(new { order = model });
+        }
+
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {

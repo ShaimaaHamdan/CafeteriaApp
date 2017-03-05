@@ -2,11 +2,43 @@
     var self = this;
     self.categoryId = ko.observable(id);
     self.menuItemId = ko.observable();
+    self.orderId = ko.observable();
     self.menuItems = ko.observableArray();
     self.cafeteriaId = ko.observable();
     self.name = ko.observable();
-    self.model = ko.validatedObservable({
-        name: ko.observable().extend({ required: true, maxLength: 100 })
+
+    //TODO need to get the id from the logged in user
+    self.customerId = ko.observable(1);
+
+    self.quantity = ko.observable(2);
+
+    self.orderItems = ko.observableArray();
+
+    (self.init = function () {
+
+        //Get orderitems for current users for last order not checked out.
+
+        $.ajax({
+            type: 'Get',
+            url: '/api/order/GetbyCustomerId/' + self.customerId(),
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (data) {
+            console.log(data)
+            if (data.order != undefined)
+            {
+                self.orderItems(data.order.OrderItems);
+                self.orderId(data.order.Id)
+            }
+        }).fail(self.showError);
+
+    })();
+
+    self.total = ko.computed(function () {
+        var total = 0;
+        for (var p = 0; p < self.orderItems().length; ++p) {
+            total += self.orderItems()[p].MenuItem.Price;
+        }
+        return total;
     });
 
     self.showError = function (jqXHR) {
@@ -39,14 +71,11 @@
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
             self.cafeteriaId(data.category.CafeteriaId);
-            self.model().name(data.category.Name);
+            self.name(data.category.Name);
         }).fail(self.showError);
     };
 
     self.getCategory();
-
-    
-
 
     self.getMenuItemByCategoryId = function () {
         console.log(self.categoryId())
@@ -63,11 +92,26 @@
 
     self.getMenuItemByCategoryId();
 
-    $('#myModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)[0];
-        self.menuItemId(button.attributes["menuItemid"].value)
-        self.name(button.attributes["name"].value)
-    });
 
+    self.addToCart = function (menuItem) {
+
+
+        var data = {
+            quantity: self.quantity(),
+            menuItemid: menuItem.Id,
+            orderid: self.orderId(),
+            customerid: self.customerId()
+        }
+        $.ajax({
+            type: 'Post',
+            url: '/api/OrderItem',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (result) {
+            console.log(result)
+            self.init();
+        }).fail(self.showError);
+
+    }
 
 }
