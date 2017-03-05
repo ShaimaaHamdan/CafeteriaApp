@@ -19,6 +19,8 @@ namespace CafeteriaApp.Web.Models
         public string Type { get; set; }
 
         public int CategoryId { get; set; }
+        public string Photo { get; set; }
+        public string alternatetext { get; set; }
 
         
         public CategoryViewModel Category { get; set; }

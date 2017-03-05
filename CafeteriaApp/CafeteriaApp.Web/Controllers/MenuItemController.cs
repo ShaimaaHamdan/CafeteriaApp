@@ -25,6 +25,8 @@ namespace CafeteriaApp.Web.Controllers
                 Description = menuitem.Description,
                 Id = menuitem.Id,
                 Name = menuitem.Name,
+                Photo=menuitem.photo,
+                alternatetext=menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
                 Category = new CategoryViewModel()
@@ -53,6 +55,8 @@ namespace CafeteriaApp.Web.Controllers
                 Description = menuitem.Description,
                 Id = menuitem.Id,
                 Name = menuitem.Name,
+                Photo = menuitem.photo,
+                alternatetext = menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
                 Category = new CategoryViewModel()
@@ -80,6 +84,8 @@ namespace CafeteriaApp.Web.Controllers
                 Id = menuitem.Id,
                 Name = menuitem.Name,
                 Price = menuitem.Price,
+                Photo = menuitem.photo,
+                alternatetext = menuitem.alternatetext,
                 Type = menuitem.Type,
                 Category = new CategoryViewModel()
                 {
@@ -123,6 +129,8 @@ namespace CafeteriaApp.Web.Controllers
                 Description = menuitem.Description,
                 Id = menuitem.Id,
                 Name = menuitem.Name,
+                photo = menuitem.Photo,
+                alternatetext = menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
             });

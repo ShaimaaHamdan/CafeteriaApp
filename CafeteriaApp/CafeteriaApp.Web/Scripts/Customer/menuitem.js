@@ -63,11 +63,11 @@
 
     self.getMenuItemByCategoryId();
 
-    $('#myModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)[0];
-        self.menuItemId(button.attributes["menuItemid"].value)
-        self.name(button.attributes["name"].value)
-    });
+    //$('#myModal').on('show.bs.modal', function (event) {
+    //    var button = $(event.relatedTarget)[0];
+    //    self.menuItemId(button.attributes["menuItemid"].value)
+    //    self.name(button.attributes["name"].value)
+    //});
 
 
 }

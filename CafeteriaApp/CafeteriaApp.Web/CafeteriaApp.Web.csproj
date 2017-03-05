@@ -285,6 +285,7 @@
     <Content Include="Content\alertify\alertify.default.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\btats.png" />
     <Content Include="Content\Customer\booking.css" />
     <Content Include="Content\Customer\font-awesome.css" />
     <Content Include="Content\Customer\form.css" />
@@ -294,9 +295,14 @@
     <Content Include="Content\Customer\style.css" />
     <Content Include="Content\Customer\superfish.css" />
     <Content Include="Content\Customer\touchTouch.css" />
+    <Content Include="Content\fol.png" />
+    <Content Include="Content\t3mya.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Photos\btats.jpg" />
+    <Content Include="Photos\fol.jpg" />
+    <Content Include="Photos\t3mya.jpg" />
     <Content Include="Scripts\adminTheme\datatables-plugins\dataTables.bootstrap.css" />
     <Content Include="Scripts\adminTheme\datatables-plugins\dataTables.bootstrap.js" />
     <Content Include="Scripts\adminTheme\datatables-plugins\dataTables.bootstrap.min.js" />
@@ -479,6 +485,9 @@
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
     <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\CustomerTheme\images\btats.jpg" />
+    <Content Include="Scripts\CustomerTheme\images\fol.jpg" />
+    <Content Include="Scripts\CustomerTheme\images\t3mya.jpg" />
     <Content Include="Scripts\CustomerTheme\PIE.php" />
     <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.eot" />
     <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.ttf" />
