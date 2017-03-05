@@ -22,12 +22,13 @@ namespace CafeteriaApp.Web.Controllers
                 CafeteriaId = category1.CafeteriaId,
                 Id = category1.Id,
                 Name = category1.Name,
+                ImageData =category1.Image,
                 Cafeteria = new CafeteriaViewModel()
                 {
 
                     Name = category1.Cafeteria.Name,
                     Id = category1.Cafeteria.Id,
-
+                    ImageData = category1.Cafeteria.Image,
                 }
             }).ToList();
 
@@ -46,11 +47,12 @@ namespace CafeteriaApp.Web.Controllers
                 CafeteriaId = category.CafeteriaId,
                 Id = category.Id,
                 Name = category.Name,
+                ImageData = category.Image,
                 Cafeteria = new CafeteriaViewModel()
                 {
                     Name = category.Cafeteria.Name,
                     Id = category.Cafeteria.Id,
-
+                    ImageData = category.Cafeteria.Image,
                 }
             };
             return Ok(new { category  = model});
@@ -67,11 +69,13 @@ namespace CafeteriaApp.Web.Controllers
                 CafeteriaId = category1.CafeteriaId,
                 Id = category1.Id,
                 Name = category1.Name,
+                ImageData = category1.Image,
                 Cafeteria = new CafeteriaViewModel()
                 {
 
                     Name = category1.Cafeteria.Name,
                     Id = category1.Cafeteria.Id,
+                    ImageData = category1.Cafeteria.Image,
 
                 }
             }).ToList();
@@ -88,7 +92,7 @@ namespace CafeteriaApp.Web.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Add(Category c)
+        public IHttpActionResult Add(CategoryViewModel c)
         {
             if (!ModelState.IsValid)
             {
@@ -100,7 +104,7 @@ namespace CafeteriaApp.Web.Controllers
                 CafeteriaId = c.CafeteriaId,
                 Id = c.Id,
                 Name = c.Name,
-
+                Image = c.ImageData,
             });
             appdb.SaveChanges();
             return Ok();
@@ -120,6 +124,7 @@ namespace CafeteriaApp.Web.Controllers
             {
                 existingCategory.Id = c.Id;
                 existingCategory.Name = c.Name;
+                existingCategory.Image = c.ImageData;
 
                 appdb.SaveChanges();
             }

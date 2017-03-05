@@ -24,8 +24,8 @@ namespace CafeteriaApp.Web.Controllers
                 CategoryId = menuitem.CategoryId,
                 Description = menuitem.Description,
                 Id = menuitem.Id,
-                Name = menuitem.Name,
-                Photo=menuitem.photo,
+                Name = menuitem.Name,               
+                ImageData=menuitem.Image,
                 alternatetext=menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
@@ -34,6 +34,7 @@ namespace CafeteriaApp.Web.Controllers
                     Name = menuitem.Category.Name,
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
+                    ImageData=menuitem.Category.Image,
                 }
             }).ToList();
 
@@ -55,7 +56,7 @@ namespace CafeteriaApp.Web.Controllers
                 Description = menuitem.Description,
                 Id = menuitem.Id,
                 Name = menuitem.Name,
-                Photo = menuitem.photo,
+                ImageData = menuitem.Image,
                 alternatetext = menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
@@ -64,6 +65,7 @@ namespace CafeteriaApp.Web.Controllers
                     Name = menuitem.Category.Name,
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
+                    ImageData = menuitem.Category.Image,
                 }
 
 
@@ -84,7 +86,7 @@ namespace CafeteriaApp.Web.Controllers
                 Id = menuitem.Id,
                 Name = menuitem.Name,
                 Price = menuitem.Price,
-                Photo = menuitem.photo,
+                ImageData = menuitem.Image,
                 alternatetext = menuitem.alternatetext,
                 Type = menuitem.Type,
                 Category = new CategoryViewModel()
@@ -92,6 +94,7 @@ namespace CafeteriaApp.Web.Controllers
                     Name = menuitem.Category.Name,
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
+                    ImageData = menuitem.Category.Image,
                 }
             }).ToList();
 
@@ -129,7 +132,7 @@ namespace CafeteriaApp.Web.Controllers
                 Description = menuitem.Description,
                 Id = menuitem.Id,
                 Name = menuitem.Name,
-                photo = menuitem.Photo,
+                Image = menuitem.ImageData,
                 alternatetext = menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
@@ -155,7 +158,7 @@ namespace CafeteriaApp.Web.Controllers
                 existingMenuitem.Type = menuitem.Type;
                 existingMenuitem.Price = menuitem.Price;
                 existingMenuitem.Description = menuitem.Description;
-                //  existingMenuitem.CategoryId = menuitem.CategoryId;
+                existingMenuitem.Image = menuitem.ImageData;
                 appdb.SaveChanges();
             }
             else
