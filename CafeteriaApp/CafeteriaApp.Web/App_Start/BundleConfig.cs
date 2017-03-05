@@ -24,8 +24,8 @@ namespace CafeteriaApp.Web
                       "~/Content/bootstrap.css","~/Content/site.css",
                        "~/Content/alertify/alertify.bootstrap.css",
                      "~/Content/alertify/alertify.core.css",
-                     "~/Content/alertify/alertify.default.css"
-
+                     "~/Content/alertify/alertify.default.css",
+                     "~/Content/knockout-file-bindings.css"
                       ));
             
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
@@ -40,7 +40,8 @@ namespace CafeteriaApp.Web
                      "~/Scripts/Customer/category.js",
                      "~/Scripts/Customer/menuitem.js",
                      "~/Scripts/Customer/order.js",
-                     "~/Scripts/Customer/orderitem.js"
+                     "~/Scripts/Customer/orderitem.js",
+                     "~/Scripts/knockout-file-bindings.js"
                      ));
         }
     }
