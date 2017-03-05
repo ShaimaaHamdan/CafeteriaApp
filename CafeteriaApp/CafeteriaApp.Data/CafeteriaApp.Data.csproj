@@ -143,6 +143,18 @@
     <Compile Include="Migrations\201702171652562_EditeInUserEntity.Designer.cs">
       <DependentUpon>201702171652562_EditeInUserEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703042144569_add_photo_and_alternatetext_to_menuitem.cs" />
+    <Compile Include="Migrations\201703042144569_add_photo_and_alternatetext_to_menuitem.Designer.cs">
+      <DependentUpon>201703042144569_add_photo_and_alternatetext_to_menuitem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703042354132_AddImageToCafeteria.cs" />
+    <Compile Include="Migrations\201703042354132_AddImageToCafeteria.Designer.cs">
+      <DependentUpon>201703042354132_AddImageToCafeteria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703050352040_test.cs" />
+    <Compile Include="Migrations\201703050352040_test.Designer.cs">
+      <DependentUpon>201703050352040_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
@@ -227,6 +239,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702171652562_EditeInUserEntity.resx">
       <DependentUpon>201702171652562_EditeInUserEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703042144569_add_photo_and_alternatetext_to_menuitem.resx">
+      <DependentUpon>201703042144569_add_photo_and_alternatetext_to_menuitem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703042354132_AddImageToCafeteria.resx">
+      <DependentUpon>201703042354132_AddImageToCafeteria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703050352040_test.resx">
+      <DependentUpon>201703050352040_test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable.resources" />
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable1.resources" />
