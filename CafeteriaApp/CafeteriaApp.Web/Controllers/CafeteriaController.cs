@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -20,6 +21,7 @@ namespace CafeteriaApp.Web.Controllers
             {
                 Id = c.Id,
                 Name = c.Name,
+                ImageData = c.Image
             }).ToList();
 
             return Ok(new  { cafeterias = cafeterias });
@@ -36,6 +38,7 @@ namespace CafeteriaApp.Web.Controllers
             {
                 Id = cafeteria.Id,
                 Name = cafeteria.Name,
+                ImageData = cafeteria.Image
             };
             
             return Ok(new { cafeteria = cafeteriaModel});
@@ -54,6 +57,7 @@ namespace CafeteriaApp.Web.Controllers
             {
                 existingCafeteria.Id = cafeteria.Id;
                 existingCafeteria.Name = cafeteria.Name;
+                existingCafeteria.Image = cafeteria.ImageData;
                 appdb.SaveChanges();
             }
             else
@@ -87,10 +91,12 @@ namespace CafeteriaApp.Web.Controllers
                 return BadRequest("Invalid data.");
             }
 
+
             var m = appdb.Cafeterias.Add(new Cafeteria()
             {
                 Id = cafeteria.Id,
                 Name = cafeteria.Name,
+                Image = cafeteria.ImageData,
             });
             appdb.SaveChanges();
             return Ok();
