@@ -46,7 +46,7 @@
         var button = $(event.relatedTarget)[0];
         self.cafeteriaId(button.attributes["cafeteriaid"].value)
         self.name(button.attributes["name"].value)
-        console.log( self.name());
+        console.log(self.name());
         self.getCategoryByCafeteriaId();
     });
 
@@ -61,27 +61,27 @@
         }).fail(self.showError);
     };
 
-    
+
 
     self.deleteCafeteria = function () {
-        
-        if (self.categories().length==0){
-        console.log(self.categories().length)
-        console.log("id=" + self.cafeteriaId());
-        $.ajax({
-            type: 'Delete',
-            url: '/api/Cafeteria/' + self.cafeteriaId(),
-            contentType: 'application/json; charset=utf-8',
-            data: { id: self.cafeteriaId() }
-        }).done(function (data) {
-            console.log(data)
-            $('#myModal').modal('hide')
-            alertify.success( self.name() + " cafeteria is deleted ");
-            self.getAllCafeterias();
-        }).fail(self.showError);
+
+        if (self.categories().length == 0) {
+            console.log(self.categories().length)
+            console.log("id=" + self.cafeteriaId());
+            $.ajax({
+                type: 'Delete',
+                url: '/api/Cafeteria/' + self.cafeteriaId(),
+                contentType: 'application/json; charset=utf-8',
+                data: { id: self.cafeteriaId() }
+            }).done(function (data) {
+                console.log(data)
+                $('#myModal').modal('hide')
+                alertify.success(self.name() + " cafeteria is deleted ");
+                self.getAllCafeterias();
+            }).fail(self.showError);
         } else {
             alertify.error("Error, You Must delete categories of " + self.name() + " cafeteria first!");
-            
+
         }
 
     }
@@ -97,8 +97,26 @@ function CafeteriaEditViewModel(id) {
     self.menuItems = ko.observableArray();
     self.name = ko.observable();
 
+    ko.fileBindings.defaultOptions.buttonText = "Choose Image";
+
+    self.fileData = ko.observable({
+        file: ko.observable(), // will be filled with a File object
+        // Read the files (all are optional, e.g: if you're certain that it is a text file, use only text:
+        binaryString: ko.observable(), // FileReader.readAsBinaryString(Blob|File) - The result property will contain the file/blob's data as a binary string. Every byte is represented by an integer in the range [0..255].
+        text: ko.observable(), // FileReader.readAsText(Blob|File, opt_encoding) - The result property will contain the file/blob's data as a text string. By default the string is decoded as 'UTF-8'. Use the optional encoding parameter can specify a different format.
+        dataURL: ko.observable(), // FileReader.readAsDataURL(Blob|File) - The result property will contain the file/blob's data encoded as a data URL.
+        arrayBuffer: ko.observable(), // FileReader.readAsArrayBuffer(Blob|File) - The result property will contain the file/blob's data as an ArrayBuffer object.
+
+        // a special observable (optional)
+        base64String: ko.observable(), // just the base64 string, without mime type or anything else
+
+        // you can have observable arrays for each of the properties above, useful in multiple file upload selection (see Multiple file Uploads section below)
+        // in the format of xxxArray: ko.observableArray(),
+        /* e.g: */ fileArray: ko.observableArray(), base64StringArray: ko.observableArray(),
+    });
+
     self.model = ko.validatedObservable({
-        name: ko.observable().extend({ required: true , maxLength : 100 })
+        name: ko.observable().extend({ required: true, maxLength: 100 })
     });
 
 
@@ -133,6 +151,8 @@ function CafeteriaEditViewModel(id) {
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
             self.model().name(data.cafeteria.Name);
+            self.fileData().dataURL('data:image/gif;base64,' + data.cafeteria.ImageData);
+            self.fileData().base64String(data.cafeteria.ImageData);
         }).fail(self.showError);
     };
 
@@ -144,7 +164,8 @@ function CafeteriaEditViewModel(id) {
         if (self.model.isValid()) {
             var data = {
                 name: self.model().name(),
-                id: self.cafeteriaId()
+                id: self.cafeteriaId(),
+                imageData: self.fileData().base64String()
             }
 
             $.ajax({
@@ -220,18 +241,40 @@ function CafeteriaEditViewModel(id) {
             alertify.error("Error, You Must delete menuitems of " + self.name() + " category first!");
         }
     }
-    
+
 
 
 }
 
 function CafeteriaNewViewModel() {
     var self = this;
-    
+
+    ko.fileBindings.defaultOptions.buttonText = "Choose Image";
+
+
 
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 })
     });
+
+
+    self.fileData = ko.observable({
+        file: ko.observable(), // will be filled with a File object
+        // Read the files (all are optional, e.g: if you're certain that it is a text file, use only text:
+        binaryString: ko.observable(), // FileReader.readAsBinaryString(Blob|File) - The result property will contain the file/blob's data as a binary string. Every byte is represented by an integer in the range [0..255].
+        text: ko.observable(), // FileReader.readAsText(Blob|File, opt_encoding) - The result property will contain the file/blob's data as a text string. By default the string is decoded as 'UTF-8'. Use the optional encoding parameter can specify a different format.
+        dataURL: ko.observable(), // FileReader.readAsDataURL(Blob|File) - The result property will contain the file/blob's data encoded as a data URL.
+        arrayBuffer: ko.observable(), // FileReader.readAsArrayBuffer(Blob|File) - The result property will contain the file/blob's data as an ArrayBuffer object.
+
+        // a special observable (optional)
+        base64String: ko.observable(), // just the base64 string, without mime type or anything else
+
+        // you can have observable arrays for each of the properties above, useful in multiple file upload selection (see Multiple file Uploads section below)
+        // in the format of xxxArray: ko.observableArray(),
+        /* e.g: */ fileArray: ko.observableArray(), base64StringArray: ko.observableArray(),
+    });
+
+
     self.showError = function (jqXHR) {
 
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
@@ -257,21 +300,22 @@ function CafeteriaNewViewModel() {
 
     self.save = function () {
 
+
         if (self.model.isValid()) {
             var data = {
                 name: self.model().name(),
-                
+                imageData: self.fileData().base64String()
             }
-        console.log(data);
-        $.ajax({
-            type: 'Post',
-            url: '/api/cafeteria',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (result) {
-            console.log(result);             
-            document.location = '/admin/cafeteria/index';           
-        }).fail(self.showError);
+            console.log(data);
+            $.ajax({
+                type: 'Post',
+                url: '/api/cafeteria',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                console.log(result);
+                document.location = '/admin/cafeteria/index';
+            }).fail(self.showError);
         } else {
 
             alertify.error("Error,Some fileds are invalid !");
