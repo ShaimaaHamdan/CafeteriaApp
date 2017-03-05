@@ -155,6 +155,14 @@
     <Compile Include="Migrations\201703050352040_test.Designer.cs">
       <DependentUpon>201703050352040_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703050624109_EditNameFromPhotoToImage.cs" />
+    <Compile Include="Migrations\201703050624109_EditNameFromPhotoToImage.Designer.cs">
+      <DependentUpon>201703050624109_EditNameFromPhotoToImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703050626471_AddImageToCategory.cs" />
+    <Compile Include="Migrations\201703050626471_AddImageToCategory.Designer.cs">
+      <DependentUpon>201703050626471_AddImageToCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
@@ -248,6 +256,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703050352040_test.resx">
       <DependentUpon>201703050352040_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703050624109_EditNameFromPhotoToImage.resx">
+      <DependentUpon>201703050624109_EditNameFromPhotoToImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703050626471_AddImageToCategory.resx">
+      <DependentUpon>201703050626471_AddImageToCategory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable.resources" />
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable1.resources" />
