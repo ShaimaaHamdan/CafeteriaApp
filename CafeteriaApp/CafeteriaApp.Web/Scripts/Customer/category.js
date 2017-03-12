@@ -35,7 +35,7 @@
             url: '/api/Cafeteria/' + self.cafeteriaId(),
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
-            self.model().name(data.cafeteria.Name);
+            self.name(data.cafeteria.Name);
         }).fail(self.showError);
     };
 

@@ -33,16 +33,16 @@
                     <div class="gall_bot">
                         <div class="text1">
                            
-                            <a href="#">
+                            
                                 <span data-bind="text:Name"></span>
                                 
                                 @*<div> @Html.DisplayNameFor(m=>m.photo) alt="" </div>*@
                                 @*<div><img src="@Url.Content(@Model.photo)" alt=""></div>*@
-                                <img data-bind="attr:{src:Photo}">
+                                <img data-bind="attr: { src: 'data:image/gif;base64,' + ImageData }" alt=""  >
                                 @*<img src="@Url.Content(@Model.photo)" />*@
 
 
-                            </a>
+                            
                             <a  title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
                                class="btn btn-success btn-circle">Add To Cart</a>
                             
