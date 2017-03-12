@@ -55,7 +55,22 @@ function MenuItemEditViewModel(id) {
         type: ko.observable().extend({ required: true, maxLength: 100 }),
         description: ko.observable().extend({ required: true, maxLength: 500 })
     });
-    
+    ko.fileBindings.defaultOptions.buttonText = "Choose Image";
+    self.fileData = ko.observable({
+        file: ko.observable(), // will be filled with a File object
+        // Read the files (all are optional, e.g: if you're certain that it is a text file, use only text:
+        binaryString: ko.observable(), // FileReader.readAsBinaryString(Blob|File) - The result property will contain the file/blob's data as a binary string. Every byte is represented by an integer in the range [0..255].
+        text: ko.observable(), // FileReader.readAsText(Blob|File, opt_encoding) - The result property will contain the file/blob's data as a text string. By default the string is decoded as 'UTF-8'. Use the optional encoding parameter can specify a different format.
+        dataURL: ko.observable(), // FileReader.readAsDataURL(Blob|File) - The result property will contain the file/blob's data encoded as a data URL.
+        arrayBuffer: ko.observable(), // FileReader.readAsArrayBuffer(Blob|File) - The result property will contain the file/blob's data as an ArrayBuffer object.
+
+        // a special observable (optional)
+        base64String: ko.observable(), // just the base64 string, without mime type or anything else
+
+        // you can have observable arrays for each of the properties above, useful in multiple file upload selection (see Multiple file Uploads section below)
+        // in the format of xxxArray: ko.observableArray(),
+        /* e.g: */ fileArray: ko.observableArray(), base64StringArray: ko.observableArray(),
+    });
     self.result = ko.observable();
     self.errors = ko.observableArray([]);
 
@@ -96,6 +111,8 @@ function MenuItemEditViewModel(id) {
             self.model().type(data.Type);
             self.model().price(data.Price);
             self.categoryId(data.CategoryId);
+            self.fileData().dataURL('data:image/gif;base64,' + data.ImageData);
+            self.fileData().base64String(data.ImageData);
         }).fail(self.showError);
     };
     self.getMenuItemById();
@@ -107,7 +124,8 @@ function MenuItemEditViewModel(id) {
                 name: self.model().name(),
                 price: self.model().price(),
                 description: self.model().description(),
-                type: self.model().type()
+                type: self.model().type(),
+                imageData: self.fileData().base64String()
             }
             $.ajax({
                 type: 'PUT',
@@ -134,6 +152,8 @@ function MenuItemEditViewModel(id) {
 
 function MenuItemNewViewModel(categoryId) {
     var self = this;
+    ko.fileBindings.defaultOptions.buttonText = "Choose Image";
+
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
         price: ko.observable().extend({ required: true, pattern: '^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$' }),
@@ -141,6 +161,21 @@ function MenuItemNewViewModel(categoryId) {
         description: ko.observable().extend({ required: true, maxLength: 500 })
     });
     self.categoryId = ko.observable(categoryId);
+    self.fileData = ko.observable({
+        file: ko.observable(), // will be filled with a File object
+        // Read the files (all are optional, e.g: if you're certain that it is a text file, use only text:
+        binaryString: ko.observable(), // FileReader.readAsBinaryString(Blob|File) - The result property will contain the file/blob's data as a binary string. Every byte is represented by an integer in the range [0..255].
+        text: ko.observable(), // FileReader.readAsText(Blob|File, opt_encoding) - The result property will contain the file/blob's data as a text string. By default the string is decoded as 'UTF-8'. Use the optional encoding parameter can specify a different format.
+        dataURL: ko.observable(), // FileReader.readAsDataURL(Blob|File) - The result property will contain the file/blob's data encoded as a data URL.
+        arrayBuffer: ko.observable(), // FileReader.readAsArrayBuffer(Blob|File) - The result property will contain the file/blob's data as an ArrayBuffer object.
+
+        // a special observable (optional)
+        base64String: ko.observable(), // just the base64 string, without mime type or anything else
+
+        // you can have observable arrays for each of the properties above, useful in multiple file upload selection (see Multiple file Uploads section below)
+        // in the format of xxxArray: ko.observableArray(),
+        /* e.g: */ fileArray: ko.observableArray(), base64StringArray: ko.observableArray(),
+    });
 
     self.showError = function (jqXHR) {
 
@@ -173,7 +208,8 @@ function MenuItemNewViewModel(categoryId) {
                 name: self.model().name(),
                 price: self.model().price(),
                 description: self.model().description(),
-                type: self.model().type()
+                type: self.model().type(),
+                imageData: self.fileData().base64String()
             }
 
             console.log(data);

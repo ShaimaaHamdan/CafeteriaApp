@@ -8,7 +8,7 @@
     self.name = ko.observable();
 
     //TODO need to get the id from the logged in user
-    self.customerId = ko.observable(3);
+    self.customerId = ko.observable(1);
 
     self.quantity = ko.observable(2);
 
