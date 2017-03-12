@@ -22,9 +22,15 @@ namespace CafeteriaApp.Web.Models
         public string ImageData { get; set; }
 
         public string alternatetext { get; set; }
-
-        
+                
         public CategoryViewModel Category { get; set; }
+
+        public List<AdditionViewModel> Additions { get; internal set; }
+
+        public List<CustomerViewModel> CustomersFavourite { get; internal set; }
+
+        public List<CustomerViewModel> CustomersRestricts { get; internal set; }
+
 
 
     }

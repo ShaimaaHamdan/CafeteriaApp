@@ -17,5 +17,11 @@ namespace CafeteriaApp.Web.Models
 
         public UserViewModel User { get; set; }
 
+        public List<OrderViewModel> Orders { get; internal set; }
+
+        public List<MenuItemViewModel> Favourites { get; internal set; }
+
+        public List<MenuItemViewModel> Restricts { get; internal set; }
+            
     }
 }

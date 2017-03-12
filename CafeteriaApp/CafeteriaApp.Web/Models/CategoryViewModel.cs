@@ -15,7 +15,7 @@ namespace CafeteriaApp.Web.Models
 
         public string ImageData { get; set; }
 
-
+        public List<MenuItemViewModel> MenuItems { get; internal set; }
         public CafeteriaViewModel Cafeteria { get; set; }
     }
 }
