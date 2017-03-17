@@ -49,6 +49,9 @@ function MenuItemEditViewModel(id) {
     var self = this;
     self.menuItemId = ko.observable(id);    
     self.categoryId = ko.observable();
+    self.additions = ko.observableArray();    
+    self.additionId = ko.observable();
+    self.name = ko.observable();
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
         price: ko.observable().extend({ required: true,pattern:'^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$'}),
@@ -146,8 +149,21 @@ function MenuItemEditViewModel(id) {
         document.location = '/admin/category/edit/'+self.categoryId();
     }
 
+    self.getAllAdditions = function () {
+        $.ajax({
+            type: 'Get',
+            url: '/api/Addition',
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (data) {
+            console.log(data)
+            self.additions(data.additions)
+           
+        }).fail(self.showError);
+    };
 
+    self.getAllAdditions();
 
+ 
 }
 
 function MenuItemNewViewModel(categoryId) {
