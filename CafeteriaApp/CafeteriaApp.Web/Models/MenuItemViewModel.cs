@@ -25,11 +25,11 @@ namespace CafeteriaApp.Web.Models
                 
         public CategoryViewModel Category { get; set; }
 
-        public List<AdditionViewModel> Additions { get; internal set; }
+        public List<AdditionViewModel> Additions { get;  set; }
 
-        public List<CustomerViewModel> CustomersFavourite { get; internal set; }
+        public List<CustomerViewModel> CustomersFavourite { get;  set; }
 
-        public List<CustomerViewModel> CustomersRestricts { get; internal set; }
+        public List<CustomerViewModel> CustomersRestricts { get;  set; }
 
 
 

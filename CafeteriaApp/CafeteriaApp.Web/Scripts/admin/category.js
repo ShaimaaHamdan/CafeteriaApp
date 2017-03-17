@@ -33,8 +33,8 @@
             url: '/api/Category',
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
-            console.log(data)
-            self.categories(data.categories)
+            console.log(data);
+            self.categories(data.categories);
         }).fail(self.showError);
     };
 
@@ -43,8 +43,8 @@
 
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)[0];
-        self.categoryId(button.attributes["categoryid"].value)
-        
+        self.categoryId(button.attributes["categoryid"].value);
+
     });
 
     

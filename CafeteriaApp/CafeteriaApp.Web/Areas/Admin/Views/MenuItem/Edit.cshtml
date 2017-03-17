@@ -18,11 +18,11 @@
                         <form role="form">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" data-bind="textInput:model().name" name="name" id="name"  required>
+                                <input type="text" class="form-control" data-bind="textInput:model().name" name="name" id="name" required>
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
-                                <input type="text" class="form-control" data-bind="textInput:model().price" name="price" id="price"  required>
+                                <input type="text" class="form-control" data-bind="textInput:model().price" name="price" id="price" required>
                             </div>
                             <div class="form-group">
                                 <label>Type</label>
@@ -41,7 +41,7 @@
                                     <input type="file" data-bind="fileInput: fileData,customFileInput: {}">
                                 </div>
                             </div>
-                            
+
                             <div class="form-group" style="float: right">
                                 <button data-bind="click:save" class="btn btn-primary">Save</button>
                                 <button data-bind="click:cancel" class="btn btn-danger">Cancel</button>
@@ -74,33 +74,30 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody data-bind="foreach: additions">
+                    <tbody data-bind="foreach: menuItemadditions">
                         <tr class="odd gradeX">
                             <td data-bind="text:Name"></td>
 
                             <td class="center">
-                                
+                                <button type="button" id="myButton" data-bind="attr:{additionId:Id}"
+                                        class="btn btn-danger" data-toggle="modal" data-target="#mydeleteModal">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
 
                     </tbody>
                     <tbody>
-                        <tr data-bind="visible:additions().length == 0">
+                        <tr data-bind="visible:menuItemadditions().length == 0">
                             <td colspan="5"> there is no records.</td>
                         </tr>
                     </tbody>
                 </table>
-                <!-- /.table-responsive -->
 
             </div>
-            <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-<!-- /.row -->
-<!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -111,18 +108,44 @@
                 <h4 class="modal-title">Additions</h4>
             </div>
             <div class="modal-body">
-                <p>Add Addition To MenuItem.</p>
-                <select multiple="multiple" data-bind="options:additions"></select>
+                <div class="form-group">
+                    <label>Please Select Addition To Add :</label>
+                    <select multiple="multiple" class="form-control"
+                            data-bind="options:additions,optionsText: 'Name',
+                       selectedOptions: selectedAdditions"></select>
+                </div>
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-bind="">Yes</button>
+                <button type="button" class="btn btn-success" data-bind="click:saveMenuItemAdditions">Yes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="mydeleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning !!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are You Sure You Want To Delete This Item?.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bind="click:deleteMenuItemAddition">Yes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
             </div>
         </div>
 
     </div>
 </div>
-
 
 <script>
     var app = new MenuItemEditViewModel(@ViewBag.Id);

@@ -211,3 +211,7 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
+CafeteriaApp/CafeteriaApp.Web/Web.config
+*.config
+*.config
+CafeteriaApp/CafeteriaApp.Data/App.config

@@ -49,8 +49,10 @@ function MenuItemEditViewModel(id) {
     var self = this;
     self.menuItemId = ko.observable(id);    
     self.categoryId = ko.observable();
-    self.additions = ko.observableArray();    
-    self.additionId = ko.observable();
+    self.additions = ko.observableArray();
+    self.menuItemadditions = ko.observableArray();
+    self.selectedAdditions = ko.observableArray();
+    self.additionIdToDelete = ko.observable();
     self.name = ko.observable();
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
@@ -116,6 +118,7 @@ function MenuItemEditViewModel(id) {
             self.categoryId(data.CategoryId);
             self.fileData().dataURL('data:image/gif;base64,' + data.ImageData);
             self.fileData().base64String(data.ImageData);
+            self.menuItemadditions(data.Additions);
         }).fail(self.showError);
     };
     self.getMenuItemById();
@@ -155,13 +158,51 @@ function MenuItemEditViewModel(id) {
             url: '/api/Addition',
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
-            console.log(data)
-            self.additions(data.additions)
-           
+            console.log(data);
+            self.additions(data.additions);
+
         }).fail(self.showError);
     };
 
     self.getAllAdditions();
+
+    self.saveMenuItemAdditions = function() {
+        var menuItem = { id: self.menuItemId(), additions: self.selectedAdditions() }
+        $.ajax({
+            type: 'Post',
+            url: '/api/menuitem/addAdditions',
+            contentType: 'application/json; charset=utf-8',
+            data: ko.toJSON(menuItem)
+        }).done(function (result) {
+            console.log(result);
+            $('#myModal').modal('hide');
+            self.getMenuItemById();
+        }).fail(self.showError);
+    }
+
+    $('#mydeleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)[0];
+        self.additionIdToDelete(button.attributes["additionId"].value);
+        
+    });
+
+
+    self.deleteMenuItemAddition = function () {
+
+        var model = { additionId: self.additionIdToDelete(), menuItemId: self.menuItemId() };
+        $.ajax({
+            type: 'Delete',
+            url: '/api/MenuItem/DeleteMenuItemAddition/',
+            contentType: 'application/json; charset=utf-8',
+            data: ko.toJSON(model)
+        }).done(function (data) {
+            console.log(data)
+            $('#mydeleteModal').modal('hide')
+            alertify.success("Addition is deleted ");
+            self.getMenuItemById();
+        }).fail(self.showError);
+    }
+
 
  
 }

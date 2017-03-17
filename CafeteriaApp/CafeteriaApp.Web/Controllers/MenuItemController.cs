@@ -66,9 +66,12 @@ namespace CafeteriaApp.Web.Controllers
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
                     ImageData = menuitem.Category.Image,
-                }
-
-
+                },
+                Additions = menuitem.Additions.Select(i=>new AdditionViewModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name
+                }).ToList()
             };
 
 
@@ -170,8 +173,51 @@ namespace CafeteriaApp.Web.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("addAdditions")]
+        public IHttpActionResult AddAdditions([FromBody]MenuItemViewModel menuitem)
+        {
+
+            var menuItemObject = appdb.MenuItems.FirstOrDefault(i => i.Id == menuitem.Id);
+            if (menuItemObject != null)
+            {
+                foreach (var addition in menuitem.Additions)
+                {
+                    var additionToAdd = appdb.Additions.FirstOrDefault(ad => ad.Id == addition.Id);
+                    menuItemObject.Additions.Add(additionToAdd);
+                }
+               
+            }
+            
+            appdb.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("DeleteMenuItemAddition")]
+        public IHttpActionResult DeleteMenuItemAddition(MenuItemAdditionViewModel model)
+        {
+            var menuItem = appdb.MenuItems.FirstOrDefault(m => m.Id == model.MenuItemId);
+            if (menuItem != null)
+            {
+                var addtionToRemove = appdb.Additions.FirstOrDefault(i => i.Id == model.AdditionId);
+                menuItem.Additions.Remove(addtionToRemove);
+                appdb.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
     }
 
+    public class MenuItemAdditionViewModel
+    {
+        public int MenuItemId { get; set; }
+        public int AdditionId { get; set; }
+    }
 }
 
 
