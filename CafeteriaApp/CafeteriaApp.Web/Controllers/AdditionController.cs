@@ -18,14 +18,14 @@ namespace CafeteriaApp.Web.Controllers
         public IHttpActionResult Get()
         {
             //lamda expression
-            var addition = appdb.Additions.Select(addition1 => new AdditionViewModel()
+            var additions = appdb.Additions.Select(addition1 => new AdditionViewModel()
             {
 
                 Id = addition1.Id,
                 Name = addition1.Name,
             }).ToList();
 
-            return Ok(addition);
+            return Ok(new { additions = additions });
 
         }
 
@@ -38,16 +38,16 @@ namespace CafeteriaApp.Web.Controllers
                 return NotFound();
             }
 
-            AdditionViewModel add = new AdditionViewModel()
+            var additionModel = new AdditionViewModel()
             {
                 Id = addition.Id,
                 Name = addition.Name,
             };
-            return Ok(add);
+            return Ok(new { addition = additionModel });
         }
         //add additions 
         [HttpPost]
-        public IHttpActionResult Add(Addition a)
+        public IHttpActionResult Add(AdditionViewModel a)
         {
             if (!ModelState.IsValid)
             {
