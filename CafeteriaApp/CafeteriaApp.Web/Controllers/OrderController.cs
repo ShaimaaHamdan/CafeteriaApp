@@ -40,7 +40,7 @@ namespace CafeteriaApp.Web.Controllers
 
             }).ToList();
 
-            return Ok(orders);
+            return Ok(new { orders = orders});
 
         }
 
@@ -74,7 +74,7 @@ namespace CafeteriaApp.Web.Controllers
             };
 
 
-            return Ok(model);
+            return Ok(new { order = model});
         }
 
         [HttpGet]
