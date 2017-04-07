@@ -1,0 +1,21 @@
+﻿<table>
+    <tbody>
+        <tr>
+            <th>
+                OrderId
+            </th>
+            <th>
+                OrderItem
+            </th>
+        </tr>
+     </tbody>
+    <tbody data-bind="foreach:orders">
+        <tr class="odd gradeX">
+            <td data-bind="text:DeliveryTime"></td>
+        </tr>
+    </tbody>
+</table>
+<script >
+    var app = new orderViewModel();
+    ko.applyBindings(app);
+</script>

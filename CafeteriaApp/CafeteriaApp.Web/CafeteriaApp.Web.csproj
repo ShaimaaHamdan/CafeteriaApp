@@ -212,6 +212,8 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\Admin\SuperAdminAuthorize.cs" />
+    <Compile Include="Areas\Chef\ChefAreaRegistration.cs" />
+    <Compile Include="Areas\Chef\Controllers\OrderController.cs" />
     <Compile Include="Areas\Customer\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Customer\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\Customer\Controllers\OrderController.cs" />
@@ -479,8 +481,11 @@
     <Content Include="Areas\Customer\Views\Category\Show.cshtml" />
     <Content Include="Areas\Customer\Views\Order\Create.cshtml" />
     <Content Include="Areas\Customer\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Chef\Views\web.config" />
+    <Content Include="Areas\Chef\Views\Order\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
+    <Content Include="Scripts\Chef\order.js" />
     <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.svg" />
     <Content Include="Scripts\CustomerTheme\images\btats.jpg" />
     <Content Include="Scripts\CustomerTheme\images\fol.jpg" />
@@ -554,8 +559,6 @@
     <Content Include="Scripts\Customer\cafeteria.js" />
     <Content Include="Scripts\Customer\category.js" />
     <Content Include="Scripts\Customer\menuitem.js" />
-    <Content Include="Scripts\Customer\order.js" />
-    <Content Include="Scripts\Customer\orderitem.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -611,6 +614,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Chef\Models\" />
+    <Folder Include="Areas\Chef\Views\Shared\" />
     <Folder Include="Areas\Customer\Models\" />
     <Folder Include="Areas\Customer\Views\MenuItem\" />
   </ItemGroup>
