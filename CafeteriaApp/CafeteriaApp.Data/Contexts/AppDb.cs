@@ -28,6 +28,8 @@ namespace CafeteriaApp.Data.Contexts
 
         public DbSet<User> Persons { get; set; }
 
+        public DbSet<Dependent> Dependents { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

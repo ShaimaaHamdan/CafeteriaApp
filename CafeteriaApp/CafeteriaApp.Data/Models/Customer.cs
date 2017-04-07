@@ -30,5 +30,7 @@ namespace CafeteriaApp.Data.Models
 
         public virtual ICollection<MenuItem> Restricts { get; set; }
 
+        public virtual ICollection<Dependent> Dependents { get; set; }
+
     }
 }

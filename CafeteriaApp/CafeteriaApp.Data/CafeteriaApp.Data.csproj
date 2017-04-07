@@ -163,10 +163,19 @@
     <Compile Include="Migrations\201703050626471_AddImageToCategory.Designer.cs">
       <DependentUpon>201703050626471_AddImageToCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704071059231_AddDependentTable.cs" />
+    <Compile Include="Migrations\201704071059231_AddDependentTable.Designer.cs">
+      <DependentUpon>201704071059231_AddDependentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704071102595_AddImageToDependentAndUser.cs" />
+    <Compile Include="Migrations\201704071102595_AddImageToDependentAndUser.Designer.cs">
+      <DependentUpon>201704071102595_AddImageToDependentAndUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Dependent.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -262,6 +271,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703050626471_AddImageToCategory.resx">
       <DependentUpon>201703050626471_AddImageToCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704071059231_AddDependentTable.resx">
+      <DependentUpon>201704071059231_AddDependentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704071102595_AddImageToDependentAndUser.resx">
+      <DependentUpon>201704071102595_AddImageToDependentAndUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable.resources" />
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable1.resources" />
