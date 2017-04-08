@@ -1,97 +1,103 @@
-﻿@model CafeteriaApp.Data.Models.MenuItem
+﻿
 
 
 
 
+    <section class="content">
+        <div class="ic">More Website Templates  TemplateMonster.com - July 30, 2014!</div>
+        <div class="container">
+            <div class="row">
+                <div class="grid_8">
+                    <h2>@Resources.reserveyourtable</h2>
+                    <img src="/Scripts/CustomerTheme/images/page3_img1.jpg" alt="" class="img_inner fleft inn__1">
+                    <div class="extra_wrapper">
+                        <div class="text1 tx__1"><a href="#">Vivamus at magna non nunc </a></div>
+                        <p>Rehoncus. Aliquam nibh antegestas id ictum ado. Praesenterto faucibus maleada faucibusnec laeetert metus id laoreet </p>
+                        <p>Nullam consectetur orci sed nulla facilisisequaterto. Curabitur vel lorem sit amet nulla perermentum. Aliquam nibh ante, egestas id dictum a, commodo luctus libero.</p>
+                        Praesent faucibus malesuada faucibus. Donecertolin laoreet metus id laoreet malesuada.  orem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </div>
+                    <div class="clear"></div>
+                    <h2>@Resources.MenuItems</h2>
 
 
 
-<section class="content">
-    <div class="ic">More Website Templates  TemplateMonster.com - July 30, 2014!</div>
-    <div class="container">
-        <div class="row">
-            <div class="grid_8">
-                <h2>Reserve Your Table</h2>
-                <img src="/Scripts/CustomerTheme/images/page3_img1.jpg" alt="" class="img_inner fleft inn__1">
-                <div class="extra_wrapper">
-                    <div class="text1 tx__1"><a href="#">Vivamus at magna non nunc </a></div>
-                    <p>Rehoncus. Aliquam nibh antegestas id ictum ado. Praesenterto faucibus maleada faucibusnec laeetert metus id laoreet </p>
-                    <p>Nullam consectetur orci sed nulla facilisisequaterto. Curabitur vel lorem sit amet nulla perermentum. Aliquam nibh ante, egestas id dictum a, commodo luctus libero.</p>
-                    Praesent faucibus malesuada faucibus. Donecertolin laoreet metus id laoreet malesuada.  orem ipsum dolor sit amet, consectetur adipiscing elit.
-                </div>
-                <div class="clear"></div>
-                <h2>Menu Items</h2>
-                
-           
+
+                    @*<div data-bind="foreach:getAllMenuItems">*@
+                    <div data-bind="foreach:menuItems">
 
 
-                @*<div data-bind="foreach:getAllMenuItems">*@
-                <div data-bind="foreach:menuItems">
-                
-                   
-                    @*<a style="margin-bottom:50px" data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>*@
-                    <div class="gall_bot">
-                        <div class="text1">
-                           
-                            
+                        @*<a style="margin-bottom:50px" data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>*@
+                        <div class="gall_bot">
+                            <div class="text1">
+
+
                                 <span data-bind="text:Name"></span>
-                                
+
                                 @*<div> @Html.DisplayNameFor(m=>m.photo) alt="" </div>*@
                                 @*<div><img src="@Url.Content(@Model.photo)" alt=""></div>*@
-                                <img data-bind="attr: { src: 'data:image/gif;base64,' + ImageData }" alt=""  >
+                                <img data-bind="attr: { src: 'data:image/gif;base64,' + ImageData }" alt="">
                                 @*<img src="@Url.Content(@Model.photo)" />*@
 
 
-                            
-                            <a  title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
-                               class="btn btn-success btn-circle">Add To Cart</a>
-                            
+
+                                <button title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
+                                        class="btn btn-success btn-circle">
+                                    @Resources.AddtoCart
+                                </button>
+
+                            </div>
+
+                            <br>
+
+                            <p>@Resources.Price:<span data-bind="text:Price"></span></p>
+
+                            <p>@Resources.Type:<span data-bind="text:Type"></span></p>
+
+                            <p>@Resources.Description:<span data-bind="text:Description"></span></p>
+                            @*<a data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="btn">more</a>*@
                         </div>
-                       
-                        <br>
-                        
-                        <p>Price:<span data-bind="text:Price"></span></p>
-                        
-                        <p>Type:<span data-bind="text:Type"></span></p>
-                        
-                        <p>Description:<span data-bind="text:Description"></span></p>
-                        @*<a data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="btn">more</a>*@
                     </div>
+
+
+
+                </div>
+                <div class="grid_4">
+                    <h2>@Resources.YourOrder</h2>
+                    <form id="bookingForm">
+
+                        <span>@Resources.item</span>
+                        &nbsp;&nbsp;
+                        <span>@Resources.Price</span>
+                        <br />
+                        <div data-bind="foreach:orderItems">
+                            <span data-bind="text:MenuItem.Name"></span>
+                            &nbsp;&nbsp;&nbsp;
+                            <span data-bind="text:MenuItem.Price"></span>
+                            <br />
+                        </div>
+                        <hr />
+                        <div>
+                            <span>@Resources.Total</span>
+                            <span data-bind="text:total"></span>
+                        </div>
+
+                        <div data-bind="visible:orderItems().length>0" class="ta__right">
+                            <button data-bind="click:checkout" class="btn" data-type="submit">  @Resources.proceedtocheckout</button>
+                        </div>
+                        <div data-bind="visible:orderItems().length>0" class="ta__right">
+                            <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
+                        </div>
+                    </form>
                 </div>
 
-
-
-            </div>
-            <div class="grid_4">
-                <h2>Your order</h2>
-                <form id="bookingForm">
-                    
-                    <span>Item</span>
-                    &nbsp;&nbsp;
-                    <span>Price</span>
-                    <br />
-                    <div data-bind="foreach:orderItems">
-                        <span data-bind="text:MenuItem.Name"></span>
-                        &nbsp;&nbsp;&nbsp;
-                        <span data-bind="text:MenuItem.Price"></span>
-                        <br />
-                    </div>
-                    <hr />
-                    <div>
-                        <span>Total</span>
-                        <span data-bind="text:total"></span>
-                    </div>
-                    
-                    <div data-bind="visible:orderItems().length>0" class="ta__right">
-                        <a href="#" class="btn" data-type="submit">  Proceed to checkout </a>
-                    </div>
-                </form>
             </div>
 
         </div>
+       
 
-    </div>
-</section>
+    </section>
+
+
 <script>
     var app = new CustomerMenuItemViewModel(@ViewBag.id);
     ko.applyBindings(app)
