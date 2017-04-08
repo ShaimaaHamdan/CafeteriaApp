@@ -42,7 +42,9 @@ namespace CafeteriaApp.Web
                      "~/Scripts/Customer/menuitem.js",
                      "~/Scripts/Customer/order.js",
                      "~/Scripts/Customer/orderitem.js",
+                     "~/Scripts/Customer/profile.js",
                      "~/Scripts/knockout-file-bindings.js"
+                     
                      ));
         }
     }

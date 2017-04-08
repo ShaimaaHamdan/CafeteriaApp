@@ -21,7 +21,7 @@ namespace CafeteriaApp.Web.Models
 
         public int CustomerId { get; set; }
 
-        public string Image { get; set; }
+        public string ImageData { get; set; }
 
         public CustomerViewModel Customer { get; set; } 
     }

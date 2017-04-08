@@ -1,0 +1,113 @@
+﻿<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap Edit profile form</title>
+    <base target="_self">
+    <meta name="description" content="User information form snippet with timezones">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" value="notranslate">
+    <link rel="shortcut icon" href="/images/cp_ico.png">
+
+
+
+    <!--stylesheets / link tags loaded here-->
+
+
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+
+    <style type="text/css">/* CSS used here will be applied after bootstrap.css */</style>
+
+</head>
+
+<body>
+<div class="container">
+    <h1>Add Child</h1>
+    <hr>
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-3" data-bind="fileDrag: fileData">
+
+            <div class="image-upload-preview">
+                <img width="370" height="266" data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL">
+            </div>
+
+            <div class="image-upload-input">
+                <input type="file" data-bind="fileInput: fileData,customFileInput: {}">
+            </div>
+
+        </div>
+
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-coffee"></i>
+                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+            </div>
+            <h3>Child info</h3>
+
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Name:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" data-bind="textInput:model().name" name="name" id="name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Age</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" data-bind="textInput:model().age" name="age" id="age" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">School Year:</label>
+                    <div class="col-lg-8">
+                        <div class="ui-select">
+                            <select id="user_time_zone" class="form-control" >
+                                <option value="Hawaii">First</option>
+                                <option value="Alaska">Second</option>
+                                <option value="Pacific Time (US &amp; Canada)">Third</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Day Credit:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" data-bind="textInput:model().dayLimit" name="dayLimit" id="dayLimit" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Total Credit:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" data-bind="textInput:model().dependentCredit" name="dependentCredit" id="dependentCredit" required>
+                    </div>
+                </div>
+                
+                    
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <input type="button" data-bind="click:save" class="btn btn-primary" value="Save Changes">
+                        <span></span>
+                        <input type="reset" class="btn btn-default" value="Cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+</body>
+</html>
+<script>
+    var app = new ChildNewViewModel();
+
+    ko.applyBindings(app);
+</script>
