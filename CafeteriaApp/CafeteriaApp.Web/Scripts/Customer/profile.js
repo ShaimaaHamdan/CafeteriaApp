@@ -70,8 +70,8 @@
             self.model().phoneNumber(data.User.PhoneNumber);
             self.model().credit(data.LimitedCredit);
            
-            self.fileData().dataURL('data:image/gif;base64,' + data.ImageData);
-            self.fileData().base64String(data.ImageData);
+            self.fileData().dataURL('data:image/gif;base64,' + data.User.ImageData);
+            self.fileData().base64String(data.User.ImageData);
            }).fail(self.showError);
     };
     self.getCustomerById();
