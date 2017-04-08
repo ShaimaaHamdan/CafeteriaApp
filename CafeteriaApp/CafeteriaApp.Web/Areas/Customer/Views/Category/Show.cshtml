@@ -64,10 +64,24 @@
                 <div class="grid_4">
                     <h2>@Resources.YourOrder</h2>
                     <form id="bookingForm">
+                       
+                        @if (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft())
+                        {
+                            <span>@Resources.Price</span>
+                            <span>&nbsp;&nbsp;</span>
+                            <span>@Resources.item</span>
+                        }
+                        else
+                        {
 
                         <span>@Resources.item</span>
-                        &nbsp;&nbsp;
+                        <span>&nbsp;&nbsp;</span>
                         <span>@Resources.Price</span>
+
+                        }
+
+                         
+                        
                         <br />
                         <div data-bind="foreach:orderItems">
                             <span data-bind="text:MenuItem.Name"></span>
