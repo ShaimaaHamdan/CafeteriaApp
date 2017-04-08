@@ -212,6 +212,8 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\Admin\SuperAdminAuthorize.cs" />
+    <Compile Include="Areas\Chef\ChefAreaRegistration.cs" />
+    <Compile Include="Areas\Chef\Controllers\OrderController.cs" />
     <Compile Include="Areas\Customer\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Customer\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Customer\Controllers\MenuItemController.cs" />
@@ -249,6 +251,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdditionController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CafeteriaController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -262,6 +265,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -485,8 +489,11 @@
     <Content Include="Areas\Customer\Views\Profile\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Profile\Create.cshtml" />
     <Content Include="Areas\Customer\Views\Profile\Edit.cshtml" />
+    <Content Include="Areas\Chef\Views\web.config" />
+    <Content Include="Areas\Chef\Views\Order\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
+    <Content Include="Scripts\Chef\order.js" />
     <Content Include="Scripts\CustomerTheme\fonts\fontawesome-webfont.svg" />
     <Content Include="Scripts\CustomerTheme\images\btats.jpg" />
     <Content Include="Scripts\CustomerTheme\images\fol.jpg" />
@@ -561,8 +568,6 @@
     <Content Include="Scripts\Customer\cafeteria.js" />
     <Content Include="Scripts\Customer\category.js" />
     <Content Include="Scripts\Customer\menuitem.js" />
-    <Content Include="Scripts\Customer\order.js" />
-    <Content Include="Scripts\Customer\orderitem.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -618,8 +623,11 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Chef\Models\" />
+    <Folder Include="Areas\Chef\Views\Shared\" />
     <Folder Include="Areas\Customer\Models\" />
     <Folder Include="Areas\Customer\Views\MenuItem\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -633,6 +641,10 @@
     <ProjectReference Include="..\CafeteriaApp.Data\CafeteriaApp.Data.csproj">
       <Project>{d53fa9cb-52c5-4ba1-80f1-491c7d0d7a20}</Project>
       <Name>CafeteriaApp.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{fbda222a-d1b7-48bd-a170-e6ce0f5dbf9a}</Project>
+      <Name>Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

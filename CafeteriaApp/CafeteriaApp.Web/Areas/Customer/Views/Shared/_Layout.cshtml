@@ -198,7 +198,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="@CafeteriaApp.Web.Helpers.CultureHelper.GetCurrentNeutralCulture()" dir="@(CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft() ? "rtl" : "ltr")">
 <head>
     <title>Menu</title>
     <meta charset="utf-8">
@@ -208,6 +208,7 @@
     <link rel="stylesheet" href="/Content/Customer/stuck.css">
     <link rel="stylesheet" href="/Content/Customer/style.css">
     <link rel="stylesheet" href="/Content/Customer/touchTouch.css">
+    <!--<link rel="stylesheet" href="~/Content/css/bootstrap-rtl.css" />-->
     <script src="/Scripts/jquery-1.10.2.js"></script>
     @*<script src="js/jquery-migrate-1.1.1.js"></script>*@
     <script src="/Scripts/CustomerTheme/script.js"></script>
@@ -218,6 +219,7 @@
     <script src="/Scripts/CustomerTheme/tmStickUp.js"></script>
     <script src="/Scripts/CustomerTheme/jquery.ui.totop.js"></script>
     <script src="/Scripts/CustomerTheme/touchTouch.jquery.js"></script>
+    <script src="~/Scripts/bootstrap-rtl.js"></script>
 
     <script>
  $(document).ready(function(){
@@ -271,13 +273,12 @@
                                         <a style="margin-top:20px" data-bind="attr:{href:'/Customer/Cafeteria/show/'+Id}" class="btn"><div data-bind="text:Name"></div></a>
 
                                     </li>*@
-                                    <li><a href="index.html">home</a></li>
-                                    <li class="current"><a href="index-1.html">menu</a></li>
-                                    <li><a href="index-2.html">reservation</a></li>
-                                    <li><a href="index-3.html">blog</a></li>
-                                    <li><a href="index-4.html">contacts</a></li>
+                                    <li><a data-bind="attr:{href:'/Home/Index/'}">@Resources.home</a></li>
+                                    <li class="current"><a href="index-1.html">@Resources.menu</a></li>
+                                    <li><a href="index-2.html">@Resources.reservation</a></li>
+                                    <li><a href="index-3.html">@Resources.blog</a></li>
+                                    <li><a href="index-4.html">@Resources.contacts</a></li>
                                     <li><a href="~/Customer/Profile/Index">profile</a></li>
-                                   
                                 </ul>
                             </nav>
                             <div class="clear"></div>
@@ -326,7 +327,8 @@
         </div>
     </div>
 </footer>*@
+    @Scripts.Render("~/bundles/bootstrap" + (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft() ? "-rtl" : ""))
     @RenderSection("scripts", required: false)
 </body>
 </html>
-
+<script src="~/Scripts/bootstrap-rtl.js"></script>

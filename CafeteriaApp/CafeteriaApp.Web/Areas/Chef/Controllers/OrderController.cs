@@ -1,33 +1,32 @@
-﻿using CafeteriaApp.Web.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CafeteriaApp.Web.Areas.Customer.Controllers
+namespace CafeteriaApp.Web.Areas.Chef.Controllers
 {
-    public class MenuItemController : BaseController
+    public class OrderController : Controller
     {
-        // GET: Customer/MenuItem
+        // GET: Chef/Order
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Customer/MenuItem/Details/5
+        // GET: Chef/Order/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Customer/MenuItem/Create
+        // GET: Chef/Order/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customer/MenuItem/Create
+        // POST: Chef/Order/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -43,13 +42,13 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
             }
         }
 
-        // GET: Customer/MenuItem/Edit/5
+        // GET: Chef/Order/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Customer/MenuItem/Edit/5
+        // POST: Chef/Order/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -65,13 +64,13 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
             }
         }
 
-        // GET: Customer/MenuItem/Delete/5
+        // GET: Chef/Order/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Customer/MenuItem/Delete/5
+        // POST: Chef/Order/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

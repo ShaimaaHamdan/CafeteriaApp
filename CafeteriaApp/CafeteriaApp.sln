@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeteriaApp.Data", "Cafete
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeteriaApp.Web", "CafeteriaApp.Web\CafeteriaApp.Web.csproj", "{EC41B083-982D-4DBD-8032-5C7DE129F41A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{FBDA222A-D1B7-48BD-A170-E6CE0F5DBF9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EC41B083-982D-4DBD-8032-5C7DE129F41A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC41B083-982D-4DBD-8032-5C7DE129F41A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC41B083-982D-4DBD-8032-5C7DE129F41A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBDA222A-D1B7-48BD-A170-E6CE0F5DBF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBDA222A-D1B7-48BD-A170-E6CE0F5DBF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBDA222A-D1B7-48BD-A170-E6CE0F5DBF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBDA222A-D1B7-48BD-A170-E6CE0F5DBF9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
