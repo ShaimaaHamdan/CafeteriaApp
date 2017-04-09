@@ -491,7 +491,7 @@
     <Content Include="Areas\Customer\Views\Profile\EditChild.cshtml" />
     <Content Include="Areas\Chef\Views\web.config" />
     <Content Include="Areas\Chef\Views\Order\Index.cshtml" />
-    <Content Include="Areas\Customer\Views\Profile\AddRestriction.cshtml" />
+    <Content Include="Areas\Customer\Views\Profile\AddChildRestriction.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
     <Content Include="Scripts\Chef\order.js" />

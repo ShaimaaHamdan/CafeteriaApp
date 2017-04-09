@@ -25,7 +25,7 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
             return View();
         }
 
-        public ActionResult AddRestriction(int id)
+        public ActionResult AddChildRestriction(int id)
         {
             ViewBag.restrictionId = id;
             return View();

@@ -1,0 +1,31 @@
+﻿<div class="container">
+    <form>
+        <div class="form-group">
+            <label>Please Select Your Cafetria :</label>
+            <select class="form-control"
+                    data-bind="options:cafetria,optionsText: 'Name',
+                       selectedOptions: selectedCafetria"></select>
+        </div>
+        <div class="form-group">
+            <label>Please Select Category :</label>
+            <select class="form-control"
+                    data-bind="options:categories,optionsText: 'Name',
+                       selectedOptions: selectedcategory"></select>
+        </div>
+        <div class="form-group">
+            <label>Please Select Menu Item To Restrict :</label>
+            <select class="form-control"
+                    data-bind="options:menuItems,optionsText: 'Name',
+                       selectedOptions: selectedMenuItem"></select>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8" style="direction: rtl">
+                <input type="button" data-bind="click:save" class="btn btn-lg btn-primary" value="Save">
+                <span></span>
+                <input type="reset" class="btn btn-lg btn-default" value="Cancel">
+            </div>
+        </div>
+    </form>
+</div>
