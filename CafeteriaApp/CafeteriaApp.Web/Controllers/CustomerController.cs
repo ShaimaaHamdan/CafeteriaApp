@@ -361,7 +361,23 @@ namespace CafeteriaApp.Web.Controllers
             appdb.SaveChanges();
             return Ok();
         }
-
+        [HttpDelete]
+        [Route("DeleteDependentRestricts")]
+        public IHttpActionResult DeleteDependentRestricts(DependentRestrictViewModel model)
+        {
+            var dependent = appdb.Dependents.FirstOrDefault(m => m.Id == model.DependentId);
+            if (dependent != null)
+            {
+                var restrictToRemove = appdb.MenuItems.FirstOrDefault(i => i.Id == model.MenuItemId);
+                dependent.Restricts.Remove(restrictToRemove);
+                appdb.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
 
         [HttpPost]
@@ -451,6 +467,11 @@ namespace CafeteriaApp.Web.Controllers
     {
         public int MenuItemId { get; set; }
         public int CustomerId { get; set; }
+    }
+    public class DependentRestrictViewModel
+    {
+        public int MenuItemId { get; set; }
+        public int DependentId { get; set; }
     }
 }
 
