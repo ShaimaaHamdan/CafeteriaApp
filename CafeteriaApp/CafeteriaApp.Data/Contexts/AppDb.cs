@@ -70,6 +70,16 @@ namespace CafeteriaApp.Data.Contexts
                  cs.ToTable("CustomerRestrict");
              });
 
+            modelBuilder.Entity<Dependent>()
+             .HasMany<MenuItem>(s => s.Restricts)
+             .WithMany(c => c.DependentsRestricts)
+             .Map(cs =>
+             {
+                 cs.MapLeftKey("DependentId");
+                 cs.MapRightKey("MenuItemId");
+                 cs.ToTable("DependentRestrict");
+             });
+
             modelBuilder.Entity<User>()
            .HasMany<Role>(s => s.Roles)
            .WithMany(c => c.Persons)

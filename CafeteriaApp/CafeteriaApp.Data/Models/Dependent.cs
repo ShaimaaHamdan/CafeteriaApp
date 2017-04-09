@@ -31,5 +31,6 @@ namespace CafeteriaApp.Data.Models
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
 
+        public virtual ICollection<MenuItem> Restricts { get; set; }
     }
 }

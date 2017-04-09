@@ -24,5 +24,11 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
             ViewBag.Id = id;
             return View();
         }
+
+        public ActionResult AddRestriction(int id)
+        {
+            ViewBag.restrictionId = id;
+            return View();
+        }
     }
 }
