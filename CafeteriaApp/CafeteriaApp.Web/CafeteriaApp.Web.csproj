@@ -565,6 +565,7 @@
     <Content Include="Scripts\CustomerTheme\TMForm.js" />
     <Content Include="Scripts\CustomerTheme\tmStickUp.js" />
     <Content Include="Scripts\CustomerTheme\touchTouch.jquery.js" />
+    <Content Include="Scripts\Customer\childrestrict.js" />
     <Content Include="Scripts\Customer\profile.js" />
     <Content Include="Scripts\Customer\cafeteria.js" />
     <Content Include="Scripts\Customer\category.js" />

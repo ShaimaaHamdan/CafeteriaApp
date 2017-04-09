@@ -3,7 +3,7 @@
         <div class="form-group">
             <label>Please Select Your Cafetria :</label>
             <select class="form-control"
-                    data-bind="options:cafetria,optionsText: 'Name',
+                    data-bind="options:cafeterias(),optionsText: 'Name',
                        selectedOptions: selectedCafetria"></select>
         </div>
         <div class="form-group">
@@ -14,9 +14,9 @@
         </div>
         <div class="form-group">
             <label>Please Select Menu Item To Restrict :</label>
-            <select class="form-control"
+            <select multiple="multiple" class="form-control"
                     data-bind="options:menuItems,optionsText: 'Name',
-                       selectedOptions: selectedMenuItem"></select>
+                       selectedOptions: selectedMenuItems"></select>
         </div>
 
         <div class="form-group">
@@ -29,3 +29,8 @@
         </div>
     </form>
 </div>
+
+<script>
+    var app = new AddNewChildRestrictViewModel(@ViewBag.restrictionId);
+    ko.applyBindings(app);
+</script>
