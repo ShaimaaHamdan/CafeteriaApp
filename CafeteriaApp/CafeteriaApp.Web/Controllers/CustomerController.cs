@@ -262,6 +262,14 @@ namespace CafeteriaApp.Web.Controllers
                 DayLimit = dependent.DayLimit,
                 DependentCredit = dependent.DependentCredit,
                 CustomerId = dependent.CustomerId,
+                Restricts = dependent.Restricts.Select(i=>new MenuItemViewModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Price = i.Price,
+                    Type = i.Type,
+                    Description = i.Description
+                }).AsQueryable().ToList()
             };
 
             return Ok(new { dependent = model });
@@ -333,6 +341,28 @@ namespace CafeteriaApp.Web.Controllers
                 return NotFound();
             }
         }
+
+        [HttpPost]
+        [Route("addDependentRestricts")]
+        public IHttpActionResult AddRestricts([FromBody]DependentViewModel dependent)
+        {
+
+            var dependentObject = appdb.Dependents.FirstOrDefault(i => i.Id == dependent.Id);
+            if (dependentObject != null)
+            {
+                foreach (var restrict in dependent.Restricts)
+                {
+                    var restrictToAdd = appdb.MenuItems.FirstOrDefault(ad => ad.Id == restrict.Id);
+                    dependentObject.Restricts.Add(restrictToAdd);
+                }
+
+            }
+
+            appdb.SaveChanges();
+            return Ok();
+        }
+
+
 
 
         [HttpPost]

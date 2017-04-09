@@ -23,6 +23,8 @@ namespace CafeteriaApp.Web.Models
 
         public string ImageData { get; set; }
 
-        public CustomerViewModel Customer { get; set; } 
+        public CustomerViewModel Customer { get; set; }
+        public List<MenuItemViewModel> Restricts { get; set; }
+
     }
 }
