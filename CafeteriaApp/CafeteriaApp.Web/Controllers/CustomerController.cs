@@ -344,7 +344,7 @@ namespace CafeteriaApp.Web.Controllers
 
         [HttpPost]
         [Route("addDependentRestricts")]
-        public IHttpActionResult AddRestricts([FromBody]DependentViewModel dependent)
+        public IHttpActionResult AddDependentRestricts([FromBody]DependentViewModel dependent)
         {
 
             var dependentObject = appdb.Dependents.FirstOrDefault(i => i.Id == dependent.Id);
@@ -361,7 +361,6 @@ namespace CafeteriaApp.Web.Controllers
             appdb.SaveChanges();
             return Ok();
         }
-
 
 
 
