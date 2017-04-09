@@ -99,7 +99,9 @@
                 data: JSON.stringify(data)
             }).done(function (result) {
                 console.log(result);
-                document.location = '/customer/profile/';
+                alertify.success("Changes to your profile updated successfully !!");
+
+                document.location = '/Customer/cafeteria/index';
                 console.log(password);
             }).fail(self.showError);
         } else {
@@ -109,7 +111,7 @@
     }
 
     self.cancel = function () {
-        document.location = '/customer/profile/' ;
+        document.location = '/Customer/cafeteria/index/';
     }
 
     self.getChildByCustomerId = function () {
@@ -225,6 +227,14 @@ function ChildNewViewModel() {
 }
 
 function ChildEditViewModel(id) {
+
+
+    //Get Child by id
+
+
+    //Save and redirect to profile page
+
+    //Get All Restrict and bind it to grid
 
     
 }

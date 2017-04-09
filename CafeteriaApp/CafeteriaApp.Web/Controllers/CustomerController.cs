@@ -171,6 +171,9 @@ namespace CafeteriaApp.Web.Controllers
             });
         }
 
+
+      
+
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
@@ -241,6 +244,29 @@ namespace CafeteriaApp.Web.Controllers
             return Ok();
         }
 
+        [Route("GetDependentById/{id}")]
+        public IHttpActionResult GetDependentById(int id)
+        {
+            var dependent = appdb.Dependents.FirstOrDefault(c => c.Id == id);
+
+            if (dependent == null)
+                return NotFound();
+
+            var model = new DependentViewModel()
+            {
+                Name = dependent.Name,
+                Age = dependent.Age,
+                Id = dependent.Id,
+                ImageData = dependent.Image,
+                SchoolYear = dependent.SchoolYear,
+                DayLimit = dependent.DayLimit,
+                DependentCredit = dependent.DependentCredit,
+                CustomerId = dependent.CustomerId,
+            };
+
+            return Ok(new { dependent = model });
+        }
+
         [HttpPost]
         [Route("addDependents")]
         public IHttpActionResult AddDependents(DependentViewModel dependent)
@@ -264,6 +290,32 @@ namespace CafeteriaApp.Web.Controllers
             appdb.SaveChanges();
             return Ok();
         }
+
+
+        [HttpPut]
+        [Route("editDependent")]
+        public IHttpActionResult EditDependents(DependentViewModel dependent)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            var dependentToUpdate = appdb.Dependents.FirstOrDefault(d => d.Id == dependent.Id);
+            if (dependentToUpdate != null)
+            {
+                dependentToUpdate.Age = dependent.Age;
+                dependentToUpdate.DayLimit = dependent.DayLimit;
+                dependentToUpdate.DependentCredit = dependent.DependentCredit;
+                dependentToUpdate.Image = dependent.ImageData;
+                dependentToUpdate.Name = dependent.Name;
+                dependentToUpdate.SchoolYear = dependent.SchoolYear;
+            }
+
+            appdb.SaveChanges();
+            return Ok();
+        }
+
 
         [HttpDelete]
         [Route("DeleteCustomerDependent")]
