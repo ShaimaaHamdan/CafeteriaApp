@@ -51,7 +51,6 @@ namespace CafeteriaApp.Web.Controllers
             return Ok(new { orderItems = orderItems });
 
         }
-
         public IHttpActionResult Get(int id)
         {
             var orderitem = appdb.OrderItems.FirstOrDefault(o => o.Id == id);
@@ -150,6 +149,7 @@ namespace CafeteriaApp.Web.Controllers
                 Quantity = orderitem.Quantity,
                 MenuItemId = orderitem.MenuItemId,
                 OrderId = order.Id,
+                Order = order
             });
             appdb.SaveChanges();
             return Ok();
@@ -169,6 +169,8 @@ namespace CafeteriaApp.Web.Controllers
             {
                 existingOrderitem.Id = orderitem.Id;
                 existingOrderitem.Quantity = orderitem.Quantity;
+                //existingOrderitem.OrderId = orderitem.OrderId;
+                //existingOrderitem.
                 
                 appdb.SaveChanges();
             }
@@ -180,5 +182,6 @@ namespace CafeteriaApp.Web.Controllers
 
             return Ok();
         }
+       
     }
 }

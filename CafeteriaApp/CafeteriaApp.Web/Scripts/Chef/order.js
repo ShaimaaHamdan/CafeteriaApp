@@ -9,7 +9,7 @@
     self.paymentmethod = ko.observable();
     self.orderstatus = ko.observable();
     self.deliveryplace = ko.observable();
-    self.orderitems = ko.observableArray();
+    //self.orderItems = ko.observableArray();
     self.showError = function (jqXHR) {
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
         var response = jqXHR.responseJSON;
@@ -40,5 +40,17 @@
             self.orders(data.orders)
         }).fail(self.showError);
     };
+   
     self.getAllOrders();
+
+    self.inprogress = function () {
+
+    }
+
+
+    self.finish = function () {
+
+    }
+   
+
 }

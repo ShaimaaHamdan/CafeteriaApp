@@ -67,9 +67,13 @@
                        
                         @if (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft())
                         {
+                            @*<span>@Resources.Quantity</span>
+                            <span>&nbsp;&nbsp;</span>*@
                             <span>@Resources.Price</span>
                             <span>&nbsp;&nbsp;</span>
                             <span>@Resources.item</span>
+                            
+                            <span>&nbsp;&nbsp;</span>
                         }
                         else
                         {
@@ -77,18 +81,48 @@
                         <span>@Resources.item</span>
                         <span>&nbsp;&nbsp;</span>
                         <span>@Resources.Price</span>
+                        
+                        <span>&nbsp;&nbsp;</span>
+                        
+                        <span>@Resources.Quantity</span>
+                        <span>&nbsp;&nbsp;</span>
 
                         }
 
                          
                         
                         <br />
+
                         <div data-bind="foreach:orderItems">
+                            
                             <span data-bind="text:MenuItem.Name"></span>
                             &nbsp;&nbsp;&nbsp;
+                           
                             <span data-bind="text:MenuItem.Price"></span>
+                            &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                           
+                            <span  data-bind="text:Quantity"></span>
+                            &nbsp;&nbsp;&nbsp;
+                            <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger "title="deleteallitems">Delete All</button></span>
+                            
+                            
+                       
+                            &nbsp;&nbsp;&nbsp;
+                           
+                            <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="deleteanitem">Delete</button></span>
+                            &nbsp;&nbsp;&nbsp;
+                    
+                            <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother"id="addToCart" class="btn btn-success btn-circle" title="addanotheritem"><i class="fa fa-plus"></i></button></span>
+                            &nbsp;&nbsp;&nbsp;
                             <br />
-                        </div>
+                           
+                            <br />
+                         </div>
+                       
+                        <span><button type="submit" data-bind="click:enterdeliveryplace">Enter Delivery Place</button></span>*@
+                        <span><button type="submit" data-bind="click:enterpaymentmethod">Enter Payment Method</button></span>*@
                         <hr />
                         <div>
                             <span>@Resources.Total</span>

@@ -29,6 +29,25 @@ namespace CafeteriaApp.Web.Controllers
                 PaymentMethod = order.PaymentMethod,
                 PaymentDone = order.PaymentDone,
                 customerid = order.CustomerId,
+                OrderItems = order.OrderItems.Select(orderitem => new OrderItemViewModel
+                {
+                    Id = orderitem.Id,
+                    Quantity = orderitem.Quantity,
+                    MenuItemId = orderitem.MenuItemId,
+                    OrderId = orderitem.OrderId,
+                    MenuItem = new MenuItemViewModel()
+                    {
+                        Id = orderitem.MenuItem.Id,
+                        Name = orderitem.MenuItem.Name,
+                        Description = orderitem.MenuItem.Description,
+                        Price = orderitem.MenuItem.Price,
+                        Type = orderitem.MenuItem.Type,
+                        CategoryId = orderitem.MenuItem.CategoryId
+                    }
+
+                }).ToList(),
+                //OrderItems =(new OrderItemViewModel() {
+                //})
                 customer = new CustomerViewModel()
                 {
                    Id = order.Customer.Id,
@@ -36,7 +55,9 @@ namespace CafeteriaApp.Web.Controllers
                    LimitedCredit = order.Customer.LimitedCredit,
                    UserId = order.Customer.UserId
 
-                }                
+                }
+               
+                          
 
             }).ToList();
 
@@ -177,7 +198,7 @@ namespace CafeteriaApp.Web.Controllers
             }
 
             var existingOrder = appdb.Orders.Where(x => x.Id == order.Id).FirstOrDefault<Order>();
-
+            var z = order;
             if (existingOrder != null)
             {
                 existingOrder.Id = order.Id;
@@ -187,7 +208,6 @@ namespace CafeteriaApp.Web.Controllers
                 existingOrder.DeliveryPlace = order.DeliveryPlace;
                 existingOrder.PaymentMethod = order.PaymentMethod;
                 existingOrder.PaymentDone = order.PaymentDone;
-                
                 appdb.SaveChanges();
             }
             else

@@ -43,6 +43,7 @@ namespace CafeteriaApp.Web
                      "~/Scripts/Customer/order.js",
                      "~/Scripts/Customer/orderitem.js",
                      "~/Scripts/Customer/profile.js",
+                     "~/Scripts/Chef/order.js",
                      "~/Scripts/Customer/childrestrict.js",
                      "~/Scripts/knockout-file-bindings.js"
                      

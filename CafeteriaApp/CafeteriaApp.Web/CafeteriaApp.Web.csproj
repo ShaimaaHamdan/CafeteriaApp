@@ -484,14 +484,14 @@
     <Content Include="Areas\Customer\Views\Cafeteria\Show.cshtml" />
     <Content Include="Areas\Customer\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Category\Show.cshtml" />
-    <Content Include="Areas\Customer\Views\Order\Create.cshtml" />
-    <Content Include="Areas\Customer\Views\Order\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Profile\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Profile\Create.cshtml" />
     <Content Include="Areas\Customer\Views\Profile\EditChild.cshtml" />
     <Content Include="Areas\Chef\Views\web.config" />
     <Content Include="Areas\Chef\Views\Order\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Profile\AddChildRestriction.cshtml" />
+    <Content Include="Areas\Chef\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Chef\Views\Shared\_Layout.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy.pubxml" />
     <Content Include="Scripts\Chef\order.js" />
@@ -626,9 +626,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Chef\Models\" />
-    <Folder Include="Areas\Chef\Views\Shared\" />
     <Folder Include="Areas\Customer\Models\" />
     <Folder Include="Areas\Customer\Views\MenuItem\" />
+    <Folder Include="Areas\Customer\Views\Order\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

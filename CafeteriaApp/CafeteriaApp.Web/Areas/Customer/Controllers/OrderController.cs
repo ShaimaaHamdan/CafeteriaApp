@@ -14,6 +14,11 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
         {
             return View();
         }
+        public ActionResult Edit(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
 
         //// GET: Customer/Order/Details/5
         //public ActionResult Details(int id)

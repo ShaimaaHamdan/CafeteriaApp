@@ -1,12 +1,18 @@
 ﻿function CustomerMenuItemViewModel(id) {
     var self = this;
     self.categoryId = ko.observable(id);
-    self.customerId = ko.observable(1);
+    self.customerId = ko.observable(6);
     self.menuItemId = ko.observable();
     self.orderId = ko.observable();
     self.menuItems = ko.observableArray();
     self.cafeteriaId = ko.observable();
+   // self.orderitemId = ko.observable();
     self.name = ko.observable();
+    self.order = ko.observable();
+    //order.DeliveryPlace = ko.observable();
+    self.order.paymentmethod = ko.observable();
+    //self.deliveryplace = ko.observable();
+    //self.paymentmethod = ko.observable();
     
     self.model = ko.validatedObservable({
         firstName: ko.observable().extend({ required: true, maxLength: 100 }),
@@ -34,9 +40,9 @@
         /* e.g: */ fileArray: ko.observableArray(), base64StringArray: ko.observableArray()
     });
     //TODO need to get the id from the logged in user
-    self.customerId = ko.observable(1);
-
-    self.quantity = ko.observable(2);
+    self.customerId = ko.observable(6);
+    
+    self.quantity = ko.observable(1);
 
     self.orderItems = ko.observableArray();
 
@@ -54,6 +60,7 @@
             {
                 self.orderItems(data.order.OrderItems);
                 self.orderId(data.order.Id)
+                self.order(data.order)
             }
         }).fail(self.showError);
 
@@ -62,7 +69,7 @@
     self.total = ko.computed(function () {
         var total = 0;
         for (var p = 0; p < self.orderItems().length; ++p) {
-            total += self.orderItems()[p].MenuItem.Price;
+            total += (self.orderItems()[p].MenuItem.Price)*(self.orderItems()[p].Quantity);
         }
         return total;
     });
@@ -117,28 +124,136 @@
 
 
     self.getMenuItemByCategoryId();
-
+    
 
     self.addToCart = function (menuItem) {
+        var x = 0;
+        var z;
+        for (var i = 0; i < self.orderItems().length; ++i)
+        {
+            if (self.orderItems()[i].MenuItem.Id==menuItem.Id)
+            {
+                x = 1;
+                z = self.orderItems()[i];
+                break;
+            }
+        }
+        if (x == 1) {
+            self.addanother(z)
+        }
+        else {
+            var data = {
+                quantity: self.quantity(),
+                menuItemid: menuItem.Id,
+                orderid: self.orderId(),
+                customerid: self.customerId()
+            }
+            $.ajax({
+                type: 'Post',
+                url: '/api/OrderItem',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                console.log(result)
+                self.init();
+            }).fail(self.showError);
+        }
 
-
+    }
+    self.addanother = function (orderitem) {
         var data = {
-            quantity: self.quantity(),
-            menuItemid: menuItem.Id,
-            orderid: self.orderId(),
-            customerid: self.customerId()
+            id: orderitem.Id,  // id of orderitem to be passed in the put request
+            quantity: orderitem.Quantity+1, // increasing the quantity
+            menuItemid: self.menuItemId,
+            orderid: self.orderId,
+            customerid: self.customerId
         }
         $.ajax({
-            type: 'Post',
-            url: '/api/OrderItem',
+            type: 'PUT',
+            url: '/api/OrderItem/'+orderitem.Id,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (result) {
             console.log(result)
-            self.init();
+            document.location = '/customer/category/show/'+self.categoryId();
         }).fail(self.showError);
-
+        
+    };
+    self.deleteitem = function (orderitem) {
+        if (orderitem.Quantity == 1)
+        {
+            console.log("id=" + orderitem.Id);
+            $.ajax({
+                type: 'Delete',
+                url: '/api/OrderItem/' + orderitem.Id,
+                contentType: 'application/json; charset=utf-8',
+                data: { id: orderitem.Id }
+            }).done(function (data) {
+                console.log(data)
+                document.location = '/customer/category/show/' + self.categoryId();
+                //$('#myModal').modal('hide')
+                //alertify.success(self.name() + " cafeteria is deleted ");
+                //self.getAllCafeterias();
+            }).fail(self.showError)
+        }
+        else {
+            var data = {
+                id: orderitem.Id,  // id of orderitem to be passed in the put request
+                quantity: orderitem.Quantity - 1,
+                menuItemid: self.menuItemId,
+                orderid: self.orderId,
+                customerid: self.customerId
+            }
+            $.ajax({
+                type: 'PUT',
+                url: '/api/OrderItem/' + orderitem.Id,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                console.log(result)
+                document.location = '/customer/category/show/' + self.categoryId();
+            }).fail(self.showError);
+        }
     }
+    self.deleteall = function (orderitem) {
+        $.ajax({
+            type: 'Delete',
+            url: '/api/OrderItem/' + orderitem.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: { id: orderitem.Id }
+        }).done(function (data) {
+            console.log(data)
+            //document.location = '/customer/category/show/' + self.categoryId();
+            //$('#myModal').modal('hide')
+            //alertify.success(self.name() + " cafeteria is deleted ");
+            //self.getAllCafeterias();
+        }).fail(self.showError)
+    }
+    //self.enterdeliveryplace = function () {
+    //    var data={
+    //        id: self.orderId(),
+    //        deliveryplace: self.order.deliveryplace,
+    //        deliverytime: self.order.deliverytime,
+    //        orderstatus: self.order.orderstatus,
+    //        paymentmethod: self.order.paymentmethod,
+    //        paymentdone: self.order.paymentdone
+    //    }
+    //    $.ajax({
+    //        type: 'PUT',
+    //        url: '/api/Order/' + self.orderId(),
+    //        contentType: 'application/json; charset=utf-8',
+    //        data: JSON.stringify(data)
+    //    }).done(function (result) {
+    //        console.log(result)
+    //        document.location = '/customer/category/show/' + self.categoryId();
+    //    }).fail(self.showError);
+
+        
+    //}
+    ////self.enterpaymentmethod = function () {
+
+    ////}
+
     self.getCustomerById = function () {
         console.log(self.customerId());
         $.ajax({
@@ -204,7 +319,6 @@
         } else {
             alertify.error("Error,");
         }
-
     }
     self.cancel = function () {
         document.location = '/Customer/Cafeteria/Index';

@@ -231,4 +231,7 @@
   <data name="ShowCafeterias" xml:space="preserve">
     <value>Show Cafeterias</value>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
 </root>
