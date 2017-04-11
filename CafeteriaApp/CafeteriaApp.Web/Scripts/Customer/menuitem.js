@@ -223,7 +223,7 @@
             data: { id: orderitem.Id }
         }).done(function (data) {
             console.log(data)
-            //document.location = '/customer/category/show/' + self.categoryId();
+            document.location = '/customer/category/show/' + self.categoryId();
             //$('#myModal').modal('hide')
             //alertify.success(self.name() + " cafeteria is deleted ");
             //self.getAllCafeterias();
