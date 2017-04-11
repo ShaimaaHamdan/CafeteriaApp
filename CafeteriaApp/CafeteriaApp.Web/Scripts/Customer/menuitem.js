@@ -190,9 +190,9 @@
                 data: { id: orderitem.Id }
             }).done(function (data) {
                 console.log(data)
-                document.location = '/customer/category/show/' + self.categoryId();
+                //document.location = '/customer/category/show/' + self.categoryId();
                 //$('#myModal').modal('hide')
-                //alertify.success(self.name() + " cafeteria is deleted ");
+                alertify.success(orderitem.MenuItem.Name+ " is deleted from your order");
                 //self.getAllCafeterias();
             }).fail(self.showError)
         }
@@ -211,7 +211,8 @@
                 data: JSON.stringify(data)
             }).done(function (result) {
                 console.log(result)
-                document.location = '/customer/category/show/' + self.categoryId();
+                //document.location = '/customer/category/show/' + self.categoryId();
+                alertify.success('one '+ orderitem.MenuItem.Name + ' is deleted from your order');
             }).fail(self.showError);
         }
     }
@@ -223,10 +224,9 @@
             data: { id: orderitem.Id }
         }).done(function (data) {
             console.log(data)
-            document.location = '/customer/category/show/' + self.categoryId();
+            //document.location = '/customer/category/show/' + self.categoryId();
             //$('#myModal').modal('hide')
-            //alertify.success(self.name() + " cafeteria is deleted ");
-            //self.getAllCafeterias();
+            alertify.success(orderitem.MenuItem.Name + " is deleted from your order");
         }).fail(self.showError)
     }
     //self.enterdeliveryplace = function () {
