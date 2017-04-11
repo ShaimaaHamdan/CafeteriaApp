@@ -12,6 +12,10 @@
             </th>
             <th>
                 Quantity
+                <span>&nbsp;&nbsp;</span>
+            </th>
+            <th>
+                Order Status
             </th>
         </tr>
      </tbody>
@@ -24,13 +28,17 @@
               <td data-bind="foreach:OrderItems">
                   <div data-bind="text:Quantity"></div>
                 </td>
+            <td data-bind="text:OrderStatus">
+
+            </td>
+
                   
             </td>
-            @*<td><button type="button" id="myButton" data-bind="click:inprogress" class="btn btn-success">inprogress</button>
+            <td><button type="button" id="myButton" data-bind="click:$root.inprogress" class="btn btn-success">inprogress</button>
                 <span>&nbsp;&nbsp;</span>
             </td>
 
-            <td><button type="button" id="myButton" data-bind="click:finish" class="btn btn-success">finish</button></td>*@
+            <td><button type="button" id="myButton" data-bind="click:$root.finish" class="btn btn-success">finish</button></td>
         </tr>
     </tbody>
 </table>

@@ -149,7 +149,6 @@ namespace CafeteriaApp.Web.Controllers
                 Quantity = orderitem.Quantity,
                 MenuItemId = orderitem.MenuItemId,
                 OrderId = order.Id,
-                Order = order
             });
             appdb.SaveChanges();
             return Ok();

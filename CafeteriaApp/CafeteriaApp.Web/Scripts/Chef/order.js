@@ -43,13 +43,49 @@
    
     self.getAllOrders();
 
-    self.inprogress = function () {
-
+    self.inprogress = function (order) {
+        var data = {
+            id: order.Id,
+            customerid: order.CustomerId,
+            paymentmethod: order.PaymentMethod,
+            paymentdone: order.PaymentDone,
+            orderstatus: "inprogress",
+            ordertime: order.OrderTime,
+            deliveryplace: order.DeliveryPlace,
+            deliverytime: order.DeliveryTime
+        }
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Order/' + order.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (result) {
+            console.log(result)
+            document.location = '/Chef/Order/Index';
+        }).fail(self.showError);
     }
 
 
-    self.finish = function () {
-
+    self.finish = function (order) {
+        var data = {
+            id: order.Id,
+            customerid: order.CustomerId,
+            paymentmethod: order.PaymentMethod,
+            paymentdone: order.PaymentDone,
+            orderstatus: "completed",
+            ordertime: order.OrderTime,
+            deliveryplace: order.DeliveryPlace,
+            deliverytime: order.DeliveryTime
+        }
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Order/' + order.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (data) {
+            console.log(data)
+            document.location = '/Chef/Order/Index';
+        }).fail(self.showError);
     }
    
 

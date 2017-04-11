@@ -6,13 +6,9 @@
     self.orderId = ko.observable();
     self.menuItems = ko.observableArray();
     self.cafeteriaId = ko.observable();
-   // self.orderitemId = ko.observable();
     self.name = ko.observable();
     self.order = ko.observable();
-    //order.DeliveryPlace = ko.observable();
-    self.order.paymentmethod = ko.observable();
-    //self.deliveryplace = ko.observable();
-    //self.paymentmethod = ko.observable();
+    //self.order.paymentmethod = ko.observable();
     
     self.model = ko.validatedObservable({
         firstName: ko.observable().extend({ required: true, maxLength: 100 }),
@@ -180,54 +176,86 @@
         
     };
     self.deleteitem = function (orderitem) {
-        if (orderitem.Quantity == 1)
-        {
-            console.log("id=" + orderitem.Id);
-            $.ajax({
-                type: 'Delete',
-                url: '/api/OrderItem/' + orderitem.Id,
-                contentType: 'application/json; charset=utf-8',
-                data: { id: orderitem.Id }
-            }).done(function (data) {
-                console.log(data)
-                //document.location = '/customer/category/show/' + self.categoryId();
-                //$('#myModal').modal('hide')
-                alertify.success(orderitem.MenuItem.Name+ " is deleted from your order");
-                //self.getAllCafeterias();
-            }).fail(self.showError)
-        }
-        else {
-            var data = {
-                id: orderitem.Id,  // id of orderitem to be passed in the put request
-                quantity: orderitem.Quantity - 1,
-                menuItemid: self.menuItemId,
-                orderid: self.orderId,
-                customerid: self.customerId
+        $.ajax({
+            type: 'Get',
+            url: '/api/Order/' + orderitem.OrderId,
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (result) {
+            console.log(result)
+            if ((result.order.OrderStatus != 'inprogress') && (result.order.OrderStatus != 'completed')) {
+                if (orderitem.Quantity == 1) {
+                    console.log("id=" + orderitem.Id);
+                    $.ajax({
+                        type: 'Delete',
+                        url: '/api/OrderItem/' + orderitem.Id,
+                        contentType: 'application/json; charset=utf-8',
+                        data: { id: orderitem.Id }
+                    }).done(function (data) {
+                        console.log(data)
+                        alertify.success(orderitem.MenuItem.Name + " is deleted from your order");
+                    }).fail(self.showError)
+                }
+                else {
+                    var data = {
+                        id: orderitem.Id,  // id of orderitem to be passed in the put request
+                        quantity: orderitem.Quantity - 1,
+                        menuItemid: self.menuItemId,
+                        orderid: self.orderId,
+                        customerid: self.customerId
+                    }
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/OrderItem/' + orderitem.Id,
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data)
+                    }).done(function (result) {
+                        console.log(result)
+                        alertify.success('one ' + orderitem.MenuItem.Name + ' is deleted from your order');
+                    }).fail(self.showError);
+                }
             }
-            $.ajax({
-                type: 'PUT',
-                url: '/api/OrderItem/' + orderitem.Id,
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function (result) {
-                console.log(result)
-                //document.location = '/customer/category/show/' + self.categoryId();
-                alertify.success('one '+ orderitem.MenuItem.Name + ' is deleted from your order');
-            }).fail(self.showError);
-        }
+            else {
+                if (result.order.OrderStatus == "inprogress") {
+                    alertify.error('Sorry, Your order is in progress.You cannot delete')
+                }
+                if (result.order.OrderStatus == "completed") {
+                    alertify.error('Sorry, Your order is already finished.You cannot delete')
+                }
+            }
+        }).fail(self.showError);
+       
     }
     self.deleteall = function (orderitem) {
         $.ajax({
-            type: 'Delete',
-            url: '/api/OrderItem/' + orderitem.Id,
-            contentType: 'application/json; charset=utf-8',
-            data: { id: orderitem.Id }
-        }).done(function (data) {
-            console.log(data)
-            //document.location = '/customer/category/show/' + self.categoryId();
-            //$('#myModal').modal('hide')
-            alertify.success(orderitem.MenuItem.Name + " is deleted from your order");
-        }).fail(self.showError)
+            type: 'Get',
+            url: '/api/Order/' + orderitem.OrderId,
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (result) {
+            if (result.order.OrderStatus != "inprogress" && result.order.OrderStatus != "completed") {
+                $.ajax({
+                    type: 'Delete',
+                    url: '/api/OrderItem/' + orderitem.Id,
+                    contentType: 'application/json; charset=utf-8',
+                    data: { id: orderitem.Id }
+                }).done(function (data) {
+                    console.log(data)
+                    //document.location = '/customer/category/show/' + self.categoryId();
+                    //$('#myModal').modal('hide')
+                    alertify.success(orderitem.MenuItem.Name + " is deleted from your order");
+                }).fail(self.showError)
+            }
+            else {
+                if (result.order.OrderStatus=="inprogress")
+                {
+                    alertify.error('Sorry,Your order is in progress.You cannot delete');
+                }
+                if (result.order.OrderStatus=="completed")
+                {
+                    alertify.error('Sorry,Your order is already fnished.You cannot delete');
+                }
+            }
+            }).fail(showError)
+        
     }
     //self.enterdeliveryplace = function () {
     //    var data={
