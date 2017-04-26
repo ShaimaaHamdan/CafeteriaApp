@@ -149,7 +149,106 @@ namespace CafeteriaApp.Web.Controllers
 
             return Ok(new { order = model });
         }
+        [HttpGet]
+        [Route("GetAllbyCustomerId/{id}")]
+        public IHttpActionResult GetAllbyCustomerId(int id)
+        {
+            var orders1 = appdb.Orders.Where(o => o.CustomerId == id).ToList();
+            var orders = orders1.Select(order => new OrderViewModel()
+            {
+                Id = order.Id,
+                OrderTime = order.OrderTime,
+                OrderStatus = order.OrderStatus,
+                DeliveryTime = order.DeliveryTime,
+                DeliveryPlace = order.DeliveryPlace,
+                PaymentMethod = order.PaymentMethod,
+                PaymentDone = order.PaymentDone,
+                customerid = order.CustomerId,
+                OrderItems = order.OrderItems.Select(orderitem => new OrderItemViewModel
+                {
+                    Id = orderitem.Id,
+                    Quantity = orderitem.Quantity,
+                    MenuItemId = orderitem.MenuItemId,
+                    OrderId = orderitem.OrderId,
+                    MenuItem = new MenuItemViewModel()
+                    {
+                        Id = orderitem.MenuItem.Id,
+                        Name = orderitem.MenuItem.Name,
+                        Description = orderitem.MenuItem.Description,
+                        Price = orderitem.MenuItem.Price,
+                        Type = orderitem.MenuItem.Type,
+                        CategoryId = orderitem.MenuItem.CategoryId
+                    }
 
+                }).ToList(),
+                customer = new CustomerViewModel()
+                {
+                    Id = order.Customer.Id,
+                    Credit = order.Customer.Credit,
+                    LimitedCredit = order.Customer.LimitedCredit,
+                    UserId = order.Customer.UserId
+
+                }
+
+
+
+            }).ToList();
+
+            return Ok(new { orders = orders });
+        }
+        [HttpGet]
+        [Route("Getlastorder/{id}")]
+        public IHttpActionResult Getlastorder(int id)
+        {
+            var orders = appdb.Orders.Where(o => o.CustomerId == id).ToList();
+            var order = orders[orders.Count() - 1];
+            if (order == null)
+            {
+                return Ok(new { });
+            }
+
+
+            var model = new OrderViewModel()
+            {
+
+                Id = order.Id,
+                OrderTime = order.OrderTime,
+                OrderStatus = order.OrderStatus,
+                DeliveryTime = order.DeliveryTime,
+                DeliveryPlace = order.DeliveryPlace,
+                PaymentMethod = order.PaymentMethod,
+                PaymentDone = order.PaymentDone,
+                customerid = order.CustomerId,
+                customer = new CustomerViewModel()
+                {
+                    Id = order.Customer.Id,
+                    Credit = order.Customer.Credit,
+                    LimitedCredit = order.Customer.LimitedCredit,
+                    UserId = order.Customer.UserId
+
+                },
+                OrderItems = order.OrderItems?.Select(orderitem => new OrderItemViewModel
+                {
+                    Id = orderitem.Id,
+                    Quantity = orderitem.Quantity,
+                    MenuItemId = orderitem.MenuItemId,
+                    OrderId = orderitem.OrderId,
+                    MenuItem = new MenuItemViewModel()
+                    {
+                        Id = orderitem.MenuItem.Id,
+                        Name = orderitem.MenuItem.Name,
+                        Description = orderitem.MenuItem.Description,
+                        Price = orderitem.MenuItem.Price,
+                        Type = orderitem.MenuItem.Type,
+                        CategoryId = orderitem.MenuItem.CategoryId
+                    }
+
+                }).ToList()
+            };
+
+
+            return Ok(new { order = model });
+        }
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {

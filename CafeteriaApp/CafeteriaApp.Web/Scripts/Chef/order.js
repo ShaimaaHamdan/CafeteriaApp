@@ -9,7 +9,6 @@
     self.paymentmethod = ko.observable();
     self.orderstatus = ko.observable();
     self.deliveryplace = ko.observable();
-    //self.orderItems = ko.observableArray();
     self.showError = function (jqXHR) {
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
         var response = jqXHR.responseJSON;
@@ -64,7 +63,27 @@
             document.location = '/Chef/Order/Index';
         }).fail(self.showError);
     }
-
+    self.waiting = function (order) {
+        var data = {
+            id: order.Id,
+            customerid: order.CustomerId,
+            paymentmethod: order.PaymentMethod,
+            paymentdone: order.PaymentDone,
+            orderstatus: "waiting",
+            ordertime: order.OrderTime,
+            deliveryplace: order.DeliveryPlace,
+            deliverytime: order.DeliveryTime
+        }
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Order/' + order.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (result) {
+            console.log(result)
+            document.location = '/Chef/Order/Index';
+        }).fail(self.showError);
+    }
 
     self.finish = function (order) {
         var data = {

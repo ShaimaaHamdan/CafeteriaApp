@@ -1,15 +1,14 @@
 ﻿function CustomerMenuItemViewModel(id) {
     var self = this;
     self.categoryId = ko.observable(id);
-    self.customerId = ko.observable(6);
+    self.customerId = ko.observable(7);
     self.menuItemId = ko.observable();
     self.orderId = ko.observable();
+    self.makeorderclicked = ko.observable();
+    self.editorderclicked = ko.observable();
     self.menuItems = ko.observableArray();
     self.cafeteriaId = ko.observable();
     self.name = ko.observable();
-    self.order = ko.observable();
-    //self.order.paymentmethod = ko.observable();
-    
     self.model = ko.validatedObservable({
         firstName: ko.observable().extend({ required: true, maxLength: 100 }),
         lastName: ko.observable().extend({ required: true, maxLength: 100 }),
@@ -36,36 +35,125 @@
         /* e.g: */ fileArray: ko.observableArray(), base64StringArray: ko.observableArray()
     });
     //TODO need to get the id from the logged in user
-    self.customerId = ko.observable(6);
+    //self.customerId = ko.observable(7);
     
     self.quantity = ko.observable(1);
 
     self.orderItems = ko.observableArray();
-
+    self.casherorders = ko.observableArray();
     (self.init = function () {
-
         //Get orderitems for current users for last order not checked out.
-
-        $.ajax({
-            type: 'Get',
-            url: '/api/order/GetbyCustomerId/' + self.customerId(),
-            contentType: 'application/json; charset=utf-8',
-        }).done(function (data) {
-            console.log(data)
-            if (data.order != undefined)
-            {
-                self.orderItems(data.order.OrderItems);
-                self.orderId(data.order.Id)
-                self.order(data.order)
+        if (self.customerId()!=7) { // if it's logged in user not from outside
+            $.ajax({
+                type: 'Get',
+                url: '/api/order/GetbyCustomerId/' + self.customerId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {  
+                if (data.order != undefined) {
+                    self.orderItems(data.order.OrderItems);
+                    self.orderId(data.order.Id);
+                }
+            }).fail(self.showError);
+        }
+        else {
+            $.ajax({
+                type: 'Get',
+                url: '/api/order/GetAllbyCustomerId/'+self.customerId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {
+                self.casherorders(data.orders);
+            }).fail(self.showError);
+            if (self.makeorderclicked() == 1) {
+                $.ajax({
+                    type: 'Get',
+                    url: '/api/order/Getlastorder/' + self.customerId(),
+                    contentType: 'application/json; charset=utf-8'
+                }).done(function (data) {
+                    self.orderId(data.order.Id);
+                    self.orderItems(data.order.OrderItems);
+                    console.log(self.orderId());
+                }).fail(self.showError);
             }
-        }).fail(self.showError);
-
+            if (self.editorderclicked() == 1) {
+                console.log(self.orderId());
+                $.ajax({
+                    type: 'Get',
+                    url: '/api/order/' + self.orderId(),
+                    contentType: 'application/json; charset=utf-8'
+                }).done(function (data) {
+                    self.orderItems(data.order.OrderItems);
+                }).fail(self.showError);
+            }
+             
+        }
     })();
-
+    self.deleteorder = function (order) {
+        self.makeorderclicked(0);
+        self.editorderclicked(0);
+        if (order.OrderItems != null) {
+            for (var i = 0; i < order.OrderItems.length ; i++) {
+                $.ajax({
+                    type: 'Delete',
+                    url: '/api/OrderItem/' + order.OrderItems[i].Id,
+                    contentType: 'application/json; charset=utf-8',
+                    data: { id: order.Id }
+                }).done(function (data) {
+                    self.init();
+                }).fail(self.showError)
+            }
+        }
+        $.ajax({
+            type: 'Delete',
+            url: '/api/Order/' + order.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: { id: order.Id }
+        }).done(function (data) {
+            console.log(data);
+            self.init();
+        }).fail(self.showError)
+    }
+    self.hide = function (order) {
+        if (self.orderId() == order.Id) {
+            self.makeorderclicked(0);
+            self.orderId(0);
+            self.editorderclicked(0);
+            self.init();
+        }
+    }
+    self.editorder = function (order) {
+        self.makeorderclicked(0);
+        self.editorderclicked(1);
+        self.orderId(order.Id);
+        self.init();
+    }
+    self.MakeOrder = function () {
+        self.makeorderclicked(1);
+        //self.editorderclicked(1);
+            var data = {
+                OrderTime: new Date(),
+                OrderStatus: "waiting",
+                DeliveryTime: new Date(),
+                DeliveryPlace: "No",
+                PaymentMethod: "cash",
+                PaymentDone: false,
+                CustomerId: self.customerId()
+            }
+            $.ajax({
+                type: 'Post',
+                url: '/api/Order',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                console.log(result);
+                self.init();
+            }).fail(self.showError);
+        }
     self.total = ko.computed(function () {
         var total = 0;
-        for (var p = 0; p < self.orderItems().length; ++p) {
-            total += (self.orderItems()[p].MenuItem.Price)*(self.orderItems()[p].Quantity);
+        if (self.orderItems() != null) {
+            for (var p = 0; p < self.orderItems().length; ++p) {
+                total += (self.orderItems()[p].MenuItem.Price) * (self.orderItems()[p].Quantity);
+            }
         }
         return total;
     });
@@ -120,43 +208,47 @@
 
 
     self.getMenuItemByCategoryId();
-    
+   
 
     self.addToCart = function (menuItem) {
+        console.log(self.orderId());
         var x = 0;
         var z;
-        for (var i = 0; i < self.orderItems().length; ++i)
-        {
-            if (self.orderItems()[i].MenuItem.Id==menuItem.Id)
-            {
-                x = 1;
-                z = self.orderItems()[i];
-                break;
+        if (self.orderItems() != undefined) {
+            for (var i = 0; i < self.orderItems().length; ++i) {
+                if (self.orderItems()[i].MenuItem.Id == menuItem.Id) {
+                    x = 1;
+                    z = self.orderItems()[i];
+                    break;
+                }
             }
         }
         if (x == 1) {
             self.addanother(z)
         }
         else {
+            console.log(self.orderId());
             var data = {
                 quantity: self.quantity(),
                 menuItemid: menuItem.Id,
                 orderid: self.orderId(),
                 customerid: self.customerId()
             }
+            console.log(self.orderId());
             $.ajax({
                 type: 'Post',
                 url: '/api/OrderItem',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function (result) {
-                console.log(result)
                 self.init();
             }).fail(self.showError);
         }
-
+        
     }
     self.addanother = function (orderitem) {
+        console.log(orderitem.Id);
+        console.log(orderitem.OrderId);
         var data = {
             id: orderitem.Id,  // id of orderitem to be passed in the put request
             quantity: orderitem.Quantity+1, // increasing the quantity
@@ -164,14 +256,15 @@
             orderid: self.orderId,
             customerid: self.customerId
         }
+        console.log(self.orderItems());
         $.ajax({
-            type: 'PUT',
+            type: 'Put',
             url: '/api/OrderItem/'+orderitem.Id,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (result) {
-            console.log(result)
-            document.location = '/customer/category/show/'+self.categoryId();
+            console.log(result);
+            self.init();
         }).fail(self.showError);
         
     };
@@ -191,8 +284,7 @@
                         contentType: 'application/json; charset=utf-8',
                         data: { id: orderitem.Id }
                     }).done(function (data) {
-                        console.log(data)
-                        alertify.success(orderitem.MenuItem.Name + " is deleted from your order");
+                        console.log(data);
                     }).fail(self.showError)
                 }
                 else {
@@ -209,8 +301,8 @@
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(data)
                     }).done(function (result) {
-                        console.log(result)
-                        alertify.success('one ' + orderitem.MenuItem.Name + ' is deleted from your order');
+                        console.log(result);
+                        self.init();
                     }).fail(self.showError);
                 }
             }
@@ -223,7 +315,6 @@
                 }
             }
         }).fail(self.showError);
-       
     }
     self.deleteall = function (orderitem) {
         $.ajax({
@@ -238,10 +329,8 @@
                     contentType: 'application/json; charset=utf-8',
                     data: { id: orderitem.Id }
                 }).done(function (data) {
-                    console.log(data)
-                    //document.location = '/customer/category/show/' + self.categoryId();
-                    //$('#myModal').modal('hide')
-                    alertify.success(orderitem.MenuItem.Name + " is deleted from your order");
+                    console.log(data);
+                    self.init();
                 }).fail(self.showError)
             }
             else {
@@ -281,6 +370,7 @@
     ////self.enterpaymentmethod = function () {
 
     ////}
+   
 
     self.getCustomerById = function () {
         console.log(self.customerId());
@@ -343,6 +433,7 @@
             }).done(function (result) {
                 console.log(result);
                 alertify.success("Done");
+                document.location = '/customer/category/show/' + self.categoryId();
                 }).fail(self.showError);
         } else {
             alertify.error("Error,");
