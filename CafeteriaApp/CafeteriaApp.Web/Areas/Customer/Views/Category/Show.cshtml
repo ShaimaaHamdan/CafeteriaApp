@@ -45,25 +45,32 @@
                                     &nbsp;&nbsp;&nbsp;
                                     <span data-bind="text:Quantity"></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="deleteallitems">Delete All</button></span>
+                                    <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Delete All Items">Delete All</button></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="deleteanitem">Delete</button></span>
+                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="Delete an Item">Delete</button></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="addanotheritem"><i class="fa fa-plus"></i></button></span>
+                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Add Another Item"><i class="fa fa-plus"></i></button></span>
                                     &nbsp;&nbsp;&nbsp;
                                     <br />
                                     <br />
                                 </div>
-                                @*<input type="text" data-bind="textInput:" />
-                    <span><button type="submit" data-bind="click:enterdeliveryplace">Enter Delivery Place</button></span>*@
-                                @*<input data-bind="textInput:" />
-                    <span><button type="submit" data-bind="click:enterpaymentmethod">Enter Payment Method</button></span>*@
+                                <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
+                                <br />
+                                <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
+                                <br />
+                                
+                                
+                                
+                                
+                    <span><button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
+                                
+                    
                                 <hr />
                                 <div>
                                     <span>@Resources.Total</span>
                                     <span data-bind="text:total"></span>
                                 </div>
-                                @*<div data-bind="ifnot:TheUserIsCasher">*@
+                                
                                 <div data-bind="visible:orderItems().length>0" class="ta__center">
                                     <button data-bind="click:checkOut" class="btn" data-type="submit">  @Resources.proceedtocheckout</button>
                                 </div>
@@ -71,7 +78,7 @@
                                     <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
                                 </div>
                         </div>
-                        @*</div>*@
+                      
                         <div data-bind="if:$root.customerId()==7">
                             <h2>Orders</h2>
                             <div data-bind="foreach:casherorders">
@@ -88,15 +95,17 @@
                                 <button data-bind="click:$root.deleteorder" class="btn" style="margin-left:+20px;margin-top:-39px">Delete</button>
                                 <br />
                                 <div data-bind="if:$root.editorderclicked()==1 && $root.orderId()==Id">
-                                    <div data-bind="visible:$root.editorderclicked()==true">
+                                    <div>Item&nbsp;&nbsp;&nbsp;Price&nbsp;&nbsp;&nbsp;Quantity</div>
                                         <div data-bind="foreach:OrderItems">
-
+                                            
                                             <span data-bind="text:MenuItem.Name"></span>
                                             &nbsp;&nbsp;&nbsp;
+                                            
                                             <span data-bind="text:MenuItem.Price"></span>
                                             &nbsp;&nbsp;&nbsp;
                                             &nbsp;&nbsp;&nbsp;
                                             &nbsp;&nbsp;&nbsp;
+                                            
                                             <span data-bind="text:Quantity"></span>
                                             &nbsp;&nbsp;&nbsp;
                                             <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="deleteallitems">Delete All</button></span>
@@ -105,14 +114,25 @@
                                             &nbsp;&nbsp;&nbsp;
                                             <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="addanotheritem"><i class="fa fa-plus"></i></button></span>
                                             &nbsp;&nbsp;&nbsp;
+                                            
+                                            
+                                            
+                                            
                                             <br />
                                             <br />
                                         </div>
-                                    </div>
+                                    
+                                    <div>Total</div>
+                                    <div data-bind="text:$root.total"></div>
+                                    <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:$root.deliveryplace" /></span>
+                                    <br />
+                                    <span>Payment Method:  <select type="text" class="form-control" data-bind="options:$root.paymentmethod,value:$root.chosenpaymentmethod"></select></span>
+                                    <span><button type="submit" class="btn btn-success" data-bind="click:$root.enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
                                 <hr>
                             </div>
+                                
                            </div>
-                          
+                            
                             <div class="ta__center">
                                 <button data-bind="click:MakeOrder" class="btn"> Make Order </button>
                             </div>

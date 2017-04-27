@@ -84,6 +84,23 @@ namespace CafeteriaApp.Web.Controllers
                 PaymentMethod = order.PaymentMethod,
                 PaymentDone = order.PaymentDone,
                 customerid= order.CustomerId,
+                OrderItems = order.OrderItems?.Select(orderitem => new OrderItemViewModel
+                {
+                    Id = orderitem.Id,
+                    Quantity = orderitem.Quantity,
+                    MenuItemId = orderitem.MenuItemId,
+                    OrderId = orderitem.OrderId,
+                    MenuItem = new MenuItemViewModel()
+                    {
+                        Id = orderitem.MenuItem.Id,
+                        Name = orderitem.MenuItem.Name,
+                        Description = orderitem.MenuItem.Description,
+                        Price = orderitem.MenuItem.Price,
+                        Type = orderitem.MenuItem.Type,
+                        CategoryId = orderitem.MenuItem.CategoryId
+                    }
+
+                }).ToList(),
                 customer = new CustomerViewModel()
                 {
                     Id = order.Customer.Id,
