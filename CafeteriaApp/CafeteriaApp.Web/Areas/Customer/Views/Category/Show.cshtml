@@ -15,7 +15,7 @@
                     <div style="float: right;margin-right: -380px;margin-top: -310px">
                         <div data-bind="ifnot:$root.customerId()==7">
                             <h2>@Resources.YourOrder&nbsp;&nbsp;<span data-bind="text:orderId"></span></h2>
-
+                            
                             <form id="bookingForm">
 
                                 @if (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft())
@@ -54,6 +54,11 @@
                                     <br />
                                     <br />
                                 </div>
+                                <hr />
+                                <span>@Resources.Total</span>
+                                <span data-bind="text:total"></span>
+                                <br />
+                                <br />
                                 <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
                                 <br />
                                 <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
@@ -65,10 +70,9 @@
                     <span><button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
                                 
                     
-                                <hr />
+                              
                                 <div>
-                                    <span>@Resources.Total</span>
-                                    <span data-bind="text:total"></span>
+                                    
                                 </div>
                                 
                                 <div data-bind="visible:orderItems().length>0" class="ta__center">
@@ -77,13 +81,15 @@
                                 <div data-bind="visible:orderItems().length>0" class="ta__center">
                                     <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
                                 </div>
+                                @*<button data-bind="click:scroll">Let me see the Menuitems</button>*@
                         </div>
                       
                         <div data-bind="if:$root.customerId()==7">
                             <h2>Orders</h2>
+                            
                             <div data-bind="foreach:casherorders">
                                 
-                                <div data-bind="text:Id" style="margin-left:-30px;">
+                                <div data-bind="text:Id" style="margin-left:-30px;" id="'+Id+'">
                                     
                                 
                                 </div>
@@ -135,6 +141,7 @@
                             
                             <div class="ta__center">
                                 <button data-bind="click:MakeOrder" class="btn"> Make Order </button>
+                                @*<button data-bind="click:scroll" class="btn">Let me see the Menuitems</button>*@
                             </div>
                           </div>
                            

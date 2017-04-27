@@ -166,7 +166,7 @@ namespace CafeteriaApp.Web.Controllers
 
             if (existingOrderitem != null)
             {
-                existingOrderitem.Id = orderitem.Id;
+                //existingOrderitem.Id = orderitem.Id;
                 existingOrderitem.Quantity = orderitem.Quantity;
                 //existingOrderitem.OrderId = orderitem.OrderId;
                 //existingOrderitem.
