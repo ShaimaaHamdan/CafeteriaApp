@@ -39,5 +39,8 @@ namespace CafeteriaApp.Data.Models
 
         public virtual ICollection<Customer> CustomersRestricts { get; set; }
         public virtual ICollection<Dependent> DependentsRestricts { get; set; }
+
+        //--------------------------
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -176,10 +176,15 @@
     <Compile Include="Migrations\201704090016031_addDependentsRestricts.Designer.cs">
       <DependentUpon>201704090016031_addDependentsRestricts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704291906182_AddCommentTable.cs" />
+    <Compile Include="Migrations\201704291906182_AddCommentTable.Designer.cs">
+      <DependentUpon>201704291906182_AddCommentTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Dependent.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -285,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704090016031_addDependentsRestricts.resx">
       <DependentUpon>201704090016031_addDependentsRestricts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704291906182_AddCommentTable.resx">
+      <DependentUpon>201704291906182_AddCommentTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable.resources" />
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable1.resources" />

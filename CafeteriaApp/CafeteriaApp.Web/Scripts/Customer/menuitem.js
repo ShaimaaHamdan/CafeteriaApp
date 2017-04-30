@@ -1,7 +1,7 @@
 ﻿function CustomerMenuItemViewModel(id) {
     var self = this;
     self.categoryId = ko.observable(id);
-    self.customerId = ko.observable(7);
+    self.customerId = ko.observable(3);
     self.menuItemId = ko.observable();
     self.orderId = ko.observable();
     self.currentorder = ko.observable();
@@ -12,6 +12,11 @@
     self.chosenpaymentmethod = ko.observable();
     self.deliveryplace = ko.observable();
     self.menuItems = ko.observableArray();
+    //--------------------------------------------
+    self.commentId = ko.observable();
+    self.comments = ko.observableArray();
+    self.comment_data = ko.observable();
+    //--------------------------------------------
     self.cafeteriaId = ko.observable();
     self.name = ko.observable();
     self.model = ko.validatedObservable({
@@ -49,7 +54,7 @@
     (self.init = function () {
         //console.log(self.editorderclicked());
         //Get orderitems for current users for last order not checked out.
-        if (self.customerId()!=7) { // if it's logged in user not from outside
+        if (self.customerId()!=1) { // if it's logged in user not from outside
             $.ajax({
                 type: 'Get',
                 url: '/api/order/GetbyCustomerId/' + self.customerId(),
@@ -85,50 +90,50 @@
             }).fail(self.showError);
         }
         else if (self.editorderclicked() == 1) {            
-                $.ajax({
-                    type: 'Get',
-                    url: '/api/order/' + self.orderId(),
-                    contentType: 'application/json; charset=utf-8'
-                }).done(function (data) {
-                    self.orderId(data.order.Id);
-                    self.orderItems(data.order.OrderItems);
-                    self.currentorder(data.order);
-                    self.deliveryplace(data.order.DeliveryPlace);
-                    self.chosenpaymentmethod(data.order.PaymentMethod);
-                }).fail(self.showError);
+            $.ajax({
+                type: 'Get',
+                url: '/api/order/' + self.orderId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {
+                self.orderId(data.order.Id);
+                self.orderItems(data.order.OrderItems);
+                self.currentorder(data.order);
+                self.deliveryplace(data.order.DeliveryPlace);
+                self.chosenpaymentmethod(data.order.PaymentMethod);
+            }).fail(self.showError);
         }
     })();
     self.enterdeliveryplaceandpaymentmethod = function () {
-            var data = {
-                Id: self.orderId(),
-                paymentmethod: self.chosenpaymentmethod(),
-                paymentdone: self.currentorder().PaymentDone,
-                deliveryplace: self.deliveryplace(),
-                deliverytime: self.currentorder().DeliveryTime,
-                ordertime: self.currentorder().OrderTime,
-                orderstatus: self.currentorder().OrderStatus
-            }
-            $.ajax({
-                type: 'Put',
-                url: '/api/Order/' + self.orderId(),
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function (result) {
-                self.init();
-                self.initialorder();
-                alertify.success('Delivery Place and Payment Method are Updated');
-            }).fail(self.showError);
+        var data = {
+            Id: self.orderId(),
+            paymentmethod: self.chosenpaymentmethod(),
+            paymentdone: self.currentorder().PaymentDone,
+            deliveryplace: self.deliveryplace(),
+            deliverytime: self.currentorder().DeliveryTime,
+            ordertime: self.currentorder().OrderTime,
+            orderstatus: self.currentorder().OrderStatus
+        }
+        $.ajax({
+            type: 'Put',
+            url: '/api/Order/' + self.orderId(),
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (result) {
+            self.init();
+            self.initialorder();
+            alertify.success('Delivery Place and Payment Method are Updated');
+        }).fail(self.showError);
     }
     self.deleteorder = function (order) {
-            for (var i = 0; i < order.OrderItems.length ; i++) {
-                $.ajax({
-                    type: 'Delete',
-                    url: '/api/OrderItem/' + order.OrderItems[i].Id,
-                    contentType: 'application/json; charset=utf-8',
-                    data: { id: order.Id }
-                }).done(function (data) {
-                }).fail(self.showError)
-            }
+        for (var i = 0; i < order.OrderItems.length ; i++) {
+            $.ajax({
+                type: 'Delete',
+                url: '/api/OrderItem/' + order.OrderItems[i].Id,
+                contentType: 'application/json; charset=utf-8',
+                data: { id: order.Id }
+            }).done(function (data) {
+            }).fail(self.showError)
+        }
         $.ajax({
             type: 'Delete',
             url: '/api/Order/' + order.Id,
@@ -138,6 +143,27 @@
             self.init();
         }).fail(self.showError)
     }
+    //-------------------------------------------------------------------
+    self.deletecomment = function (comment) {
+        //for (var i = 0; i < order.OrderItems.length ; i++) {
+        //    $.ajax({
+        //        type: 'Delete',
+        //        url: '/api/OrderItem/' + order.OrderItems[i].Id,
+        //        contentType: 'application/json; charset=utf-8',
+        //        data: { id: order.Id }
+        //    }).done(function (data) {
+        //    }).fail(self.showError)
+        //}
+        $.ajax({
+            type: 'Delete',
+            url: '/api/Comment/' + comment.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: { id: comment.Id }
+        }).done(function (data) {
+            self.init();
+        }).fail(self.showError);
+    }
+    //----------------------------------------------------------------
     self.hide = function (order) {
         if (self.orderId() == order.Id) {
             self.makeorderclicked(0);
@@ -155,30 +181,30 @@
     }
     self.MakeOrder = function () {
         self.makeorderclicked(1);
-            var data = {
-                OrderTime: new Date(),
-                OrderStatus: "waiting",
-                DeliveryTime: new Date(),
-                DeliveryPlace: "No",
-                PaymentMethod: "cash",
-                PaymentDone: false,
-                CustomerId: self.customerId()
-            }
-            $.ajax({
-                type: 'Post',
-                url: '/api/Order',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function (result) {
-                self.initialorder();
-                self.init();
-            }).fail(self.showError);
+        var data = {
+            OrderTime: new Date(),
+            OrderStatus: "waiting",
+            DeliveryTime: new Date(),
+            DeliveryPlace: "No",
+            PaymentMethod: "cash",
+            PaymentDone: false,
+            CustomerId: self.customerId()
         }
+        $.ajax({
+            type: 'Post',
+            url: '/api/Order',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (result) {
+            self.initialorder();
+            self.init();
+        }).fail(self.showError);
+    }
     self.total = ko.computed(function () {
         var total = 0;
-            for (var p = 0; p < self.orderItems().length; ++p) {
-                total += (self.orderItems()[p].MenuItem.Price) * (self.orderItems()[p].Quantity);
-            }
+        for (var p = 0; p < self.orderItems().length; ++p) {
+            total += (self.orderItems()[p].MenuItem.Price) * (self.orderItems()[p].Quantity);
+        }
         return total;
     });
 
@@ -232,6 +258,38 @@
 
     self.getMenuItemByCategoryId();
 
+    //---------------------------------------------------------
+    self.getCommentByMenuItemId = function () {
+        console.log(self.menuItemId())
+        $.ajax({
+            type: 'Get',
+            url: '/api/Comment/GetByMenuItem/8',// +self.menuItemId(),
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (data) {
+            console.log(data)
+            self.comments(data.comments)  ///!!!
+        }).fail(self.showError);
+    };
+
+
+    self.getCommentByMenuItemId();
+    //---------------------------------------------------------
+    self.getCommentByMenuItemId = function (menuItem) {
+        //console.log(self.menuItemId())
+        $.ajax({
+            type: 'Get',
+            url: '/api/Comment/GetByMenuItem/' + menuItem.Id, //self.menuItemId(),
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (data) {
+            console.log(data)
+            self.comments(data.comments)  ///!!!
+        }).fail(self.showError);
+    };
+
+
+    //self.getCommentByMenuItemId();
+    //----------------------------------------------------
+
     self.addToCart = function (menuItem) {
         var x=self.orderItems().filter(e=>  e.MenuItem.Id == menuItem.Id);
         if (x.length!=0) {            
@@ -239,23 +297,44 @@
         }
         else {
             var data = {
-            quantity: self.quantity(),
-            menuItemid: menuItem.Id,
-            orderid: self.orderId(),
-            customerid: self.customerId()
-        }
+                quantity: self.quantity(),
+                menuItemid: menuItem.Id,
+                orderid: self.orderId(),
+                customerid: self.customerId()
+            }
             $.ajax({
-            type: 'Post',
-            url: '/api/OrderItem',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (result) {
+                type: 'Post',
+                url: '/api/OrderItem',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
                 self.init();
                 self.initialorder();   
-        }).fail(self.showError);
+            }).fail(self.showError);
         }
         
     }
+    //--------------------------------------------------------------------
+    self.addcomment = function (comment) {
+         //comment_data
+            var data = {
+                data:  self.comment_data(),
+                menuItemid: menuItem.Id,
+                customerid: self.customerId()
+            }
+            $.ajax({
+                type: 'Post',
+                url: '/api/Comment',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                self.init();
+                self.initialorder();
+            }).fail(self.showError);
+        
+
+    }
+    //--------------------------------------------------------------------
     self.addanother = function (orderitem) {
         var data = {
             id: orderitem.Id,  // id of orderitem to be passed in the put request
@@ -276,45 +355,48 @@
     };
     self.deleteitem = function (orderitem) {
         if ((self.currentorder().OrderStatus != 'inprogress') && (self.currentorder().OrderStatus != 'completed')) {
-                if (orderitem.Quantity == 1) {
-                    $.ajax({
-                        type: 'Delete',
-                        url: '/api/OrderItem/' + orderitem.Id,
-                        contentType: 'application/json; charset=utf-8',
-                        data: { id: orderitem.Id }
-                    }).done(function (data) {
-                        self.init();
-                        self.initialorder();
-                    }).fail(self.showError)
-                }
-                else {
-                    var data = {
-                        id: orderitem.Id,  // id of orderitem to be passed in the put request
-                        quantity: orderitem.Quantity - 1,
-                        menuItemid: self.menuItemId,
-                        orderid: self.orderId,
-                        customerid: self.customerId
-                    }
-                    $.ajax({
-                        type: 'PUT',
-                        url: '/api/OrderItem/' + orderitem.Id,
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(data)
-                    }).done(function (result) {
-                        self.init();
-                        self.initialorder();
-                    }).fail(self.showError);
-                }
+            if (orderitem.Quantity == 1) {
+                $.ajax({
+                    type: 'Delete',
+                    url: '/api/OrderItem/' + orderitem.Id,
+                    contentType: 'application/json; charset=utf-8',
+                    data: { id: orderitem.Id }
+                }).done(function (data) {
+                    self.init();
+                    self.initialorder();
+                }).fail(self.showError)
             }
             else {
-            if (self.currentorder().OrderStatus == "inprogress") {
-                    alertify.error('Sorry, Your order is in progress.You cannot delete')
+                var data = {
+                    id: orderitem.Id,  // id of orderitem to be passed in the put request
+                    quantity: orderitem.Quantity - 1,
+                    menuItemid: self.menuItemId,
+                    orderid: self.orderId,
+                    customerid: self.customerId
                 }
-            if (self.currentorder().OrderStatus == "completed") {
-                    alertify.error('Sorry, Your order is already finished.You cannot delete')
-                }
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/OrderItem/' + orderitem.Id,
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function (result) {
+                    self.init();
+                    self.initialorder();
+                }).fail(self.showError);
             }
+        }
+        else {
+            if (self.currentorder().OrderStatus == "inprogress") {
+                alertify.error('Sorry, Your order is in progress.You cannot delete')
+            }
+            if (self.currentorder().OrderStatus == "completed") {
+                alertify.error('Sorry, Your order is already finished.You cannot delete')
+            }
+        }
     }
+    //-------------------------------------------------------------------
+
+//---------------------------------------------------------------------
     self.deleteall = function (orderitem) {  
         if (self.currentorder().OrderStatus != "inprogress" && self.currentorder().OrderStatus != "completed") {
                 $.ajax({

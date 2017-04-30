@@ -19,11 +19,13 @@ namespace CafeteriaApp.Web.Models
 
         public List<DependentViewModel> Dependents { get; set; }
 
-        public List<OrderViewModel> Orders { get;  set; }
+        public List<OrderViewModel> Orders { get; set; }
 
-        public List<MenuItemViewModel> Favourites { get;  set; }
+        public List<MenuItemViewModel> Favourites { get; set; }
 
-        public List<MenuItemViewModel> Restricts { get;  set; }
-            
+        public List<MenuItemViewModel> Restricts { get; set; }
+
+        public List<CommentViewModel> Comments { get; set; }
+
     }
 }

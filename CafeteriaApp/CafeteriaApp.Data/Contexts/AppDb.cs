@@ -30,6 +30,10 @@ namespace CafeteriaApp.Data.Contexts
 
         public DbSet<Dependent> Dependents { get; set; }
 
+        //--------------------------
+        public DbSet<Comment> Comments { get; set; }
+        //--------------------------
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
