@@ -13,9 +13,9 @@
                         Praesent faucibus malesuada faucibus. Donecertolin laoreet metus id laoreet malesuada.  orem ipsum dolor sit amet, consectetur adipiscing elit.
                     </div>
                     <div style="float: right;margin-right: -380px;margin-top: -310px">
-                        <div data-bind="ifnot:$root.customerId()==7">
+                        <div data-bind="ifnot:$root.customerId()==1">
                             <h2>@Resources.YourOrder&nbsp;&nbsp;<span data-bind="text:orderId"></span></h2>
-                            
+
                             <form id="bookingForm">
 
                                 @if (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft())
@@ -83,11 +83,37 @@
                                         <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                                 @*<button data-bind="click:scroll">Let me see the Menuitems</button>*@
                                 <div>
                                     <button data-bind="click:getfavorite" class="btn">View My Favorite</button> &nbsp;&nbsp;&nbsp;<button data-bind="click:hidefavorite" style="margin-left:+40px" class="btn">Hide My Favorite</button>
                                     <br />
                                     <br />
+=======
+                                <hr />
+                                <span>@Resources.Total</span>
+                                <span data-bind="text:total"></span>
+                                <br />
+                                <br />
+                                <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
+                                <br />
+                                <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
+                                <br />
+
+
+
+
+                                <span><button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
+
+
+
+                                <div>
+
+                                </div>
+
+                                <div data-bind="visible:orderItems().length>0" class="ta__center">
+                                    <button data-bind="click:checkOut" class="btn" data-type="submit">  @Resources.proceedtocheckout</button>
+>>>>>>> origin/master
                                 </div>
                                 <div data-bind="visible:favoriteItems().length>0">
                                     <div data-bind="visible:showfavorite()==1">
@@ -100,77 +126,78 @@
                                     
                                 </div>
                         </div>
-                      
-                        <div data-bind="if:$root.customerId()==7">
+
+                        <div data-bind="if:$root.customerId()==1">
                             <h2>Orders</h2>
-                            
+
                             <div data-bind="foreach:casherorders">
-                                
+
                                 <div data-bind="text:Id" style="margin-left:-30px;" id="'+Id+'">
-                                    
-                                
+
+
                                 </div>
                                 <button data-bind="click:$root.editorder" class="btn" style="margin-right:-20px;margin-top:-39px">Edit</button>
-                              
+
                                 <button data-bind="click:$root.hide" class="btn" style="margin-left:+40px;margin-top:-39px">Hide</button>
-                              
+
 
                                 <button data-bind="click:$root.deleteorder" class="btn" style="margin-left:+20px;margin-top:-39px">Delete</button>
                                 <br />
                                 <div data-bind="if:$root.editorderclicked()==1 && $root.orderId()==Id">
                                     <div>Item&nbsp;&nbsp;&nbsp;Price&nbsp;&nbsp;&nbsp;Quantity</div>
-                                        <div data-bind="foreach:OrderItems">
-                                            
-                                            <span data-bind="text:MenuItem.Name"></span>
-                                            &nbsp;&nbsp;&nbsp;
-                                            
-                                            <span data-bind="text:MenuItem.Price"></span>
-                                            &nbsp;&nbsp;&nbsp;
-                                            &nbsp;&nbsp;&nbsp;
-                                            &nbsp;&nbsp;&nbsp;
-                                            
-                                            <span data-bind="text:Quantity"></span>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="deleteallitems">Delete All</button></span>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="deleteanitem">Delete</button></span>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="addanotheritem"><i class="fa fa-plus"></i></button></span>
-                                            &nbsp;&nbsp;&nbsp;
-                                            
-                                            
-                                            
-                                            
-                                            <br />
-                                            <br />
-                                        </div>
-                                    
+                                    <div data-bind="foreach:OrderItems">
+
+                                        <span data-bind="text:MenuItem.Name"></span>
+                                        &nbsp;&nbsp;&nbsp;
+
+                                        <span data-bind="text:MenuItem.Price"></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;
+
+                                        <span data-bind="text:Quantity"></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="deleteallitems">Delete All</button></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="deleteanitem">Delete</button></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="addanotheritem"><i class="fa fa-plus"></i></button></span>
+                                        &nbsp;&nbsp;&nbsp;
+
+
+
+
+                                        <br />
+                                        <br />
+                                    </div>
+
                                     <div>Total</div>
                                     <div data-bind="text:$root.total"></div>
                                     <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:$root.deliveryplace" /></span>
                                     <br />
                                     <span>Payment Method:  <select type="text" class="form-control" data-bind="options:$root.paymentmethod,value:$root.chosenpaymentmethod"></select></span>
                                     <span><button type="submit" class="btn btn-success" data-bind="click:$root.enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
-                                <hr>
+                                    <hr>
+                                </div>
+
                             </div>
-                                
-                           </div>
-                            
+
                             <div class="ta__center">
                                 <button data-bind="click:MakeOrder" class="btn"> Make Order </button>
                                 @*<button data-bind="click:scroll" class="btn">Let me see the Menuitems</button>*@
                             </div>
-                          </div>
-                           
-                   
+                        </div>
 
-                            
-                        
+
+
+
+
 
 
                     </div>
                     <div class="clear"></div>
                     <h2>@Resources.MenuItems</h2>
+<<<<<<< HEAD
                     <div data-bind="foreach:menuItems">
                         <div class="gall_bot">
                             <div class="text1">
@@ -184,33 +211,90 @@
                                         class="btn btn-success btn-circle">
                                     Add to Favorite
                                 </button>
+=======
+>>>>>>> origin/master
+
+                
+
+                    @*<div data-bind="foreach:comments">
+                        <span data-bind="text:Data"></span>
+                    </div>*@
+
+                        <div data-bind="foreach:menuItems">
+                            <div class="gall_bot">
+                                <div class="text1">
+                                    <span data-bind="text:Name"></span>
+                                    <img data-bind="attr: { src: 'data:image/gif;base64,' + ImageData }" alt="">
+                                    <button title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
+                                            class="btn btn-success btn-circle">
+                                        @Resources.AddtoCart
+                                    </button>
+
+                                </div>
+
+                                <br>
+
+                                <p>@Resources.Price:<span data-bind="text:Price"></span></p>
+
+                                <p>@Resources.Type:<span data-bind="text:Type"></span></p>
+
+                                <p>@Resources.Description:<span data-bind="text:Description"></span></p>
+
+                            
+                                <p>Comments:</p>
+                                @*<span>Data</span>
+                                <span>&nbsp;&nbsp;</span>
+                                <span>Name</span>*@
+                              
+                                @*--------------------------------------------------*@
+                                <div data-bind="foreach: $parent.comments">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    @*"foreach:Comments">*@
+                                    <span data-bind="text:Data"></span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <span>~</span>
+                                    <span data-bind="text:Customer.User.FirstName"></span>
+
+
+
+                                    @*<span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Delete All Items">Delete All</button></span>&nbsp;&nbsp;&nbsp;*@
+                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deletecomment" class="btn btn-danger" title="Delete Comment">Delete Comment</button></span>&nbsp;&nbsp;&nbsp;
+                                    @*<span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Add Another Item"><i class="fa fa-plus"></i></button></span>&nbsp;&nbsp;&nbsp;*@
+                                    <br />
+                                    <br />
+                                </div>
+
+                                @*--------------------------------------------------*@
+                                <span>Add Comment:  <input type="text" class="form-control"  /> </span>
+
+
+                                <span><button type="submit" class="btn btn-success" data-bind="click:$root.addcomment">Add Comment</button></span>
+
+                                @*<span>Add Comment:  <input type="text" class="form-control" data-bind="textInput:comment_data" /> </span>
+
+
+                    <span><button type="submit" class="btn btn-success" data-bind="click:$root.addcomment">Add Comment</button></span>*@
+
+                                @*--------------------------------------------------*@
+
+
+
+
 
                             </div>
-
-                            <br>
-
-                            <p>@Resources.Price:<span data-bind="text:Price"></span></p>
-
-                            <p>@Resources.Type:<span data-bind="text:Type"></span></p>
-
-                            <p>@Resources.Description:<span data-bind="text:Description"></span></p>
                         </div>
+
+
+
                     </div>
 
 
 
-                </div>
-               
-                
-                
-                    
 
-            </div>
 
-        </div>
-       
+                        </div>
 
-    </section>
+                    </div>
 
 
 <script>

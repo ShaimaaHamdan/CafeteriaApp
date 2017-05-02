@@ -31,7 +31,8 @@ namespace CafeteriaApp.Web.Models
 
         public List<CustomerViewModel> CustomersRestricts { get;  set; }
 
-
+        public List<DependentViewModel> DependentsRestricts { get; set; }
+        public List<CommentViewModel> Comments { get; set; }
 
     }
 }

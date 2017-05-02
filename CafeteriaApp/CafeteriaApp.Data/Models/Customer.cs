@@ -32,5 +32,8 @@ namespace CafeteriaApp.Data.Models
 
         public virtual ICollection<Dependent> Dependents { get; set; }
 
+        //--------------------------
+        public virtual ICollection<Comment> Comments { get; set; }
+
     }
 }

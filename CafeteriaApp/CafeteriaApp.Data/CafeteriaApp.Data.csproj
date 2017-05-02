@@ -176,14 +176,21 @@
     <Compile Include="Migrations\201704090016031_addDependentsRestricts.Designer.cs">
       <DependentUpon>201704090016031_addDependentsRestricts.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Migrations\201705020324217_Adding_FavoriteItem.cs" />
     <Compile Include="Migrations\201705020324217_Adding_FavoriteItem.Designer.cs">
       <DependentUpon>201705020324217_Adding_FavoriteItem.cs</DependentUpon>
+=======
+    <Compile Include="Migrations\201704291906182_AddCommentTable.cs" />
+    <Compile Include="Migrations\201704291906182_AddCommentTable.Designer.cs">
+      <DependentUpon>201704291906182_AddCommentTable.cs</DependentUpon>
+>>>>>>> origin/master
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Dependent.cs" />
     <Compile Include="Models\FavoriteItem.cs" />
     <Compile Include="Models\OrderItem.cs" />
@@ -291,8 +298,13 @@
     <EmbeddedResource Include="Migrations\201704090016031_addDependentsRestricts.resx">
       <DependentUpon>201704090016031_addDependentsRestricts.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201705020324217_Adding_FavoriteItem.resx">
       <DependentUpon>201705020324217_Adding_FavoriteItem.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Migrations\201704291906182_AddCommentTable.resx">
+      <DependentUpon>201704291906182_AddCommentTable.cs</DependentUpon>
+>>>>>>> origin/master
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable.resources" />
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable1.resources" />
