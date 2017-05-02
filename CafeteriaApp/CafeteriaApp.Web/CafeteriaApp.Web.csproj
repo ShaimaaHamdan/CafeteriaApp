@@ -255,6 +255,7 @@
     <Compile Include="Controllers\CafeteriaController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\FavoriteItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuItemController.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\DependentViewModel.cs" />
+    <Compile Include="Models\FavoriteItemViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MenuItemViewModel.cs" />
     <Compile Include="Models\OrderItemViewModel.cs" />

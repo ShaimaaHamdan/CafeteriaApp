@@ -1,9 +1,10 @@
 ﻿function CustomerMenuItemViewModel(id) {
     var self = this;
     self.categoryId = ko.observable(id);
-    self.customerId = ko.observable(7);
+    self.customerId = ko.observable(6);
     self.menuItemId = ko.observable();
     self.orderId = ko.observable();
+    self.showfavorite = ko.observable();
     self.currentorder = ko.observable();
     self.makeorderclicked = ko.observable();
     self.editorderclicked = ko.observable();
@@ -12,6 +13,7 @@
     self.chosenpaymentmethod = ko.observable();
     self.deliveryplace = ko.observable();
     self.menuItems = ko.observableArray();
+    self.favoriteItems = ko.observableArray();
     self.cafeteriaId = ko.observable();
     self.name = ko.observable();
     self.model = ko.validatedObservable({
@@ -60,6 +62,8 @@
                     self.orderId(data.order.Id);
                     self.currentorder(data.order);
                     self.deliveryplace(data.order.DeliveryPlace);
+                    self.getfavorite();
+                    //self.getfavorite();
                 }
             }).fail(self.showError);
         }
@@ -120,15 +124,16 @@
             }).fail(self.showError);
     }
     self.deleteorder = function (order) {
-            for (var i = 0; i < order.OrderItems.length ; i++) {
+            //for (var i = 0; i < order.OrderItems.length ; i++) {
                 $.ajax({
                     type: 'Delete',
-                    url: '/api/OrderItem/' + order.OrderItems[i].Id,
+                    url: '/api/OrderItem/DeleteAll/' + order.Id,
                     contentType: 'application/json; charset=utf-8',
                     data: { id: order.Id }
                 }).done(function (data) {
+                    self.init();
                 }).fail(self.showError)
-            }
+            //}
         $.ajax({
             type: 'Delete',
             url: '/api/Order/' + order.Id,
@@ -337,6 +342,51 @@
                     alertify.error('Sorry,Your order is already fnished.You cannot delete');
                 }
             }
+    }
+    self.addfavorite = function (menuitem) {
+        var x = self.favoriteItems().filter(e=>  e.MenuItemId == menuitem.Id);
+        if (x.length != 0) {
+            alertify.error("This Item is alerady in your Favorite Items");
+        }
+        else {
+            var data = {
+                menuitemid: menuitem.Id,
+                customerid: self.customerId()
+            }
+            $.ajax({
+                type: 'Post',
+                url: '/api/FavoriteItem',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function () {
+                alertify.success("MenuItem is added to your Favorite Items");
+                self.getfavorite();
+            }).fail(self.showError);
+        }
+    }
+    self.getfavorite = function () {
+            self.showfavorite(1);
+            $.ajax({
+                type: 'Get',
+                url: '/api/FavoriteItem/GetbyCustomerId/' + self.customerId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {
+                self.favoriteItems(data.favoriteitems);
+            }).fail(self.showError);
+    }
+    //self.getfavorite();
+    self.hidefavorite = function () {
+        self.showfavorite(0);
+    }
+    self.deletefavorite = function (favoriteitem) {
+        $.ajax({
+            type: 'Delete',
+            url: '/api/FavoriteItem/' + favoriteitem.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: { id: favoriteitem.Id }
+        }).done(function () {
+            self.getfavorite();
+        }).fail(self.showError);
     }
     self.getCustomerById = function () {
         console.log(self.customerId());

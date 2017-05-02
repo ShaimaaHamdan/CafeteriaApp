@@ -109,7 +109,25 @@ namespace CafeteriaApp.Web.Controllers
                 return NotFound();
             }
         }
-
+        [HttpDelete]
+        [Route("DeleteAll/{id}")]
+        public IHttpActionResult DeleteAll(int id) // orderid
+        {
+            var orderItemsToDelete = appdb.OrderItems.Where(o => o.OrderId == id);
+            if (orderItemsToDelete != null)
+            {
+                foreach (OrderItem o in orderItemsToDelete)
+                {
+                    appdb.OrderItems.Remove(o);
+                }
+                appdb.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
         [HttpPost]
         //[Route("AddToCart")]
         public IHttpActionResult Add(OrderItemViewModel orderitem)

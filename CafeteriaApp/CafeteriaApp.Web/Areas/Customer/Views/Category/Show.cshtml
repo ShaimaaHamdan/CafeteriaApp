@@ -36,52 +36,69 @@
                                     <span>&nbsp;&nbsp;</span>
                                 }
                                 <br />
-                                <div data-bind="foreach:orderItems">
-                                    <span data-bind="text:MenuItem.Name"></span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <span data-bind="text:MenuItem.Price"></span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;
-                                    <span data-bind="text:Quantity"></span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Delete All Items">Delete All</button></span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="Delete an Item">Delete</button></span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Add Another Item"><i class="fa fa-plus"></i></button></span>
-                                    &nbsp;&nbsp;&nbsp;
+                                <div data-bind="visible:orderItems().length>0">
+                                    <div data-bind="foreach:orderItems">
+                                        <span data-bind="text:MenuItem.Name"></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span data-bind="text:MenuItem.Price"></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span data-bind="text:Quantity"></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Delete All Items">Delete All</button></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="Delete an Item">Delete</button></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Add Another Item"><i class="fa fa-plus"></i></button></span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <br />
+                                        <br />
+                                    </div>
+                                    <hr />
+                                    <span>@Resources.Total</span>
+                                    <span data-bind="text:total"></span>
                                     <br />
                                     <br />
-                                </div>
-                                <hr />
-                                <span>@Resources.Total</span>
-                                <span data-bind="text:total"></span>
-                                <br />
-                                <br />
-                                <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
-                                <br />
-                                <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
-                                <br />
-                                
-                                
-                                
-                                
-                    <span><button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
-                                
-                    
-                              
-                                <div>
-                                    
-                                </div>
-                                
-                                <div data-bind="visible:orderItems().length>0" class="ta__center">
-                                    <button data-bind="click:checkOut" class="btn" data-type="submit">  @Resources.proceedtocheckout</button>
-                                </div>
-                                <div data-bind="visible:orderItems().length>0" class="ta__center">
-                                    <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
+                                    <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
+                                    <br />
+                                    <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
+                                    <br />
+
+
+
+
+                                    <span><button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
+
+
+
+                                    <div>
+
+                                    </div>
+
+                                    <div class="ta__center">
+                                        <button data-bind="click:checkOut" class="btn" data-type="submit">  @Resources.proceedtocheckout</button>
+                                    </div>
+                                    <div class="ta__center">
+                                        <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
+                                    </div>
                                 </div>
                                 @*<button data-bind="click:scroll">Let me see the Menuitems</button>*@
+                                <div>
+                                    <button data-bind="click:getfavorite" class="btn">View My Favorite</button> &nbsp;&nbsp;&nbsp;<button data-bind="click:hidefavorite" style="margin-left:+40px" class="btn">Hide My Favorite</button>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div data-bind="visible:favoriteItems().length>0">
+                                    <div data-bind="visible:showfavorite()==1">
+                                    <div data-bind="foreach:favoriteItems">
+                                        <div data-bind="text:MenuItem.Name"></div>
+                                        <br />
+                                        <button data-bind="click:$root.deletefavorite" style="margin-left:+60px;margin-top:-75px" class="btn">Delete</button>
+                                    </div>
+                                        </div>
+                                    
+                                </div>
                         </div>
                       
                         <div data-bind="if:$root.customerId()==7">
@@ -162,6 +179,10 @@
                                 <button title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
                                         class="btn btn-success btn-circle">
                                     @Resources.AddtoCart
+                                </button>
+                                <button title="Add to Favorite" id="addToCart" data-bind="click:$root.addfavorite"
+                                        class="btn btn-success btn-circle">
+                                    Add to Favorite
                                 </button>
 
                             </div>
