@@ -1,11 +1,7 @@
 ﻿function CustomerMenuItemViewModel(id) {
     var self = this;
     self.categoryId = ko.observable(id);
-<<<<<<< HEAD
     self.customerId = ko.observable(6);
-=======
-    self.customerId = ko.observable(3);
->>>>>>> origin/master
     self.menuItemId = ko.observable();
     self.orderId = ko.observable();
     self.showfavorite = ko.observable();
@@ -17,15 +13,15 @@
     self.chosenpaymentmethod = ko.observable();
     self.deliveryplace = ko.observable();
     self.menuItems = ko.observableArray();
-<<<<<<< HEAD
+    self.menuItem=ko.observable();
     self.favoriteItems = ko.observableArray();
-=======
     //--------------------------------------------
     self.commentId = ko.observable();
     self.comments = ko.observableArray();
     self.comment_data = ko.observable();
+    self.commentedit_data = ko.observable();
+    self.editcommentclicked = ko.observable(0);
     //--------------------------------------------
->>>>>>> origin/master
     self.cafeteriaId = ko.observable();
     self.name = ko.observable();
     self.model = ko.validatedObservable({
@@ -61,9 +57,8 @@
     self.orderItems = ko.observableArray();
     self.casherorders = ko.observableArray();
     (self.init = function () {
-        //console.log(self.editorderclicked());
         //Get orderitems for current users for last order not checked out.
-        if (self.customerId()!=1) { // if it's logged in user not from outside
+        if (self.customerId()!=7) { // if it's logged in user not from outside
             $.ajax({
                 type: 'Get',
                 url: '/api/order/GetbyCustomerId/' + self.customerId(),
@@ -74,8 +69,6 @@
                     self.orderId(data.order.Id);
                     self.currentorder(data.order);
                     self.deliveryplace(data.order.DeliveryPlace);
-                    self.getfavorite();
-                    //self.getfavorite();
                 }
             }).fail(self.showError);
         }
@@ -136,28 +129,14 @@
         }).fail(self.showError);
     }
     self.deleteorder = function (order) {
-<<<<<<< HEAD
-            //for (var i = 0; i < order.OrderItems.length ; i++) {
-                $.ajax({
-                    type: 'Delete',
-                    url: '/api/OrderItem/DeleteAll/' + order.Id,
-                    contentType: 'application/json; charset=utf-8',
-                    data: { id: order.Id }
-                }).done(function (data) {
-                    self.init();
-                }).fail(self.showError)
-            //}
-=======
-        for (var i = 0; i < order.OrderItems.length ; i++) {
-            $.ajax({
-                type: 'Delete',
-                url: '/api/OrderItem/' + order.OrderItems[i].Id,
-                contentType: 'application/json; charset=utf-8',
-                data: { id: order.Id }
-            }).done(function (data) {
-            }).fail(self.showError)
-        }
->>>>>>> origin/master
+        $.ajax({
+            type: 'Delete',
+            url: '/api/OrderItem/DeleteAll/' + order.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: { id: order.Id }
+        }).done(function (data) {
+            self.init();
+        }).fail(self.showError)
         $.ajax({
             type: 'Delete',
             url: '/api/Order/' + order.Id,
@@ -169,22 +148,14 @@
     }
     //-------------------------------------------------------------------
     self.deletecomment = function (comment) {
-        //for (var i = 0; i < order.OrderItems.length ; i++) {
-        //    $.ajax({
-        //        type: 'Delete',
-        //        url: '/api/OrderItem/' + order.OrderItems[i].Id,
-        //        contentType: 'application/json; charset=utf-8',
-        //        data: { id: order.Id }
-        //    }).done(function (data) {
-        //    }).fail(self.showError)
-        //}
         $.ajax({
             type: 'Delete',
             url: '/api/Comment/' + comment.Id,
             contentType: 'application/json; charset=utf-8',
             data: { id: comment.Id }
         }).done(function (data) {
-            self.init();
+            self.getCommentByMenuItemId(self.menuItem());
+            alertify.success("Your Comment is deleted");
         }).fail(self.showError);
     }
     //----------------------------------------------------------------
@@ -279,45 +250,29 @@
         }).fail(self.showError);
     };
 
-
     self.getMenuItemByCategoryId();
 
-    //---------------------------------------------------------
-    self.getCommentByMenuItemId = function () {
-        console.log(self.menuItemId())
-        $.ajax({
-            type: 'Get',
-            url: '/api/Comment/GetByMenuItem/8',// +self.menuItemId(),
-            contentType: 'application/json; charset=utf-8',
-        }).done(function (data) {
-            console.log(data)
-            self.comments(data.comments)  ///!!!
-        }).fail(self.showError);
-    };
-
-
-    self.getCommentByMenuItemId();
-    //---------------------------------------------------------
     self.getCommentByMenuItemId = function (menuItem) {
-        //console.log(self.menuItemId())
-        $.ajax({
-            type: 'Get',
-            url: '/api/Comment/GetByMenuItem/' + menuItem.Id, //self.menuItemId(),
-            contentType: 'application/json; charset=utf-8',
-        }).done(function (data) {
-            console.log(data)
-            self.comments(data.comments)  ///!!!
-        }).fail(self.showError);
-    };
+        if (menuItem.Comments.length!=0) {
+            $.ajax({
+                type: 'Get',
+                url: '/api/Comment/GetByMenuItem/' + menuItem.Id, //self.menuItemId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {
+                console.log(data)
+                self.menuItem(menuItem);
+                self.menuItemId(menuItem.Id);
+                self.comments(data.comments)  ///!!!
+                self.init();
+            }).fail(self.showError);
 
-
-    //self.getCommentByMenuItemId();
-    //----------------------------------------------------
+        }
+    }  
 
     self.addToCart = function (menuItem) {
-        var x=self.orderItems().filter(e=>  e.MenuItem.Id == menuItem.Id);
-        if (x.length!=0) {            
-            self.addanother(x[0]);
+        var x=self.orderItems().filter(e=>  e.MenuItemId == menuItem.Id)[0];
+        if (x!=null) {            
+            self.addanother(x);
         }
         else {
             var data = {
@@ -333,17 +288,47 @@
                 data: JSON.stringify(data)
             }).done(function (result) {
                 self.init();
-                self.initialorder();   
+                self.initialorder();
             }).fail(self.showError);
         }
         
     }
-    //--------------------------------------------------------------------
-    self.addcomment = function (comment) {
-         //comment_data
+    self.editcomment = function (comment) {
+        var data = {
+            id: comment.Id,
+            data: self.commentedit_data(),
+            menuitemid: comment.MenuItemId,
+            customerid: self.customerId(),
+        }
+        $.ajax({
+            type: 'Put',
+            url: '/api/comment/' + comment.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            self.editcommentclicked(0);
+            self.getCommentByMenuItemId(self.menuItem());
+            self.commentedit_data(null);
+        }).fail(self.showError);
+    }
+
+    self.hidecomments = function (menuitem) {
+        if (self.menuItemId() == menuitem.Id) {
+            self.comments(null);
+        }
+    }
+    self.showcommenteditbox = function (comment) {
+        self.commentId(comment.Id);
+        self.editcommentclicked(1);
+    }
+    self.addcomment = function (menuitem) {
+        if (self.comment_data() == null) {
+            alertify.error("Please Enter Comment");
+        }
+        else {
             var data = {
-                data:  self.comment_data(),
-                menuItemid: menuItem.Id,
+                data: self.comment_data(),
+                menuItemid: menuitem.Id,
                 customerid: self.customerId()
             }
             $.ajax({
@@ -351,14 +336,17 @@
                 url: '/api/Comment',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
-            }).done(function (result) {
+            }).done(function (result) {                              
+                alertify.success("Your comment is added");
                 self.init();
-                self.initialorder();
+                self.getCommentByMenuItemId(menuitem);
+                self.comment_data(null);             
             }).fail(self.showError);
+        }
         
 
     }
-    //--------------------------------------------------------------------
+
     self.addanother = function (orderitem) {
         var data = {
             id: orderitem.Id,  // id of orderitem to be passed in the put request
@@ -418,9 +406,7 @@
             }
         }
     }
-    //-------------------------------------------------------------------
-
-//---------------------------------------------------------------------
+   
     self.deleteall = function (orderitem) {  
         if (self.currentorder().OrderStatus != "inprogress" && self.currentorder().OrderStatus != "completed") {
                 $.ajax({
@@ -475,10 +461,11 @@
                 self.favoriteItems(data.favoriteitems);
             }).fail(self.showError);
     }
-    //self.getfavorite();
+
     self.hidefavorite = function () {
         self.showfavorite(0);
     }
+
     self.deletefavorite = function (favoriteitem) {
         $.ajax({
             type: 'Delete',
@@ -489,6 +476,7 @@
             self.getfavorite();
         }).fail(self.showError);
     }
+
     self.getCustomerById = function () {
         console.log(self.customerId());
         $.ajax({

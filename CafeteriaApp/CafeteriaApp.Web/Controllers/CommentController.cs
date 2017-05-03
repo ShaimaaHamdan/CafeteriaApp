@@ -23,27 +23,42 @@ namespace CafeteriaApp.Web.Controllers
             {
                 Id = comment.Id,
                 Data = comment.Data,
-
+                CustomerId=comment.CustomerId,
                 Customer = new CustomerViewModel()
                 {
-
                     Id = comment.Customer.Id,
+                    Credit = comment.Customer.Credit,
+                    LimitedCredit = comment.Customer.LimitedCredit,
                     UserId = comment.Customer.UserId,
                     User = new UserViewModel()
                     {
-                        FirstName = comment.Customer.User.FirstName
-                    }
+                        Id = comment.Customer.User.Id,
+                        UserName = comment.Customer.User.UserName,
+                        FirstName = comment.Customer.User.FirstName,
+                        LastName = comment.Customer.User.LastName,
+                        Email = comment.Customer.User.Email,
+                        EmailConfirmed = comment.Customer.User.EmailConfirmed,
+                        PhoneNumber = comment.Customer.User.PhoneNumber,
+                        PhoneNumberConfirmed = comment.Customer.User.PhoneNumberConfirmed,
+                        PasswordHash = comment.Customer.User.PasswordHash,
+                        SecurityStamp = comment.Customer.User.SecurityStamp,
+                        TwoFactorEnabled = comment.Customer.User.TwoFactorEnabled,
+                        LockoutEndDateUtc = comment.Customer.User.LockoutEndDateUtc,
+                        LockoutEnabled = comment.Customer.User.LockoutEnabled,
+                        AccessFailedCount = comment.Customer.User.AccessFailedCount,
+                    },
+                },
 
-                }
-
-
-                 //MenuItem = new MenuItemViewModel()
-                 //{
-                 //    Name = menuitem.Category.Name,
-                 //    Id = menuitem.Category.Id,
-                 //    CafeteriaId = menuitem.Category.CafeteriaId,
-                 //    ImageData = menuitem.Category.Image,
-                 //}
+                MenuItemId=comment.MenuItemId,
+                MenuItem = new MenuItemViewModel()
+                {
+                    Id = comment.MenuItem.Id,
+                    Name = comment.MenuItem.Name,
+                    Description = comment.MenuItem.Description,
+                    Price = comment.MenuItem.Price,
+                    Type = comment.MenuItem.Type,
+                    CategoryId = comment.MenuItem.CategoryId
+                },
 
             }).ToList();
 
@@ -81,26 +96,34 @@ namespace CafeteriaApp.Web.Controllers
                 return BadRequest("Invalid data.");
             }
 
-            Comment Comm;
-
-            Comm = new Comment()
-                {
-                     //Id= comment.Id,
-                      Data=comment.Data,
-                       CustomerId=  1,    //comment.CustomerId,
-                        MenuItemId=  8     //comment.MenuItemId
-            };
-
-                appdb.Comments.Add(Comm);
-                appdb.SaveChanges();
-          
+            var c = appdb.Comments.Add(new Comment()
+            {
+                Id = comment.Id,
+                MenuItemId = comment.MenuItemId,
+                CustomerId = comment.CustomerId,
+                Data=comment.Data
+            });
             appdb.SaveChanges();
             return Ok();
         }
 
 
-
-
+        [HttpPut]
+        public IHttpActionResult Put(CommentViewModel comment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Not a valid data");
+            }
+            var c = appdb.Comments.Where(comm => comm.Id == comment.Id).FirstOrDefault<Comment>();
+            if (c == null)
+            {
+                return NotFound();
+            }
+            c.Data = comment.Data;
+            appdb.SaveChanges();
+            return Ok();
+        }
 
 
 
@@ -126,10 +149,7 @@ namespace CafeteriaApp.Web.Controllers
         //{
         //}
 
-        //// PUT: api/Comment/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
+
 
         //// DELETE: api/Comment/5
         //public void Delete(int id)

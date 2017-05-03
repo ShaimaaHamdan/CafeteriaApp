@@ -113,7 +113,7 @@ namespace CafeteriaApp.Web.Controllers
         [Route("DeleteAll/{id}")]
         public IHttpActionResult DeleteAll(int id) // orderid
         {
-            var orderItemsToDelete = appdb.OrderItems.Where(o => o.OrderId == id);
+            var orderItemsToDelete = appdb.OrderItems.Where(o => o.OrderId == id).ToList();
             if (orderItemsToDelete != null)
             {
                 foreach (OrderItem o in orderItemsToDelete)

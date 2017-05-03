@@ -24,9 +24,9 @@ namespace CafeteriaApp.Web.Controllers
                 CategoryId = menuitem.CategoryId,
                 Description = menuitem.Description,
                 Id = menuitem.Id,
-                Name = menuitem.Name,               
-                ImageData=menuitem.Image,
-                alternatetext=menuitem.alternatetext,
+                Name = menuitem.Name,
+                ImageData = menuitem.Image,
+                alternatetext = menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
                 Category = new CategoryViewModel()
@@ -34,8 +34,15 @@ namespace CafeteriaApp.Web.Controllers
                     Name = menuitem.Category.Name,
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
-                    ImageData=menuitem.Category.Image,
-                }
+                    ImageData = menuitem.Category.Image,
+                },
+                Comments = appdb.Comments.Select(c => new CommentViewModel()
+                {
+                    Id = c.Id,
+                    Data=c.Data,
+                    MenuItemId = menuitem.Id,
+                    CustomerId = c.CustomerId
+                }).ToList()
             }).ToList();
 
             return Ok(new { menuItems = menuItems });
@@ -71,6 +78,13 @@ namespace CafeteriaApp.Web.Controllers
                 {
                     Id = i.Id,
                     Name = i.Name
+                }).ToList(),
+                Comments = appdb.Comments.Select(c => new CommentViewModel()
+                {
+                    Id = c.Id,
+                    Data=c.Data,
+                    MenuItemId = menuitem.Id,
+                    CustomerId = c.CustomerId
                 }).ToList()
             };
 
@@ -97,8 +111,48 @@ namespace CafeteriaApp.Web.Controllers
                     Name = menuitem.Category.Name,
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
-                    ImageData = menuitem.Category.Image,
-                }
+                    ImageData = menuitem.Category.Image
+                },
+                Comments = menuitem.Comments.Select(c => new CommentViewModel()
+                {
+                    Id = c.Id,
+                    Data =c.Data,
+                    MenuItemId=menuitem.Id,
+                    //MenuItem = new MenuItemViewModel()
+                    //{
+                    //    Id = c.MenuItem.Id,
+                    //    Name = c.MenuItem.Name,
+                    //    Description = c.MenuItem.Description,
+                    //    Price = c.MenuItem.Price,
+                    //    Type = c.MenuItem.Type,
+                    //    CategoryId = c.MenuItem.CategoryId
+                    //},
+                    CustomerId =c.CustomerId
+                    //Customer = new CustomerViewModel()
+                    //{
+                    //    Id = c.Customer.Id,
+                    //    Credit = c.Customer.Credit,
+                    //    LimitedCredit = c.Customer.LimitedCredit,
+                    //    UserId = c.Customer.UserId,
+                    //    User = new UserViewModel()
+                    //    {
+                    //        Id = c.Customer.User.Id,
+                    //        UserName = c.Customer.User.UserName,
+                    //        FirstName = c.Customer.User.FirstName,
+                    //        LastName = c.Customer.User.LastName,
+                    //        Email = c.Customer.User.Email,
+                    //        EmailConfirmed = c.Customer.User.EmailConfirmed,
+                    //        PhoneNumber = c.Customer.User.PhoneNumber,
+                    //        PhoneNumberConfirmed = c.Customer.User.PhoneNumberConfirmed,
+                    //        PasswordHash = c.Customer.User.PasswordHash,
+                    //        SecurityStamp = c.Customer.User.SecurityStamp,
+                    //        TwoFactorEnabled = c.Customer.User.TwoFactorEnabled,
+                    //        LockoutEndDateUtc = c.Customer.User.LockoutEndDateUtc,
+                    //        LockoutEnabled = c.Customer.User.LockoutEnabled,
+                    //        AccessFailedCount = c.Customer.User.AccessFailedCount
+                    //    }
+                    //}
+                }).ToList()
             }).ToList();
 
             return Ok(new { menuItems =  menuItems });
