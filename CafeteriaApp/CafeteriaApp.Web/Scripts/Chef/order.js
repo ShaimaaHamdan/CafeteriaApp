@@ -60,7 +60,8 @@
             data: JSON.stringify(data)
         }).done(function (result) {
             console.log(result)
-            document.location = '/Chef/Order/Index';
+            self.getAllOrders();
+            //document.location = '/Chef/Order/Index';
         }).fail(self.showError);
     }
     self.waiting = function (order) {
@@ -80,8 +81,8 @@
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (result) {
-            console.log(result)
-            document.location = '/Chef/Order/Index';
+            console.log(result);
+            self.getAllOrders();
         }).fail(self.showError);
     }
 
@@ -102,8 +103,8 @@
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (data) {
-            console.log(data)
-            document.location = '/Chef/Order/Index';
+            console.log(data);
+            self.getAllOrders();
         }).fail(self.showError);
     }
    
