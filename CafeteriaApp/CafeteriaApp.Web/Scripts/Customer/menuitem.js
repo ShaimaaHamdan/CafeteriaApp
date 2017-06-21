@@ -6,6 +6,7 @@
     self.orderId = ko.observable();
     self.showfavorite = ko.observable();
     self.currentorder = ko.observable();
+    self.currentorderstatus = ko.observable();
     self.makeorderclicked = ko.observable();
     self.editorderclicked = ko.observable();
     self.deleteallclicked = ko.observable(0);
@@ -53,156 +54,11 @@
     //self.customerId = ko.observable(7);
     
     self.quantity = ko.observable(1);
-
+    self.comments(null);
     self.orderItems = ko.observableArray();
+    self.orderitemtodelete_id = ko.observable();
+    self.orderitemtodelete_name = ko.observable();
     self.casherorders = ko.observableArray();
-    (self.init = function () {
-        //Get orderitems for current users for last order not checked out.
-        if (self.customerId()!=7) { // if it's logged in user not from outside
-            $.ajax({
-                type: 'Get',
-                url: '/api/order/GetbyCustomerId/' + self.customerId(),
-                contentType: 'application/json; charset=utf-8'
-            }).done(function (data) {  
-                if (data.order != undefined) {
-                    self.orderItems(data.order.OrderItems);
-                    self.orderId(data.order.Id);
-                    self.currentorder(data.order);
-                    self.deliveryplace(data.order.DeliveryPlace);
-                }
-            }).fail(self.showError);
-        }
-        else {
-            $.ajax({
-                type: 'Get',
-                url: '/api/order/GetAllbyCustomerId/'+self.customerId(),
-                contentType: 'application/json; charset=utf-8'
-            }).done(function (data) {
-                self.casherorders(data.orders);
-            }).fail(self.showError);
-        }
-    })();
-    (self.initialorder = function () {
-        if (self.makeorderclicked() == 1) {
-            $.ajax({
-                type: 'Get',
-                url: '/api/order/Getlastorder/' + self.customerId(),
-                contentType: 'application/json; charset=utf-8'
-            }).done(function (data) {
-                self.editorder(data.order);
-                self.editorderclicked(1);
-            }).fail(self.showError);
-        }
-        else if (self.editorderclicked() == 1) {            
-            $.ajax({
-                type: 'Get',
-                url: '/api/order/' + self.orderId(),
-                contentType: 'application/json; charset=utf-8'
-            }).done(function (data) {
-                self.orderId(data.order.Id);
-                self.orderItems(data.order.OrderItems);
-                self.currentorder(data.order);
-                self.deliveryplace(data.order.DeliveryPlace);
-                self.chosenpaymentmethod(data.order.PaymentMethod);
-            }).fail(self.showError);
-        }
-    })();
-    self.enterdeliveryplaceandpaymentmethod = function () {
-        var data = {
-            Id: self.orderId(),
-            paymentmethod: self.chosenpaymentmethod(),
-            paymentdone: self.currentorder().PaymentDone,
-            deliveryplace: self.deliveryplace(),
-            deliverytime: self.currentorder().DeliveryTime,
-            ordertime: self.currentorder().OrderTime,
-            orderstatus: self.currentorder().OrderStatus
-        }
-        $.ajax({
-            type: 'Put',
-            url: '/api/Order/' + self.orderId(),
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (result) {
-            self.init();
-            self.initialorder();
-            alertify.success('Delivery Place and Payment Method are Updated');
-        }).fail(self.showError);
-    }
-    self.deleteorder = function (order) {
-        $.ajax({
-            type: 'Delete',
-            url: '/api/OrderItem/DeleteAll/' + order.Id,
-            contentType: 'application/json; charset=utf-8',
-            data: { id: order.Id }
-        }).done(function (data) {
-            self.init();
-        }).fail(self.showError)
-        $.ajax({
-            type: 'Delete',
-            url: '/api/Order/' + order.Id,
-            contentType: 'application/json; charset=utf-8',
-            data: { id: order.Id }
-        }).done(function (data) {
-            self.init();
-        }).fail(self.showError)
-    }
-    //-------------------------------------------------------------------
-    self.deletecomment = function (comment) {
-        $.ajax({
-            type: 'Delete',
-            url: '/api/Comment/' + comment.Id,
-            contentType: 'application/json; charset=utf-8',
-            data: { id: comment.Id }
-        }).done(function (data) {
-            self.getCommentByMenuItemId(self.menuItem());
-            alertify.success("Your Comment is deleted");
-        }).fail(self.showError);
-    }
-    //----------------------------------------------------------------
-    self.hide = function (order) {
-        if (self.orderId() == order.Id) {
-            self.makeorderclicked(0);
-            self.editorderclicked(0);
-        }
-    }
-    self.editorder = function (order) {
-        self.makeorderclicked(0);
-        self.editorderclicked(1);
-        self.orderId(order.Id);
-        self.orderItems(order.OrderItems);
-        self.currentorder(order);
-        self.deliveryplace(order.DeliveryPlace);
-        self.chosenpaymentmethod(order.PaymentMethod);
-    }
-    self.MakeOrder = function () {
-        self.makeorderclicked(1);
-        var data = {
-            OrderTime: new Date(),
-            OrderStatus: "waiting",
-            DeliveryTime: new Date(),
-            DeliveryPlace: "No",
-            PaymentMethod: "cash",
-            PaymentDone: false,
-            CustomerId: self.customerId()
-        }
-        $.ajax({
-            type: 'Post',
-            url: '/api/Order',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (result) {
-            self.initialorder();
-            self.init();
-        }).fail(self.showError);
-    }
-    self.total = ko.computed(function () {
-        var total = 0;
-        for (var p = 0; p < self.orderItems().length; ++p) {
-            total += (self.orderItems()[p].MenuItem.Price) * (self.orderItems()[p].Quantity);
-        }
-        return total;
-    });
-
     self.showError = function (jqXHR) {
 
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
@@ -225,6 +81,15 @@
             if (response.error_description) self.errors.push(response.error_description);
         }
     }
+
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)[0];
+        self.orderitemtodelete_id(button.attributes["orderitemtodelete_id"].value)
+        self.orderitemtodelete_name(button.attributes["orderitemtodelete_name"].value)
+       // console.log(self.name());
+       // self.getCategoryByCafeteriaId();
+    });
+
     self.getCategory = function () {
         $.ajax({
             type: 'Get',
@@ -252,22 +117,169 @@
 
     self.getMenuItemByCategoryId();
 
-    self.getCommentByMenuItemId = function (menuItem) {
-        if (menuItem.Comments.length!=0) {
+    self.getCustomerById = function () {
+        console.log(self.customerId());
+        $.ajax({
+            type: 'Get',
+            url: '/api/Customer/' + self.customerId(),
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (result) {
+            var data = result.customer;
+            console.log(data);
+            self.model().limitedCredit(data.LimitedCredit);
+            self.model().firstName(data.User.FirstName);
+            self.model().lastName(data.User.LastName);
+            self.model().email(data.User.Email);
+            self.model().userName(data.User.UserName);
+            self.model().password(data.User.PasswordHash);
+            self.model().phoneNumber(data.User.PhoneNumber);
+            self.fileData().dataURL('data:image/gif;base64,' + data.User.ImageData);
+            self.fileData().base64String(data.User.ImageData);
+        }).fail(self.showError);
+    };
+
+    self.getCustomerById();
+
+    (self.init = function () {
+        //Get orderitems for current users for last order not checked out.
+        if (self.customerId()!=7) { // if it's logged in user not from outside
             $.ajax({
                 type: 'Get',
-                url: '/api/Comment/GetByMenuItem/' + menuItem.Id, //self.menuItemId(),
+                url: '/api/order/GetbyCustomerId/' + self.customerId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {  
+                if (data.order != undefined) {
+                    self.orderItems(data.order.OrderItems);
+                    self.orderId(data.order.Id);
+                    self.currentorder(data.order);
+                    self.currentorderstatus(data.order.OrderStatus);
+                    self.deliveryplace(data.order.DeliveryPlace);
+                    
+                    console.log(self.currentorderstatus());
+                    console.log(self.comments());
+                }
+            }).fail(self.showError);
+        }
+        else {
+            $.ajax({
+                type: 'Get',
+                url: '/api/order/GetAllbyCustomerId/'+self.customerId(),
                 contentType: 'application/json; charset=utf-8'
             }).done(function (data) {
-                console.log(data)
-                self.menuItem(menuItem);
-                self.menuItemId(menuItem.Id);
-                self.comments(data.comments)  ///!!!
-                self.init();
+                self.casherorders(data.orders);
             }).fail(self.showError);
-
         }
-    }  
+    })();
+
+    // orders
+
+    (self.initialorder = function () {
+        if (self.makeorderclicked() == 1) {
+            $.ajax({
+                type: 'Get',
+                url: '/api/order/Getlastorder/' + self.customerId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {
+                self.editorder(data.order);
+                self.editorderclicked(1);
+            }).fail(self.showError);
+        }
+        else if (self.editorderclicked() == 1) {            
+            $.ajax({
+                type: 'Get',
+                url: '/api/order/' + self.orderId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {
+                self.orderId(data.order.Id);
+                self.orderItems(data.order.OrderItems);
+                self.currentorder(data.order);
+                self.deliveryplace(data.order.DeliveryPlace);
+                self.chosenpaymentmethod(data.order.PaymentMethod);
+            }).fail(self.showError);
+        }
+    })();
+   
+    self.MakeOrder = function () {
+        self.makeorderclicked(1);
+        var data = {
+            OrderTime: new Date(),
+            OrderStatus: "waiting",
+            DeliveryTime: new Date(),
+            DeliveryPlace: "No",
+            PaymentMethod: "cash",
+            PaymentDone: false,
+            CustomerId: self.customerId()
+        }
+        $.ajax({
+            type: 'Post',
+            url: '/api/Order',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (result) {
+            self.initialorder();
+            self.init();
+        }).fail(self.showError);
+    }
+
+    self.editorder = function (order) {
+        self.makeorderclicked(0);
+        self.editorderclicked(1);
+        self.orderId(order.Id);
+        self.orderItems(order.OrderItems);
+        self.currentorder(order);
+        self.deliveryplace(order.DeliveryPlace);
+        self.chosenpaymentmethod(order.PaymentMethod);
+    }
+
+    self.deleteorder = function (order) {
+        $.ajax({
+            type: 'Delete',
+            url: '/api/OrderItem/DeleteAll/' + order.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: { id: order.Id }
+        }).done(function (data) {
+            self.init();
+        }).fail(self.showError)
+        $.ajax({
+            type: 'Delete',
+            url: '/api/Order/' + order.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: { id: order.Id }
+        }).done(function (data) {
+            self.init();
+        }).fail(self.showError)
+    }
+
+    self.enterdeliveryplaceandpaymentmethod = function () {
+        var data = {
+            Id: self.orderId(),
+            paymentmethod: self.chosenpaymentmethod(),
+            paymentdone: self.currentorder().PaymentDone,
+            deliveryplace: self.deliveryplace(),
+            deliverytime: self.currentorder().DeliveryTime,
+            ordertime: self.currentorder().OrderTime,
+            orderstatus: self.currentorder().OrderStatus
+        }
+        $.ajax({
+            type: 'Put',
+            url: '/api/Order/' + self.orderId(),
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (result) {
+            self.init();
+            self.initialorder();
+            alertify.success('Delivery Place and Payment Method are Updated');
+        }).fail(self.showError);
+    }
+
+    self.hide = function (order) {
+        if (self.orderId() == order.Id) {
+            self.makeorderclicked(0);
+            self.editorderclicked(0);
+        }
+    }
+
+    // order items
 
     self.addToCart = function (menuItem) {
         var x=self.orderItems().filter(e=>  e.MenuItemId == menuItem.Id)[0];
@@ -293,71 +305,18 @@
         }
         
     }
-    self.editcomment = function (comment) {
-        var data = {
-            id: comment.Id,
-            data: self.commentedit_data(),
-            menuitemid: comment.MenuItemId,
-            customerid: self.customerId(),
-        }
-        $.ajax({
-            type: 'Put',
-            url: '/api/comment/' + comment.Id,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function () {
-            self.editcommentclicked(0);
-            self.getCommentByMenuItemId(self.menuItem());
-            self.commentedit_data(null);
-        }).fail(self.showError);
-    }
-
-    self.hidecomments = function (menuitem) {
-        if (self.menuItemId() == menuitem.Id) {
-            self.comments(null);
-        }
-    }
-    self.showcommenteditbox = function (comment) {
-        self.commentId(comment.Id);
-        self.editcommentclicked(1);
-    }
-    self.addcomment = function (menuitem) {
-        if (self.comment_data() == null) {
-            alertify.error("Please Enter Comment");
-        }
-        else {
-            var data = {
-                data: self.comment_data(),
-                menuItemid: menuitem.Id,
-                customerid: self.customerId()
-            }
-            $.ajax({
-                type: 'Post',
-                url: '/api/Comment',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function (result) {                              
-                alertify.success("Your comment is added");
-                self.init();
-                self.getCommentByMenuItemId(menuitem);
-                self.comment_data(null);             
-            }).fail(self.showError);
-        }
-        
-
-    }
 
     self.addanother = function (orderitem) {
         var data = {
             id: orderitem.Id,  // id of orderitem to be passed in the put request
-            quantity: orderitem.Quantity+1, // increasing the quantity
+            quantity: orderitem.Quantity + 1, // increasing the quantity
             menuItemid: self.menuItemId,
             orderid: self.orderId,
             customerid: self.customerId
         }
         $.ajax({
             type: 'Put',
-            url: '/api/OrderItem/'+orderitem.Id,
+            url: '/api/OrderItem/' + orderitem.Id,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (result) {
@@ -365,6 +324,7 @@
             self.initialorder();
         }).fail(self.showError);
     };
+
     self.deleteitem = function (orderitem) {
         if ((self.currentorder().OrderStatus != 'inprogress') && (self.currentorder().OrderStatus != 'completed')) {
             if (orderitem.Quantity == 1) {
@@ -406,30 +366,183 @@
             }
         }
     }
-   
-    self.deleteall = function (orderitem) {  
+
+    self.deleteall = function (orderitem) {
+        self.orderitemtodelete_id(orderitem.Id);
+        self.orderitemtodelete_name(orderitem.MenuItem.Name);
         if (self.currentorder().OrderStatus != "inprogress" && self.currentorder().OrderStatus != "completed") {
-                $.ajax({
-                    type: 'Delete',
-                    url: '/api/OrderItem/' + orderitem.Id,
-                    contentType: 'application/json; charset=utf-8',
-                    data: { id: orderitem.Id }
-                }).done(function (data) {
-                    self.init();
-                    self.initialorder();
-                }).fail(self.showError)
+            $.ajax({
+                type: 'Delete',
+                url: '/api/OrderItem/' + self.orderitemtodelete_id(),
+                contentType: 'application/json; charset=utf-8',
+                data: { id: self.orderitemtodelete_id() }
+            }).done(function (data) {
+                console.log(1);
+                $('#myModal').modal('hide')
+                self.init();
+                self.initialorder();
+            }).fail(self.showError)
+        }
+        else {
+            if (self.currentorder().OrderStatus == "inprogress") {
+                alertify.error('Sorry,Your order is in progress.You cannot delete');
             }
-            else {
-            if (self.currentorder().OrderStatus=="inprogress")
-                {
-                    alertify.error('Sorry,Your order is in progress.You cannot delete');
-                }
-            if (self.currentorder().OrderStatus == "completed")
-                {
-                    alertify.error('Sorry,Your order is already fnished.You cannot delete');
-                }
+            if (self.currentorder().OrderStatus == "completed") {
+                alertify.error('Sorry,Your order is already fnished.You cannot delete');
             }
+        }
     }
+
+    self.checkOut = function () {
+        if (self.total() < self.model().limitedCredit()) {
+
+            var result = self.model().limitedCredit() - self.total();
+            self.model().limitedCredit(result);
+            console.log(result);
+            var data = {
+                id: self.customerId(),
+                user: {
+                    firstName: self.model().firstName(),
+                    lastName: self.model().lastName(),
+                    email: self.model().email(),
+                    userName: self.model().userName(),
+                    password: self.model().password(),
+                    phoneNumber: self.model().phoneNumber(),
+                    imageData: self.fileData().base64String()
+                },
+                limitedCredit: result
+            }
+            $.ajax({
+                type: 'PUT',
+                url: '/api/customer',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                console.log(result);
+                alertify.success("Done");
+            }).fail(self.showError);
+        } else {
+            alertify.error("Error,");
+        }
+        //self.checkOut = function () {
+        //    console.log(self.credit());
+        //    console.log(self.total());
+        //    if (self.total() > self.credit()) {
+        //        alertify.error("Error,");
+        //        } else {
+        //        alertify.success("Done");
+        //        var result = self.credit() - self.total();
+        //        self.credit(result);
+        //        console.log(result);
+        //    }
+        //};
+
+    }
+
+    self.cancel = function () {
+        document.location = '/Customer/Cafeteria/Index';
+    }
+
+    self.total = ko.computed(function () {
+        var total = 0;
+        for (var p = 0; p < self.orderItems().length; ++p) {
+            total += (self.orderItems()[p].MenuItem.Price) * (self.orderItems()[p].Quantity);
+        }
+        return total;
+    });
+
+    // comments   
+    
+    self.addcomment = function (menuitem) {
+        if (self.comment_data() == null) {
+            alertify.error("Please Enter Comment");
+        }
+        else {
+            var data = {
+                data: self.comment_data(),
+                menuItemid: menuitem.Id,
+                customerid: self.customerId()
+            }
+            $.ajax({
+                type: 'Post',
+                url: '/api/Comment',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                alertify.success("Your comment is added");
+                self.init();
+                self.getCommentByMenuItemId(menuitem);
+                self.comment_data(null);
+            }).fail(self.showError);
+        }
+
+    }  
+
+    self.getCommentByMenuItemId = function (menuItem) {
+        if (menuItem.Comments.length!=0) {
+            $.ajax({
+                type: 'Get',
+                url: '/api/Comment/GetByMenuItem/' + menuItem.Id,
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {
+                console.log(data)
+                self.menuItem(menuItem);
+                self.menuItemId(menuItem.Id);
+                self.comments(data.comments)  ///!!!
+                self.init();
+            }).fail(self.showError);
+
+        }
+    }  
+  
+    self.editcomment = function (comment) {
+        var data = {
+            id: comment.Id,
+            data: self.commentedit_data(),
+            menuitemid: comment.MenuItemId,
+            customerid: self.customerId(),
+        }
+        $.ajax({
+            type: 'Put',
+            url: '/api/comment/' + comment.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            self.editcommentclicked(0);
+            self.getCommentByMenuItemId(self.menuItem());
+            self.commentedit_data(null);
+        }).fail(self.showError);
+    }
+
+    //-------------------------------------------------------------------
+    self.deletecomment = function (comment) {
+        $.ajax({
+            type: 'Delete',
+            url: '/api/Comment/' + comment.Id,
+            contentType: 'application/json; charset=utf-8',
+            data: { id: comment.Id }
+        }).done(function (data) {
+            self.getCommentByMenuItemId(self.menuItem());
+            alertify.success("Your Comment is deleted");
+        }).fail(self.showError);
+    }
+    //----------------------------------------------------------------
+
+    self.hidecomments = function (menuitem) {
+        if (self.menuItemId() == menuitem.Id) {
+            self.comments(null);
+        }
+    }
+    self.showcommenteditbox = function (comment) {
+        self.commentId(comment.Id);
+        self.editcommentclicked(1);
+    }
+    self.hideeditcommentbox = function (comment) {
+        self.editcommentclicked(0);
+    }
+    
+    // favorite
+    
     self.addfavorite = function (menuitem) {
         var x = self.favoriteItems().filter(e=>  e.MenuItemId == menuitem.Id);
         if (x.length != 0) {
@@ -462,10 +575,6 @@
             }).fail(self.showError);
     }
 
-    self.hidefavorite = function () {
-        self.showfavorite(0);
-    }
-
     self.deletefavorite = function (favoriteitem) {
         $.ajax({
             type: 'Delete',
@@ -477,74 +586,8 @@
         }).fail(self.showError);
     }
 
-    self.getCustomerById = function () {
-        console.log(self.customerId());
-        $.ajax({
-            type: 'Get',
-            url: '/api/Customer/' + self.customerId(),
-            contentType: 'application/json; charset=utf-8'
-        }).done(function (result) {
-            var data = result.customer;
-            console.log(data);
-            self.model().limitedCredit(data.LimitedCredit);
-            self.model().firstName(data.User.FirstName);
-            self.model().lastName(data.User.LastName);
-            self.model().email(data.User.Email);
-            self.model().userName(data.User.UserName);
-            self.model().password(data.User.PasswordHash);
-            self.model().phoneNumber(data.User.PhoneNumber);
-            self.fileData().dataURL('data:image/gif;base64,' + data.User.ImageData);
-            self.fileData().base64String(data.User.ImageData);
-        }).fail(self.showError);
-    };
-    self.getCustomerById();
-    //self.checkOut = function () {
-    //    console.log(self.credit());
-    //    console.log(self.total());
-    //    if (self.total() > self.credit()) {
-    //        alertify.error("Error,");
-    //        } else {
-    //        alertify.success("Done");
-    //        var result = self.credit() - self.total();
-    //        self.credit(result);
-    //        console.log(result);
-    //    }
-    //};
-
-    self.checkOut = function () {
-        if (self.total() < self.model().limitedCredit()) {
-           
-            var result = self.model().limitedCredit() - self.total();
-            self.model().limitedCredit(result);
-            console.log(result);
-            var data = {
-                id: self.customerId(),
-                user: {
-                    firstName: self.model().firstName(),
-                    lastName: self.model().lastName(),
-                    email: self.model().email(),
-                    userName: self.model().userName(),
-                    password: self.model().password(),
-                    phoneNumber: self.model().phoneNumber(),
-                    imageData: self.fileData().base64String()
-                },
-                limitedCredit: result
-            }
-            $.ajax({
-                type: 'PUT',
-                url: '/api/customer',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function (result) {
-                console.log(result);
-                alertify.success("Done");
-                }).fail(self.showError);
-        } else {
-            alertify.error("Error,");
-        }
-    }
-    self.cancel = function () {
-        document.location = '/Customer/Cafeteria/Index';
+    self.hidefavorite = function () {
+        self.showfavorite(0);
     }
 
 }

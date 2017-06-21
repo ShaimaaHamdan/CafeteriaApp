@@ -8,11 +8,15 @@ using System.Web.Http;
 using CafeteriaApp.Data.Contexts;
 using CafeteriaApp.Data.Models;
 using CafeteriaApp.Web.Models;
+using CafeteriaApp.Web.Helpers;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace CafeteriaApp.Web.Controllers
 {
     public class CafeteriaController : ApiController
     {
+        image_handle image=new image_handle();
         public AppDb appdb = new AppDb();
         public IHttpActionResult Get()
         {
@@ -21,7 +25,8 @@ namespace CafeteriaApp.Web.Controllers
             {
                 Id = c.Id,
                 Name = c.Name,
-                ImageData = c.Image
+                ImageData = c.Image,
+                ImageUrl = c.ImageUrl
             }).ToList();
 
             return Ok(new  { cafeterias = cafeterias });
@@ -38,7 +43,8 @@ namespace CafeteriaApp.Web.Controllers
             {
                 Id = cafeteria.Id,
                 Name = cafeteria.Name,
-                ImageData = cafeteria.Image
+                ImageData = cafeteria.Image,
+                ImageUrl = cafeteria.ImageUrl
             };
             
             return Ok(new { cafeteria = cafeteriaModel});
@@ -52,18 +58,31 @@ namespace CafeteriaApp.Web.Controllers
             }
 
             var existingCafeteria = appdb.Cafeterias.Where(x => x.Id == cafeteria.Id).FirstOrDefault<Cafeteria>();
-
+            var oldimage = existingCafeteria.Image;
             if (existingCafeteria != null)
             {
                 existingCafeteria.Id = cafeteria.Id;
                 existingCafeteria.Name = cafeteria.Name;
-                existingCafeteria.Image = cafeteria.ImageData;
-                appdb.SaveChanges();
+                existingCafeteria.Image = cafeteria.ImageData;//base64
             }
             else
             {
                 return NotFound();
             }
+            if (cafeteria.ImageData != null)
+            {
+                if (oldimage != cafeteria.ImageData)
+                {
+                    image.save_cafeteria_images(cafeteria.ImageData, cafeteria.Id);
+                    if (oldimage == null)
+                    {
+                        var imgurl = "/Content/admin/cafeteria/" + cafeteria.Id + ".png";
+                        existingCafeteria.ImageUrl = imgurl;
+                    }
+                }
+            }
+            
+            appdb.SaveChanges();
             return Ok();
         }
 
@@ -73,8 +92,11 @@ namespace CafeteriaApp.Web.Controllers
             var cafeteriaToDelete = appdb.Cafeterias.FirstOrDefault(c => c.Id == id);
             if (cafeteriaToDelete != null)
             {
+                image.delete_image("/Content/admin/cafeteria/" + cafeteriaToDelete.Id + ".png");
                 appdb.Cafeterias.Remove(cafeteriaToDelete);
+
                 appdb.SaveChanges();
+                
                 return Ok();
             }
             else
@@ -91,14 +113,22 @@ namespace CafeteriaApp.Web.Controllers
                 return BadRequest("Invalid data.");
             }
 
-
+         
             var m = appdb.Cafeterias.Add(new Cafeteria()
             {
                 Id = cafeteria.Id,
-                Name = cafeteria.Name,
-                Image = cafeteria.ImageData,
+                Name = cafeteria.Name               
             });
             appdb.SaveChanges();
+            if (cafeteria.ImageData != null)
+            {
+                m.Image = cafeteria.ImageData;
+                image.save_cafeteria_images(cafeteria.ImageData, m.Id);
+                var imgurl = "/Content/admin/cafeteria/" + m.Id + ".png";
+                m.ImageUrl = imgurl;
+                appdb.SaveChanges();
+            }
+           
             return Ok();
         }
     }

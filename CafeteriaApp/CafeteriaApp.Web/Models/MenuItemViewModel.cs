@@ -20,7 +20,7 @@ namespace CafeteriaApp.Web.Models
 
         public int CategoryId { get; set; }
         public string ImageData { get; set; }
-
+        public string ImageUrl { get; set; }
         public string alternatetext { get; set; }
                 
         public CategoryViewModel Category { get; set; }

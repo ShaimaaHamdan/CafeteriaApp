@@ -262,12 +262,14 @@
     <Compile Include="Controllers\MenuItemController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderItemController.cs" />
+    <Compile Include="Controllers\OrderNotificationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CultureHelper.cs" />
+    <Compile Include="Helpers\image_handle.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -281,6 +283,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MenuItemViewModel.cs" />
     <Compile Include="Models\OrderItemViewModel.cs" />
+    <Compile Include="Models\OrderNotificationViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -572,6 +575,7 @@
     <Content Include="Scripts\CustomerTheme\tmStickUp.js" />
     <Content Include="Scripts\CustomerTheme\touchTouch.jquery.js" />
     <Content Include="Scripts\Customer\childrestrict.js" />
+    <Content Include="Scripts\Customer\customer_order_notification.js" />
     <Content Include="Scripts\Customer\profile.js" />
     <Content Include="Scripts\Customer\cafeteria.js" />
     <Content Include="Scripts\Customer\category.js" />
@@ -635,6 +639,9 @@
     <Folder Include="Areas\Customer\Models\" />
     <Folder Include="Areas\Customer\Views\MenuItem\" />
     <Folder Include="Areas\Customer\Views\Order\" />
+    <Folder Include="Content\admin\cafeteria\" />
+    <Folder Include="Content\admin\category\" />
+    <Folder Include="Content\admin\menuitem\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@
                             </div>
                             <div data-bind="fileDrag: fileData">
                                 <div class="image-upload-preview">
-                                    <img width="370" height="266" data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL">
+                                    <img width="370" height="266" data-bind="attr: { src: model().imageurl }, visible: fileData().dataURL">
                                 </div>
                                 <div class="image-upload-input">
                                     <input type="file" data-bind="fileInput: fileData,customFileInput: {}">

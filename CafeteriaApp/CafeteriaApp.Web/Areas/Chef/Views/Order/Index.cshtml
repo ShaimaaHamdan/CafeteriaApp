@@ -20,7 +20,7 @@
         </tr>
      </tbody>
     <tbody data-bind="foreach:orders">
-        <tr class="odd gradeX">
+        <tr data-bind="visible:OrderItems.length>0 && OrderStatus!='completed'" class="odd gradeX">
             <td data-bind="text:Id"></td>
             <td data-bind="foreach:OrderItems">
                 <div data-bind="text:MenuItem.Name">

@@ -17,7 +17,7 @@ namespace CafeteriaApp.Data.Models
         public string Name { get; set; }
 
         public string Image { get; set; }
-
+        public string ImageUrl { get; set; }
 
         public ICollection<MenuItem>  MenuItems { get; set; }
 

@@ -92,11 +92,13 @@
 function CafeteriaEditViewModel(id) {
 
     var self = this;
+    
     self.cafeteriaId = ko.observable(id);
     self.categoryId = ko.observable();
     self.categories = ko.observableArray();
     self.menuItems = ko.observableArray();
     self.name = ko.observable();
+    self.imageurl = ko.observable();
 
     ko.fileBindings.defaultOptions.buttonText = "Choose Image";
 
@@ -117,7 +119,8 @@ function CafeteriaEditViewModel(id) {
     });
 
     self.model = ko.validatedObservable({
-        name: ko.observable().extend({ required: true, maxLength: 100 })
+        name: ko.observable().extend({ required: true, maxLength: 100 }),
+        imageurl: ko.observable()
     });
 
 
@@ -151,7 +154,9 @@ function CafeteriaEditViewModel(id) {
             url: '/api/Cafeteria/' + self.cafeteriaId(),
             contentType: 'application/json; charset=utf-8',
         }).done(function (data) {
+            console.log(data.cafeteria);
             self.model().name(data.cafeteria.Name);
+            self.model().imageurl(data.cafeteria.ImageUrl);
             self.fileData().dataURL('data:image/gif;base64,' + data.cafeteria.ImageData);
             self.fileData().base64String(data.cafeteria.ImageData);
         }).fail(self.showError);

@@ -184,6 +184,22 @@
     <Compile Include="Migrations\201704291906182_AddCommentTable.Designer.cs">
       <DependentUpon>201704291906182_AddCommentTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706171259088_AddOrderNotifcation.cs" />
+    <Compile Include="Migrations\201706171259088_AddOrderNotifcation.Designer.cs">
+      <DependentUpon>201706171259088_AddOrderNotifcation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706181949587_AddDataToOrderNotification.cs" />
+    <Compile Include="Migrations\201706181949587_AddDataToOrderNotification.Designer.cs">
+      <DependentUpon>201706181949587_AddDataToOrderNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706210049149_AddImageUrl.cs" />
+    <Compile Include="Migrations\201706210049149_AddImageUrl.Designer.cs">
+      <DependentUpon>201706210049149_AddImageUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706211325550_AddImageUrlToCategoryAndMenuitem.cs" />
+    <Compile Include="Migrations\201706211325550_AddImageUrlToCategoryAndMenuitem.Designer.cs">
+      <DependentUpon>201706211325550_AddImageUrlToCategoryAndMenuitem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
@@ -196,6 +212,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderNotification.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -301,6 +318,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704291906182_AddCommentTable.resx">
       <DependentUpon>201704291906182_AddCommentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706171259088_AddOrderNotifcation.resx">
+      <DependentUpon>201706171259088_AddOrderNotifcation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706181949587_AddDataToOrderNotification.resx">
+      <DependentUpon>201706181949587_AddDataToOrderNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706210049149_AddImageUrl.resx">
+      <DependentUpon>201706210049149_AddImageUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706211325550_AddImageUrlToCategoryAndMenuitem.resx">
+      <DependentUpon>201706211325550_AddImageUrlToCategoryAndMenuitem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable.resources" />
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable1.resources" />

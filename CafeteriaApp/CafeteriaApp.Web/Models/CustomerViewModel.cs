@@ -27,5 +27,6 @@ namespace CafeteriaApp.Web.Models
 
         public List<CommentViewModel> Comments { get; set; }
 
+        public List<OrderNotificationViewModel> Notifications { get; set; }
     }
 }

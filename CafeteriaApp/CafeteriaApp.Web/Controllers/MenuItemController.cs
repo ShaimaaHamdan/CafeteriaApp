@@ -7,6 +7,7 @@ using System.Web.Http;
 using CafeteriaApp.Data.Contexts;
 using CafeteriaApp.Data.Models;
 using CafeteriaApp.Web.Models;
+using CafeteriaApp.Web.Helpers;
 
 namespace CafeteriaApp.Web.Controllers
 {
@@ -14,6 +15,7 @@ namespace CafeteriaApp.Web.Controllers
     [RoutePrefix("api/MenuItem")]
     public class MenuItemController : ApiController
     {
+        image_handle image = new image_handle();
         public AppDb appdb = new AppDb();
 
         public IHttpActionResult Get()
@@ -26,6 +28,7 @@ namespace CafeteriaApp.Web.Controllers
                 Id = menuitem.Id,
                 Name = menuitem.Name,
                 ImageData = menuitem.Image,
+                ImageUrl = menuitem.ImageUrl,
                 alternatetext = menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
@@ -35,6 +38,7 @@ namespace CafeteriaApp.Web.Controllers
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
                     ImageData = menuitem.Category.Image,
+                    ImageUrl = menuitem.Category.ImageUrl
                 },
                 Comments = appdb.Comments.Select(c => new CommentViewModel()
                 {
@@ -64,6 +68,7 @@ namespace CafeteriaApp.Web.Controllers
                 Id = menuitem.Id,
                 Name = menuitem.Name,
                 ImageData = menuitem.Image,
+                ImageUrl = menuitem.ImageUrl,
                 alternatetext = menuitem.alternatetext,
                 Price = menuitem.Price,
                 Type = menuitem.Type,
@@ -73,6 +78,7 @@ namespace CafeteriaApp.Web.Controllers
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
                     ImageData = menuitem.Category.Image,
+                    ImageUrl = menuitem.Category.ImageUrl
                 },
                 Additions = menuitem.Additions.Select(i=>new AdditionViewModel()
                 {
@@ -104,6 +110,7 @@ namespace CafeteriaApp.Web.Controllers
                 Name = menuitem.Name,
                 Price = menuitem.Price,
                 ImageData = menuitem.Image,
+                ImageUrl = menuitem.ImageUrl,
                 alternatetext = menuitem.alternatetext,
                 Type = menuitem.Type,
                 Category = new CategoryViewModel()
@@ -111,7 +118,8 @@ namespace CafeteriaApp.Web.Controllers
                     Name = menuitem.Category.Name,
                     Id = menuitem.Category.Id,
                     CafeteriaId = menuitem.Category.CafeteriaId,
-                    ImageData = menuitem.Category.Image
+                    ImageData = menuitem.Category.Image,
+                    ImageUrl = menuitem.Category.ImageUrl
                 },
                 Comments = menuitem.Comments.Select(c => new CommentViewModel()
                 {
@@ -165,6 +173,7 @@ namespace CafeteriaApp.Web.Controllers
             var menuItemToDelete = appdb.MenuItems.FirstOrDefault(m => m.Id == id);
             if (menuItemToDelete != null)
             {
+                image.delete_image("/Content/admin/menuitem/" + menuItemToDelete.Id + ".png");
                 appdb.MenuItems.Remove(menuItemToDelete);
                 appdb.SaveChanges();
                 return Ok();
@@ -181,7 +190,7 @@ namespace CafeteriaApp.Web.Controllers
             {
                 return BadRequest("Invalid data.");
             }
-
+            
             var m = appdb.MenuItems.Add(new MenuItem()
             {
 
@@ -189,12 +198,22 @@ namespace CafeteriaApp.Web.Controllers
                 Description = menuitem.Description,
                 Id = menuitem.Id,
                 Name = menuitem.Name,
-                Image = menuitem.ImageData,
+                
+                ImageUrl = menuitem.ImageUrl,   
                 alternatetext = menuitem.alternatetext,
                 Price = menuitem.Price,
-                Type = menuitem.Type,
+                Type = menuitem.Type
             });
             appdb.SaveChanges();
+            if (menuitem.ImageData != null)
+            {
+                m.Image = menuitem.ImageData;
+                image.save_menuitem_images(menuitem.ImageData, m.Id);
+                var imgurl = "/Content/admin/menuitem/" + m.Id + ".png";
+                m.ImageUrl = imgurl;
+                appdb.SaveChanges();
+            }
+            
             return Ok();
         }
 
@@ -207,7 +226,7 @@ namespace CafeteriaApp.Web.Controllers
             }
 
             var existingMenuitem = appdb.MenuItems.Where(x => x.Id == menuitem.Id).FirstOrDefault<MenuItem>();
-
+            var oldimage = existingMenuitem.Image;
             if (existingMenuitem != null)
             {
                 existingMenuitem.Id = menuitem.Id;
@@ -216,14 +235,24 @@ namespace CafeteriaApp.Web.Controllers
                 existingMenuitem.Price = menuitem.Price;
                 existingMenuitem.Description = menuitem.Description;
                 existingMenuitem.Image = menuitem.ImageData;
-                appdb.SaveChanges();
             }
             else
             {
                 return NotFound();
             }
-
-
+            if (menuitem.ImageData != null)
+            {
+                if (oldimage != menuitem.ImageData)
+                {
+                    image.save_menuitem_images(menuitem.ImageData, menuitem.Id);
+                    if (oldimage == null)
+                    {
+                        var imgurl = "/Content/admin/menuitem/" + menuitem.Id + ".png";
+                        existingMenuitem.ImageUrl = imgurl;
+                    }
+                }
+            }
+            appdb.SaveChanges();
             return Ok();
         }
 

@@ -1,6 +1,6 @@
 ﻿function ProfileEditeViewModel() {
     var self = this;
-    self.customerId = ko.observable(1);
+    self.customerId = ko.observable(6);
     self.childeren = ko.observableArray();
     self.childIdToDelete = ko.observable();
     self.model = ko.validatedObservable({
@@ -153,7 +153,7 @@
 
 function ChildNewViewModel() {
     var self = this;
-    self.customerId = ko.observable(1);
+    self.customerId = ko.observable(6);
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
         age: ko.observable().extend({required: true, pattern: '^(1[0-8]|[1-9])$' }),
@@ -228,7 +228,7 @@ function ChildNewViewModel() {
 
 function ChildEditViewModel(id) {
     self.result = ko.observable();
-    self.customerId = ko.observable(1);
+    self.customerId = ko.observable(6);
     self.childId = ko.observable(id);
     self.restrictionId = ko.observable();
     self.restrictions = ko.observableArray();

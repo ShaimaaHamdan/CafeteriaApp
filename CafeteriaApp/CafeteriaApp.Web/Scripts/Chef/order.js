@@ -1,5 +1,6 @@
 ﻿function orderViewModel() {
     var self = this;
+    self.finishclicked = ko.observable(0);
     self.orders = ko.observableArray();
     self.id = ko.observable();
     self.customerid = ko.observable();
@@ -61,13 +62,12 @@
         }).done(function (result) {
             console.log(result)
             self.getAllOrders();
-            //document.location = '/Chef/Order/Index';
         }).fail(self.showError);
     }
     self.waiting = function (order) {
         var data = {
             id: order.Id,
-            customerid: order.CustomerId,
+            customerid: order.customerid,
             paymentmethod: order.PaymentMethod,
             paymentdone: order.PaymentDone,
             orderstatus: "waiting",
@@ -89,7 +89,7 @@
     self.finish = function (order) {
         var data = {
             id: order.Id,
-            customerid: order.CustomerId,
+            customerid: order.customerid,
             paymentmethod: order.PaymentMethod,
             paymentdone: order.PaymentDone,
             orderstatus: "completed",
@@ -105,6 +105,22 @@
         }).done(function (data) {
             console.log(data);
             self.getAllOrders();
+            self.finishclicked(1);
+        }).fail(self.showError);
+
+
+        data = {
+            data: "Order "+order.Id+"is finished",
+            customerid: order.customerid,
+            orderid: order.Id
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/api/OrderNotification',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (data) {
+            console.log(1);
         }).fail(self.showError);
     }
    

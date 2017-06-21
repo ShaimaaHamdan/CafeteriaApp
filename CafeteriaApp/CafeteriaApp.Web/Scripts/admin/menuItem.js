@@ -54,11 +54,13 @@ function MenuItemEditViewModel(id) {
     self.selectedAdditions = ko.observableArray();
     self.additionIdToDelete = ko.observable();
     self.name = ko.observable();
+    self.imageurl = ko.observable();
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
         price: ko.observable().extend({ required: true,pattern:'^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$'}),
         type: ko.observable().extend({ required: true, maxLength: 100 }),
-        description: ko.observable().extend({ required: true, maxLength: 500 })
+        description: ko.observable().extend({ required: true, maxLength: 500 }),
+        imageurl: ko.observable()
     });
     ko.fileBindings.defaultOptions.buttonText = "Choose Image";
     self.fileData = ko.observable({
@@ -115,6 +117,7 @@ function MenuItemEditViewModel(id) {
             self.model().name(data.Name);
             self.model().type(data.Type);
             self.model().price(data.Price);
+            self.model().imageurl(data.ImageUrl);
             self.categoryId(data.CategoryId);
             self.fileData().dataURL('data:image/gif;base64,' + data.ImageData);
             self.fileData().base64String(data.ImageData);
@@ -131,7 +134,8 @@ function MenuItemEditViewModel(id) {
                 price: self.model().price(),
                 description: self.model().description(),
                 type: self.model().type(),
-                imageData: self.fileData().base64String()
+                imageData: self.fileData().base64String(),
+                
             }
             $.ajax({
                 type: 'PUT',

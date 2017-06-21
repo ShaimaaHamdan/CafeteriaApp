@@ -27,7 +27,7 @@ namespace CafeteriaApp.Data.Models
 
 
         public string Image { get; set; }
-
+        public string ImageUrl { get; set; }
         public string alternatetext { get; set; }
 
         [ForeignKey("CategoryId")]

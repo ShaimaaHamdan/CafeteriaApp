@@ -73,6 +73,7 @@ function CategoryEditViewModel(id) {
     self.menuItems = ko.observableArray();
     self.cafeteriaId = ko.observable();
     self.name = ko.observable();
+    self.imageurl = ko.observable();
     
     ko.fileBindings.defaultOptions.buttonText = "Choose Image";
     self.fileData = ko.observable({
@@ -92,7 +93,8 @@ function CategoryEditViewModel(id) {
     });
 
     self.model = ko.validatedObservable({
-        name: ko.observable().extend({ required: true, maxLength: 100 })
+        name: ko.observable().extend({ required: true, maxLength: 100 }),
+        imageurl: ko.observable()
     });
     self.showError = function (jqXHR) {
 
@@ -125,6 +127,7 @@ function CategoryEditViewModel(id) {
         }).done(function (data) {
             self.cafeteriaId(data.category.CafeteriaId);
             self.model().name(data.category.Name);
+            self.model().imageurl(data.category.ImageUrl);
             self.fileData().dataURL('data:image/gif;base64,' + data.category.ImageData);
             self.fileData().base64String(data.category.ImageData);
         }).fail(self.showError);

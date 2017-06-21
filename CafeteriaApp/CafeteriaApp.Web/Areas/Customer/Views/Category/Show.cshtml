@@ -14,6 +14,9 @@
                 </div>
                 <div style="float: right;margin-right: -380px;margin-top: -310px">
                     <div data-bind="ifnot:$root.customerId()==7">
+
+                        <!-- customer order -->
+
                         <h2>@Resources.YourOrder&nbsp;&nbsp;<span data-bind="text:orderId"></span></h2>
                         <form id="bookingForm">
                             @if (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft())
@@ -78,7 +81,9 @@
                                 </div>
                             </div>
                             </form>
-                            @*<button data-bind="click:scroll">Let me see the Menuitems</button>*@
+
+                            <!-- Favorite Items -->
+
                             <div>
                                 <button data-bind="click:getfavorite" class="btn">View My Favorite</button> &nbsp;&nbsp;&nbsp;<button data-bind="click:hidefavorite" style="margin-left:+40px" class="btn">Hide My Favorite</button>
                                 <br />
@@ -100,8 +105,11 @@
                                 </div>
                             </div>
                     </div>
-
+                    
                     <div data-bind="if:$root.customerId()==7">
+
+                        <!-- Casher Orders -->
+
                         <h2>Orders</h2>
 
                         <div data-bind="foreach:casherorders">
@@ -168,18 +176,16 @@
 
                 </div>
 
-
-
-
-
-
                 <div class="clear"></div>
+
+                <!-- Menu Items -->
+
                 <h2>@Resources.MenuItems</h2>
                 <div data-bind="foreach:menuItems">
                     <div class="gall_bot">
                         <div class="text1">
                             <span data-bind="text:Name"></span>
-                            <img data-bind="attr: { src: 'data:image/gif;base64,' + ImageData }" alt="">
+                            <img data-bind="attr: { src: ImageUrl }" alt="">
                             <button title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
                                     class="btn btn-success btn-circle">
                                 @Resources.AddtoCart
@@ -199,6 +205,7 @@
 
                             <p>@Resources.Description:<span data-bind="text:Description"></span></p>
 
+                            <!-- Comments -->
 
                             <p>Comments:<button type="submit" style="margin-left: +40px;margin-top:-5px" data-bind="click:$root.getCommentByMenuItemId" class="btn" title="View Comments">View Comments</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" data-bind="click:$root.hidecomments" style="margin-top:-5px" class="btn" title="Hide Comments">Hide Comments</button></p>
 
