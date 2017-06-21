@@ -94,6 +94,51 @@ namespace CafeteriaApp.Web.Controllers
             return Ok(new { orderitem = model });
         }
 
+        [HttpGet]
+        [Route("GetByOrderId/{id}")]
+        public IHttpActionResult GetByOrderId(int id)
+        {
+            var orderitems = appdb.OrderItems.Where(o => o.OrderId == id).Select(orderitem => new OrderItemViewModel {
+
+                Id = orderitem.Id,
+                Quantity = orderitem.Quantity,
+                MenuItemId = orderitem.MenuItemId,
+                OrderId = orderitem.OrderId,
+                Order = new OrderViewModel()
+                {
+                    Id = orderitem.Order.Id,
+                    OrderTime = orderitem.Order.OrderTime,
+                    OrderStatus = orderitem.Order.OrderStatus,
+                    DeliveryTime = orderitem.Order.DeliveryTime,
+                    DeliveryPlace = orderitem.Order.DeliveryPlace,
+                    PaymentMethod = orderitem.Order.PaymentMethod,
+                    PaymentDone = orderitem.Order.PaymentDone,
+                    customerid = orderitem.Order.CustomerId
+
+                },
+                MenuItem = new MenuItemViewModel()
+                {
+                    Id = orderitem.MenuItem.Id,
+                    Name = orderitem.MenuItem.Name,
+                    Description = orderitem.MenuItem.Description,
+                    Price = orderitem.MenuItem.Price,
+                    Type = orderitem.MenuItem.Type,
+                    CategoryId = orderitem.MenuItem.CategoryId
+                }
+
+
+            });
+
+            if (orderitems == null)
+            {
+                return NotFound();
+            }
+
+         
+
+            return Ok(new { orderitems = orderitems });
+        }
+
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
