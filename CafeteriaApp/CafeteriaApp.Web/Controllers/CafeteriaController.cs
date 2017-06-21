@@ -25,7 +25,7 @@ namespace CafeteriaApp.Web.Controllers
             {
                 Id = c.Id,
                 Name = c.Name,
-                ImageData = c.Image,
+                //ImageData = c.Image,
                 ImageUrl = c.ImageUrl
             }).ToList();
 
@@ -43,7 +43,7 @@ namespace CafeteriaApp.Web.Controllers
             {
                 Id = cafeteria.Id,
                 Name = cafeteria.Name,
-                ImageData = cafeteria.Image,
+                //ImageData = cafeteria.Image,
                 ImageUrl = cafeteria.ImageUrl
             };
             
@@ -58,28 +58,17 @@ namespace CafeteriaApp.Web.Controllers
             }
 
             var existingCafeteria = appdb.Cafeterias.Where(x => x.Id == cafeteria.Id).FirstOrDefault<Cafeteria>();
-            var oldimage = existingCafeteria.Image;
             if (existingCafeteria != null)
             {
                 existingCafeteria.Id = cafeteria.Id;
                 existingCafeteria.Name = cafeteria.Name;
-                existingCafeteria.Image = cafeteria.ImageData;//base64
+                 image.save_cafeteria_images(cafeteria.ImageData, cafeteria.Id);
+                var imgurl = "/Content/admin/cafeteria/" + cafeteria.Id + ".png";
+                existingCafeteria.ImageUrl = imgurl;
             }
             else
             {
                 return NotFound();
-            }
-            if (cafeteria.ImageData != null)
-            {
-                if (oldimage != cafeteria.ImageData)
-                {
-                    image.save_cafeteria_images(cafeteria.ImageData, cafeteria.Id);
-                    if (oldimage == null)
-                    {
-                        var imgurl = "/Content/admin/cafeteria/" + cafeteria.Id + ".png";
-                        existingCafeteria.ImageUrl = imgurl;
-                    }
-                }
             }
             
             appdb.SaveChanges();
@@ -117,18 +106,17 @@ namespace CafeteriaApp.Web.Controllers
             var m = appdb.Cafeterias.Add(new Cafeteria()
             {
                 Id = cafeteria.Id,
-                Name = cafeteria.Name               
+                Name = cafeteria.Name          
             });
+
             appdb.SaveChanges();
-            if (cafeteria.ImageData != null)
-            {
-                m.Image = cafeteria.ImageData;
-                image.save_cafeteria_images(cafeteria.ImageData, m.Id);
-                var imgurl = "/Content/admin/cafeteria/" + m.Id + ".png";
-                m.ImageUrl = imgurl;
-                appdb.SaveChanges();
-            }
-           
+
+            image.save_cafeteria_images(cafeteria.ImageData, m.Id);
+
+            var imgurl = "/Content/admin/cafeteria/" + m.Id + ".png";
+            m.ImageUrl = imgurl;
+            appdb.SaveChanges();
+
             return Ok();
         }
     }
