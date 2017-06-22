@@ -46,7 +46,27 @@
                                     &nbsp;&nbsp;&nbsp;
                                     <span data-bind="text:Quantity"></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Delete All Items">Delete All</button></span>
+                                    <!-- Modal -->
+                                    <div id="myModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Warning !!</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Are You Sure You Want To Delete This Item?.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <span><button type="submit" style="margin-top: -5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Delete All Items">Delete All</button></span>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                     &nbsp;&nbsp;&nbsp;
                                     <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="Delete an Item">Delete</button></span>
                                     &nbsp;&nbsp;&nbsp;
@@ -55,32 +75,33 @@
                                     <br />
                                     <br />
                                 </div>
-                                <hr />
-                                <span>@Resources.Total</span>
-                                <span data-bind="text:total"></span>
-                                <br />
-                                <br />
-                                <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
-                                <br />
-                                <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
-                                <br />
+
+                                                <hr />
+                                                <span>@Resources.Total</span>
+                                                <span data-bind="text:total"></span>
+                                                <br />
+                                                <br />
+                                                <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
+                                                <br />
+                                                <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
+                                                <br />
 
 
-                                <span><button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
+                                                <span><button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button></span>
 
 
-                                <div>
+                                                <div>
 
-                                </div>
+                                                </div>
 
-                                <div class="ta__center">
-                                    <button data-bind="click:checkOut" class="btn" data-type="submit">  @Resources.proceedtocheckout</button>
-                                </div>
-                                <div class="ta__center">
-                                    <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
-                                </div>
-                            </div>
-                            </form>
+                                                <div class="ta__center">
+                                                    <button data-bind="click:checkOut" class="btn" data-type="submit">  @Resources.proceedtocheckout</button>
+                                                </div>
+                                                <div class="ta__center">
+                                                    <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
+                                                </div>
+                                            </div>
+</form>
 
                             <!-- Favorite Items -->
 
