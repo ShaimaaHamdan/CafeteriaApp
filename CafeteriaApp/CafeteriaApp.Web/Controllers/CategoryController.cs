@@ -24,14 +24,14 @@ namespace CafeteriaApp.Web.Controllers
                 CafeteriaId = category1.CafeteriaId,
                 Id = category1.Id,
                 Name = category1.Name,
-                ImageData = category1.Image,
+                //ImageData = category1.Image,
                 ImageUrl = category1.ImageUrl,
                 Cafeteria = new CafeteriaViewModel()
                 {
 
                     Name = category1.Cafeteria.Name,
                     Id = category1.Cafeteria.Id,
-                    ImageData = category1.Cafeteria.Image,
+                  //  ImageData = category1.Cafeteria.Image,
                     ImageUrl = category1.Cafeteria.ImageUrl
                 }
             }).ToList();
@@ -51,13 +51,13 @@ namespace CafeteriaApp.Web.Controllers
                 CafeteriaId = category.CafeteriaId,
                 Id = category.Id,
                 Name = category.Name,
-                ImageData = category.Image,
+                //ImageData = category.Image,
                 ImageUrl = category.ImageUrl,
                 Cafeteria = new CafeteriaViewModel()
                 {
                     Name = category.Cafeteria.Name,
                     Id = category.Cafeteria.Id,
-                    ImageData = category.Cafeteria.Image,
+                  //  ImageData = category.Cafeteria.Image,
                     ImageUrl = category.Cafeteria.ImageUrl
                 }
             };
@@ -79,14 +79,14 @@ namespace CafeteriaApp.Web.Controllers
                 CafeteriaId = category1.CafeteriaId,
                 Id = category1.Id,
                 Name = category1.Name,
-                ImageData = category1.Image,
+                //ImageData = category1.Image,
                 ImageUrl = category1.ImageUrl,
                 Cafeteria = new CafeteriaViewModel()
                 {
 
                     Name = category1.Cafeteria.Name,
                     Id = category1.Cafeteria.Id,
-                    ImageData = category1.Cafeteria.Image,
+                  //  ImageData = category1.Cafeteria.Image,
                     ImageUrl = category1.Cafeteria.ImageUrl
 
                 }
@@ -99,7 +99,7 @@ namespace CafeteriaApp.Web.Controllers
                 {
                     Name = cafetria.Name,
                     Id = cafetria.Id,
-                    ImageData = cafetria.Image,
+                   // ImageData = cafetria.Image,
                     ImageUrl = cafetria.ImageUrl
                 }
             });
@@ -123,7 +123,7 @@ namespace CafeteriaApp.Web.Controllers
             appdb.SaveChanges();
             if (c.ImageData != null)
             {
-                m.Image = c.ImageData;
+               // m.Image = c.ImageData;
                 image.save_category_images(c.ImageData, m.Id);
                 var imgurl = "/Content/admin/category/" + m.Id + ".png";
                 m.ImageUrl = imgurl;
@@ -142,12 +142,12 @@ namespace CafeteriaApp.Web.Controllers
             }
 
             var existingCategory = appdb.Categories.Where(x => x.Id == c.Id).FirstOrDefault<Category>();
-            var oldimage = existingCategory.Image;
+           // var oldimage = existingCategory.Image;
             if (existingCategory != null)
             {
                 existingCategory.Id = c.Id;
                 existingCategory.Name = c.Name;
-                existingCategory.Image = c.ImageData;
+               // existingCategory.Image = c.ImageData;
             }
             else
             {
@@ -155,16 +155,16 @@ namespace CafeteriaApp.Web.Controllers
             }
             if (c.ImageData != null)
             {
-                if (oldimage != c.ImageData)
-                {
+               // if (oldimage != c.ImageData)
+                //{
                     image.save_category_images(c.ImageData, c.Id);
-                    if (oldimage == null)
-                    {
+                    //if (oldimage == null)
+                   // {
                         var imgurl = "/Content/admin/category/" + c.Id + ".png";
                         existingCategory.ImageUrl = imgurl;
                         
-                    }
-                }
+                   // }
+                //}
             appdb.SaveChanges();
             }       
             return Ok();
