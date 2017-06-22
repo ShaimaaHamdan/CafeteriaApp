@@ -482,9 +482,6 @@
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Cafeteria\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
-    <None Include="Areas\Admin\Views\Login\Login.cshtml" />
-    <None Include="Areas\Admin\Views\Login\Register.cshtml" />
-    <None Include="Areas\Admin\Views\Login\Unauthorized.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Areas\Customer\Views\web.config" />
     <Content Include="Areas\Customer\Views\Cafeteria\Index.cshtml" />

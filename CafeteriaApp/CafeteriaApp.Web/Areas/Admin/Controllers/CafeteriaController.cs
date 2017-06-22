@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CafeteriaApp.Web.Areas.Admin.Controllers
 {
-    //[SuperAdminAuthorize(Roles = "Admin")]
+    [SuperAdminAuthorize(Roles = "Admin")]
     public class CafeteriaController : Controller
     {
         // GET: Admin/Cafeteria
@@ -14,7 +14,6 @@ namespace CafeteriaApp.Web.Areas.Admin.Controllers
         {
             return View();
         }
-
         
         // GET: Admin/Cafeteria/Create
         public ActionResult Create()

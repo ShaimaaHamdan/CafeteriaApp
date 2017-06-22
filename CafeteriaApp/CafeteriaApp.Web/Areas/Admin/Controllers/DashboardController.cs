@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace CafeteriaApp.Web.Areas.Admin.Controllers
 {
 
-    //[SuperAdminAuthorize(Roles = "Admin")]
+    [SuperAdminAuthorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         // GET: Admin/Dashboard
