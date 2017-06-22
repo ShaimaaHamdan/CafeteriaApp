@@ -154,7 +154,7 @@ function CategoryEditViewModel(id) {
                 document.location = '/Admin/Cafeteria/edit/' + self.cafeteriaId();
             }).fail(self.showError);
         } else {
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
 
         }
     }
@@ -274,7 +274,7 @@ function CategoryNewViewModel(cafetriaId) {
                     document.location = '/admin/cafeteria/edit/' + self.cafeteriaId();
                 }).fail(self.showError);
             } else {
-                alertify.error("Error,Some fileds are invalid !");
+                alertify.error("Error,Some fields are invalid !");
             }
 
         }

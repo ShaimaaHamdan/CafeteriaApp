@@ -153,8 +153,7 @@
                     self.orderId(data.order.Id);
                     self.currentorder(data.order);
                     self.currentorderstatus(data.order.OrderStatus);
-                    self.deliveryplace(data.order.DeliveryPlace);
-                    
+                    self.deliveryplace(data.order.DeliveryPlace);                    
                     console.log(self.currentorderstatus());
                     console.log(self.comments());
                 }
@@ -378,7 +377,7 @@
                 data: { id: self.orderitemtodelete_id() }
             }).done(function (data) {
                 console.log(1);
-                $('#myModal').modal('hide')
+               // $('#myModal').modal('hide');
                 self.init();
                 self.initialorder();
             }).fail(self.showError)
@@ -546,7 +545,7 @@
     self.addfavorite = function (menuitem) {
         var x = self.favoriteItems().filter(e=>  e.MenuItemId == menuitem.Id);
         if (x.length != 0) {
-            alertify.error("This Item is alerady in your Favorite Items");
+            alertify.error("This Item is already in your Favorite Items");
         }
         else {
             var data = {

@@ -15,7 +15,7 @@
                 <div style="float: right;margin-right: -380px;margin-top: -310px">
                     <div data-bind="ifnot:$root.customerId()==7">
 
-                        <!-- customer order -->
+                        <!-- Customer Order -->
 
                         <h2>@Resources.YourOrder&nbsp;&nbsp;<span data-bind="text:orderId"></span></h2>
                         <form id="bookingForm">
@@ -46,36 +46,37 @@
                                     &nbsp;&nbsp;&nbsp;
                                     <span data-bind="text:Quantity"></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <!-- Modal -->
-                                    <div id="myModal" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-
-                                            <!-- Modal content-->
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Warning !!</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Are You Sure You Want To Delete This Item?.</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <span><button type="submit" style="margin-top: -5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Delete All Items">Delete All</button></span>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                   
+                                    <span><button type="submit" style="float: right;margin-top: -5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item">Remove this item</button></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="Delete an Item">Delete</button></span>
+                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger btn-circle" title="Decrease Quantity"><i class="fa fa-minus"></i></button></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Add Another Item"><i class="fa fa-plus"></i></button></span>
+                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Increase Quantity"><i class="fa fa-plus"></i></button></span>
                                     &nbsp;&nbsp;&nbsp;
                                     <br />
                                     <br />
                                 </div>
+                                <!-- Modal -->
+                                <div id="myModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
 
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Warning !!</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are You Sure You Want To Delete This Item?.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-bind="click:$root.deleteall">Yes</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                                                 <hr />
                                                 <span>@Resources.Total</span>
                                                 <span data-bind="text:total"></span>
@@ -191,7 +192,6 @@
 
                         <div class="ta__center">
                             <button data-bind="click:MakeOrder" class="btn"> Make Order </button>
-                            @*<button data-bind="click:scroll" class="btn">Let me see the Menuitems</button>*@
                         </div>
                     </div>
 
@@ -275,6 +275,7 @@
         </div>
 
     </div>
+       
 </section>
 
 

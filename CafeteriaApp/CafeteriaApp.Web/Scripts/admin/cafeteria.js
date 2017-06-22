@@ -81,7 +81,7 @@
                 self.getAllCafeterias();
             }).fail(self.showError);
         } else {
-            alertify.error("Error, You Must delete categories of " + self.name() + " cafeteria first!");
+            alertify.error("Error, You must delete categories of " + self.name() + " cafeteria first!");
 
         }
 
@@ -244,7 +244,7 @@ function CafeteriaEditViewModel(id) {
                 self.getCategoryByCafeteriaId();
             }).fail(self.showError);
         } else {
-            alertify.error("Error, You Must delete menuitems of " + self.name() + " category first!");
+            alertify.error("Error, You must delete menuitems of " + self.name() + " category first!");
         }
     }
 
@@ -324,7 +324,7 @@ function CafeteriaNewViewModel() {
             }).fail(self.showError);
         } else {
 
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
 
         }
 

@@ -105,7 +105,7 @@
                 console.log(password);
             }).fail(self.showError);
         } else {
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
         }
 
     }
@@ -145,7 +145,7 @@
         }).done(function (data) {
             console.log(data)
             $('#mydeleteModal').modal('hide')
-            alertify.success("Child is deleted ");
+            alertify.success("Child is deleted");
             self.getChildByCustomerId();
         }).fail(self.showError);
     }
@@ -221,7 +221,7 @@ function ChildNewViewModel() {
                 document.location = '/customer/profile/index/';
             }).fail(self.showError);
         } else {
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
         }
     }
 }
@@ -330,7 +330,7 @@ function ChildEditViewModel(id) {
                 document.location = '/customer/profile/index';
             }).fail(self.showError);
         } else {
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
         }
 
     }

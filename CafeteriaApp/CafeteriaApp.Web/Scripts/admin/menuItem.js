@@ -147,7 +147,7 @@ function MenuItemEditViewModel(id) {
                 document.location = '/admin/category/edit/' + self.categoryId();
             }).fail(self.showError);
         } else {
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
         }
 
     }
@@ -284,7 +284,7 @@ function MenuItemNewViewModel(categoryId) {
                 document.location = '/admin/category/edit/' + self.categoryId();
             }).fail(self.showError);
         } else {
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
         }
     }
 

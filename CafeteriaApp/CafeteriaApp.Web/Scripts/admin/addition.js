@@ -142,7 +142,7 @@ function AdditionEditViewModel(id) {
                 document.location = '/admin/Addition/index';
             }).fail(self.showError);
         } else {
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
         }
 
     }
@@ -201,7 +201,7 @@ function AdditionNewViewModel() {
             }).fail(self.showError);
         } else {
 
-            alertify.error("Error,Some fileds are invalid !");
+            alertify.error("Error,Some fields are invalid !");
 
         }
 
