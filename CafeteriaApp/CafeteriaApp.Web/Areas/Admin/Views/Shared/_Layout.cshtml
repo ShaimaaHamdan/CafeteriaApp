@@ -127,7 +127,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <a onclick="gotologout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -201,6 +201,18 @@
     <!-- Custom Theme JavaScript -->
     <script src="/Scripts/adminTheme/sb-admin-2.js"></script>
 
+  <script>
+    function gotologout()
+    {
+      $.post("/Login/LogOff")
+        .done(function (response, status, jqxhr) {
+          // this is the "success" callback
+        })
+        .fail(function (jqxhr, status, error) {
+          // this is the ""error"" callback
+        })
+    }
+  </script>
 
     @RenderSection("scripts", required: false)
 </body>

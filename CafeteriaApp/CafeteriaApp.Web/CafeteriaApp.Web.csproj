@@ -620,7 +620,7 @@
     <Content Include="Views\Login\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\ForgotPasswordConfirmation.cshtml" />
-    <None Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Login\ResetPasswordConfirmation.cshtml" />
