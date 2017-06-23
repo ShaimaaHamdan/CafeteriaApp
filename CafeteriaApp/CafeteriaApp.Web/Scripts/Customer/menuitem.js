@@ -104,7 +104,6 @@
     self.getCategory();
 
     self.getMenuItemByCategoryId = function () {
-        console.log(self.categoryId())
         $.ajax({
             type: 'Get',
             url: '/api/MenuItem/GetByCategory/' + self.categoryId(),
@@ -118,7 +117,6 @@
     self.getMenuItemByCategoryId();
 
     self.getCustomerById = function () {
-        console.log(self.customerId());
         $.ajax({
             type: 'Get',
             url: '/api/Customer/' + self.customerId(),
@@ -153,9 +151,7 @@
                     self.orderId(data.order.Id);
                     self.currentorder(data.order);
                     self.currentorderstatus(data.order.OrderStatus);
-                    self.deliveryplace(data.order.DeliveryPlace);                    
-                    console.log(self.currentorderstatus());
-                    console.log(self.comments());
+                    self.deliveryplace(data.order.DeliveryPlace);
                 }
             }).fail(self.showError);
         }
@@ -282,7 +278,7 @@
 
     self.addToCart = function (menuItem) {
         var x=self.orderItems().filter(e=>  e.MenuItemId == menuItem.Id)[0];
-        if (x!=null) {            
+        if (x!=null) {
             self.addanother(x);
         }
         else {
@@ -376,10 +372,10 @@
                 contentType: 'application/json; charset=utf-8',
                 data: { id: self.orderitemtodelete_id() }
             }).done(function (data) {
-                console.log(1);
-               // $('#myModal').modal('hide');
+                $('#myModal').modal('hide')
                 self.init();
                 self.initialorder();
+                console.log(1);
             }).fail(self.showError)
         }
         else {
@@ -484,7 +480,6 @@
                 url: '/api/Comment/GetByMenuItem/' + menuItem.Id,
                 contentType: 'application/json; charset=utf-8'
             }).done(function (data) {
-                console.log(data)
                 self.menuItem(menuItem);
                 self.menuItemId(menuItem.Id);
                 self.comments(data.comments)  ///!!!
@@ -536,7 +531,7 @@
         self.commentId(comment.Id);
         self.editcommentclicked(1);
     }
-    self.hideeditcommentbox = function (comment) {
+    self.hidecommenteditbox = function (comment) {
         self.editcommentclicked(0);
     }
     

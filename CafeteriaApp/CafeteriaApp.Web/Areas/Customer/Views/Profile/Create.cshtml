@@ -69,11 +69,12 @@
                     <label class="col-lg-3 control-label">School Year:</label>
                     <div class="col-lg-8">
                         <div class="ui-select">
-                            <select id="user_time_zone" class="form-control" >
-                                <option value="Hawaii">First</option>
-                                <option value="Alaska">Second</option>
-                                <option value="Pacific Time (US &amp; Canada)">Third</option>
-                            </select>
+                            <select type="text" class="form-control" data-bind="options:schoolYear,value:chosenschoolyear"></select>
+                            @*<select id="user_time_zone" class="form-control" >
+                                <option value="Hawaii" data-bind="schoolYear">First</option>
+                                <option value="Alaska" data-bind="schoolYear">Second</option>
+                                <option value="Pacific Time (US &amp; Canada)" data-bind="schoolYear">Third</option>
+                            </select>*@
                         </div>
                     </div>
                 </div>

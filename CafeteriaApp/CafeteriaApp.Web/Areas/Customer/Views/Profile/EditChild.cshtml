@@ -42,11 +42,12 @@
                     <label class="col-lg-3 control-label">School Year:</label>
                     <div class="col-lg-8">
                         <div class="ui-select">
-                            <select id="user_time_zone" data-bind="selectedOptions:schoolYear" class="form-control">
+                            <select type="text" class="form-control" data-bind="options:schoolYear,value:chosenschoolyear"></select>
+                            @*<select id="user_time_zone" data-bind="selectedOptions:schoolYear" class="form-control">
                                 <option value="first">First</option>
                                 <option value="Second">Second</option>
                                 <option value="Third">Third</option>
-                            </select>
+                            </select>*@
                         </div>
                     </div>
                 </div>

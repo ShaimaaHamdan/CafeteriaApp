@@ -6,13 +6,13 @@
             <div class="grid_8">
                 <h2>@Resources.reserveyourtable</h2>
                 <img src="/Scripts/CustomerTheme/images/page3_img1.jpg" alt="" class="img_inner fleft inn__1">
-                <div class="extra_wrapper">
+                @*<div class="extra_wrapper">
                     <div class="text1 tx__1"><a href="#">Vivamus at magna non nunc </a></div>
                     <p>Rehoncus. Aliquam nibh antegestas id ictum ado. Praesenterto faucibus maleada faucibusnec laeetert metus id laoreet </p>
                     <p>Nullam consectetur orci sed nulla facilisisequaterto. Curabitur vel lorem sit amet nulla perermentum. Aliquam nibh ante, egestas id dictum a, commodo luctus libero.</p>
                     Praesent faucibus malesuada faucibus. Donecertolin laoreet metus id laoreet malesuada.  orem ipsum dolor sit amet, consectetur adipiscing elit.
-                </div>
-                <div style="float: right;margin-right: -380px;margin-top: -310px">
+                </div>*@
+                <div style="float: right;margin-right: -380px;margin-top: -95px">
                     <div data-bind="ifnot:$root.customerId()==7">
 
                         <!-- Customer Order -->
@@ -56,27 +56,7 @@
                                     <br />
                                     <br />
                                 </div>
-                                <!-- Modal -->
-                                <div id="myModal" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Warning !!</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Are You Sure You Want To Delete This Item?.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-bind="click:$root.deleteall">Yes</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                             
                                                 <hr />
                                                 <span>@Resources.Total</span>
                                                 <span data-bind="text:total"></span>
@@ -95,18 +75,18 @@
 
                                                 </div>
 
-                                                <div class="ta__center">
+                                                <div class="ta__left">
                                                     <button data-bind="click:checkOut" class="btn" data-type="submit">  @Resources.proceedtocheckout</button>
                                                 </div>
-                                                <div class="ta__center">
+                                                <div class="ta__left">
                                                     <button data-bind="click:cancel" class="btn">  @Resources.cancel</button>
                                                 </div>
                                             </div>
-</form>
+                                         </form>
 
-                            <!-- Favorite Items -->
+                       <!-- Favorite Items -->
 
-                            <div>
+                            <div data-bind="visible:customerId()!=7">
                                 <button data-bind="click:getfavorite" class="btn">View My Favorite</button> &nbsp;&nbsp;&nbsp;<button data-bind="click:hidefavorite" style="margin-left:+40px" class="btn">Hide My Favorite</button>
                                 <br />
                                 <br />
@@ -141,7 +121,7 @@
 
                             </div>
                             <button data-bind="click:$root.editorder" class="btn" style="margin-right:-20px;margin-top:-39px">Edit</button>
-
+                            
                             <button data-bind="click:$root.hide" class="btn" style="margin-left:+40px;margin-top:-39px">Hide</button>
 
 
@@ -164,11 +144,11 @@
 
                                     <span data-bind="text:Quantity"></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="deleteallitems">Delete All</button></span>
+                                    <span><button type="submit" style="float: right;margin-top:-5px;" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item">Remove this item</button></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="deleteanitem">Delete</button></span>
+                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="Decrease Quantity"><i class="fa fa-minus"></i></button></span>
                                     &nbsp;&nbsp;&nbsp;
-                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="addanotheritem"><i class="fa fa-plus"></i></button></span>
+                                    <span><button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Increase Quantity"><i class="fa fa-plus"></i></button></span>
                                     &nbsp;&nbsp;&nbsp;
 
 
@@ -206,15 +186,20 @@
                     <div class="gall_bot">
                         <div class="text1">
                             <span data-bind="text:Name"></span>
-                            <img data-bind="attr: { src: ImageUrl }" alt="">
+                           <div> <img height="170" width="180" data-bind="attr: { src: ImageUrl }" alt=""></div>
                             <button title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
                                     class="btn btn-success btn-circle">
                                 @Resources.AddtoCart
                             </button>
-                            <button title="Add to Favorite" id="addToCart" data-bind="click:$root.addfavorite"
-                                    class="btn btn-success btn-circle">
-                                Add to Favorite
-                            </button>
+                            <span data-bind="visible:$root.customerId()!=7">
+                                <button title="Add to Favorite" id="addToCart" data-bind="click:$root.addfavorite"
+                                        class="btn btn-success btn-circle">
+                                    Add to Favorite
+                                </button>
+                            </span>
+                            <br />
+                            <br />
+                           
 
 
 
@@ -225,42 +210,48 @@
                             <p>@Resources.Type:<span data-bind="text:Type"></span></p>
 
                             <p>@Resources.Description:<span data-bind="text:Description"></span></p>
+                            <br />
+                            <br />
 
                             <!-- Comments -->
+                            <div data-bind="visible:$root.customerId()!=7">
+                                <p>Comments:<button type="submit" style="margin-left: +40px;margin-top:-5px" data-bind="click:$root.getCommentByMenuItemId" class="btn" title="View Comments">View Comments</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" data-bind="click:$root.hidecomments" style="margin-top:-5px" class="btn" title="Hide Comments">Hide Comments</button></p>
 
-                            <p>Comments:<button type="submit" style="margin-left: +40px;margin-top:-5px" data-bind="click:$root.getCommentByMenuItemId" class="btn" title="View Comments">View Comments</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" data-bind="click:$root.hidecomments" style="margin-top:-5px" class="btn" title="Hide Comments">Hide Comments</button></p>
+                                <div data-bind="visible:$root.menuItemId()==Id">
 
-                            <div data-bind="visible:$root.menuItemId()==Id">
+                                    <div data-bind="foreach:$root.comments">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span data-bind="text:Data"></span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                <div data-bind="foreach:$root.comments">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span data-bind="text:Data"></span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    
-                                   <span data-bind="text:Customer.User.FirstName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                       
-                                    <div data-bind="visible:$root.customerId()==CustomerId">
-                                        <span data-bind="visible:$root.editcommentclicked()==1 && $root.commentId()==Id">
-                                            <input type="text" class="form-control" data-bind="textInput:$root.commentedit_data" />
-                                            <button type="submit" class="btn btn-success" data-bind="click:$root.editcomment">Save</button>
-                                        </span>
-                                        <div data-bind="visible:$root.editcommentclicked()==0">
-                                            <span><button type="submit" style="float: right;margin-top: +5px;margin-right: +610px" data-bind="click:$root.showcommenteditbox" class="btn btn-success" title="edit Comment">Edit Comment</button></span>&nbsp;&nbsp;&nbsp;
+                                        <span data-bind="text:Customer.User.FirstName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-                                            <span><button type="submit" style="float: right;margin-top: -35px;margin-right: +490px" data-bind="click:$root.deletecomment" class="btn btn-danger" title="Delete Comment">Delete Comment</button></span>&nbsp;&nbsp;&nbsp;
+                                        <div data-bind="visible:$root.customerId()==CustomerId">
+                                            <span data-bind="visible:$root.editcommentclicked()==1 && $root.commentId()==Id">
+                                                <input type="text" class="form-control" data-bind="textInput:$root.commentedit_data" />
+                                                <button type="submit" class="btn btn-success" data-bind="click:$root.editcomment">Save</button>
+                                                <span data-bind="visible:$root.editcommentclicked()==1">
+                                                    <button type="submit" class="btn btn-success" data-bind="click:$root.hidecommenteditbox">Cancel</button>
+                                                </span>
+                                            </span>
+                                            <div data-bind="visible:$root.editcommentclicked()==0">
+                                                <span><button type="submit" style="float: right;margin-top: +5px;margin-right: +610px" data-bind="click:$root.showcommenteditbox" class="btn btn-success" title="edit Comment">Edit Comment</button></span>&nbsp;&nbsp;&nbsp;
 
+                                                <span><button type="submit" style="float: right;margin-top: -35px;margin-right: +490px" data-bind="click:$root.deletecomment" class="btn btn-danger" title="Delete Comment">Delete Comment</button></span>&nbsp;&nbsp;&nbsp;
+
+                                            </div>
                                         </div>
+
+
+                                        <br />
+                                        <br />
                                     </div>
-                                    
-                                   
-                                    <br />
-                                    <br />
                                 </div>
+
+                                <span>Add Comment:  <input type="text" class="form-control" data-bind="textInput:$root.comment_data" /> </span>
+
+                                <button type="submit" class="btn btn-success" data-bind="click:$root.addcomment">Add Comment</button>
                             </div>
-
-                            <span>Add Comment:  <input type="text" class="form-control" data-bind="textInput:$root.comment_data" /> </span>
-
-                            <button type="submit" class="btn btn-success" data-bind="click:$root.addcomment">Add Comment</button>
 
 
 
@@ -275,9 +266,30 @@
         </div>
 
     </div>
-       
+         
 </section>
 
+ <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning !!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are You Sure You Want To Delete This Item?.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bind="click:deleteall">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 

@@ -3,6 +3,7 @@
     self.customerId = ko.observable(6);
     self.childeren = ko.observableArray();
     self.childIdToDelete = ko.observable();
+    self.chosenschoolyear = ko.observable();
     self.model = ko.validatedObservable({
         firstName: ko.observable().extend({ required: true, maxLength: 100 }),
         lastName: ko.observable().extend({ required: true, maxLength: 100 }),
@@ -153,7 +154,10 @@
 
 function ChildNewViewModel() {
     var self = this;
+    self.schoolYear = ko.observableArray(["First", "Second","Third"]);
+    self.chosenschoolyear = ko.observable();
     self.customerId = ko.observable(6);
+   // self.schoolYear = ko.observable();
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
         age: ko.observable().extend({required: true, pattern: '^(1[0-8]|[1-9])$' }),
@@ -199,7 +203,6 @@ function ChildNewViewModel() {
         }
     }
     self.save = function () {
-
         if (self.model.isValid()) {
             var data = {
                 customerId: self.customerId(),
@@ -207,7 +210,8 @@ function ChildNewViewModel() {
                 age: self.model().age(),
                 dependentCredit: self.model().dependentCredit(),
                 dayLimit: self.model().dayLimit(),
-                imageData: self.fileData().base64String()
+                imageData: self.fileData().base64String(),
+                schoolYear: self.chosenschoolyear()
             }
 
             console.log(data);
@@ -232,13 +236,15 @@ function ChildEditViewModel(id) {
     self.childId = ko.observable(id);
     self.restrictionId = ko.observable();
     self.restrictions = ko.observableArray();
-    self.schoolYear = ko.observable();
+    // self.schoolYear = ko.observable();
+    self.schoolYear = ko.observableArray(["First", "Second", "Third"]);
+    self.chosenschoolyear = ko.observable();
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
         age: ko.observable().extend({ required: true, pattern: '^(1[0-8]|[1-9])$' }),
         dependentCredit: ko.observable().extend({ required: true, pattern: '^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$' }),
         dayLimit: ko.observable().extend({ required: true, pattern: '^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$' }),
-        schoolYear: ko.observable()
+        //schoolYear: ko.observable()
 
     });
     ko.fileBindings.defaultOptions.buttonText = "Choose Image";
@@ -296,17 +302,17 @@ function ChildEditViewModel(id) {
             self.fileData().dataURL('data:image/gif;base64,' + data.ImageData);
             self.fileData().base64String(data.ImageData);
             self.restrictions(data.Restricts);
-            self.schoolYear(data.SchoolYear)
+            self.chosenschoolyear(data.SchoolYear)
         }).fail(self.showError);
     };
     self.getChildById();
 
     self.save = function () {
-        var year = "";
-        if (self.schoolYear().length > 0) {
-             year = self.schoolYear()[0];
-        } else
-            year = "First";
+        //var chosyear = "";
+        //if (self.schoolYear().length > 0) {
+        //     self.chosenschoolyear(self.schoolYear()[0]);
+        //} else
+        //    self.chosenschoolyear("First");
 
         if (self.model.isValid()) {
             var data = {
@@ -314,7 +320,7 @@ function ChildEditViewModel(id) {
                 id: self.childId(),
                 imageData: self.fileData().base64String(),
                 age: self.model().age(),
-                schoolYear:year,
+                schoolYear:self.chosenschoolyear(),
                 dependentCredit: self.model().dependentCredit(),
                 dayLimit: self.model().dayLimit()
             }

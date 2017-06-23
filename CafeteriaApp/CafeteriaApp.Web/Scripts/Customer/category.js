@@ -43,12 +43,12 @@
 
 
     self.getCategoryByCafeteriaId = function () {
-        console.log(self.cafeteriaId())
         $.ajax({
             type: 'Get',
             url: '/api/Category/GetByCafetria/' + self.cafeteriaId(),
             contentType: 'application/json; charset=utf-8'
         }).done(function (data) {
+            console.log(data);
             self.categories(data.categories);
         }).fail(self.showError);
     };
