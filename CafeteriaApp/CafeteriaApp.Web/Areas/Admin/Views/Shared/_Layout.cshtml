@@ -207,6 +207,7 @@
       $.post("/Login/LogOff")
         .done(function (response, status, jqxhr) {
           // this is the "success" callback
+          document.location = "/Customer/Cafeteria/Index"
         })
         .fail(function (jqxhr, status, error) {
           // this is the ""error"" callback

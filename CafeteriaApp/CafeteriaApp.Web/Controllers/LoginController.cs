@@ -390,7 +390,7 @@ namespace CafeteriaApp.Web.Controllers
         //
         // POST: /Login/LogOff
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
