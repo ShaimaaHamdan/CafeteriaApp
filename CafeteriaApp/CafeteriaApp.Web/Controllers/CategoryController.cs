@@ -120,16 +120,15 @@ namespace CafeteriaApp.Web.Controllers
                 Id = c.Id,
                 Name = c.Name
             });
-            appdb.SaveChanges();
             if (c.ImageData != null)
             {
-               // m.Image = c.ImageData;
-                image.save_category_images(c.ImageData, m.Id);
-                var imgurl = "/Content/admin/category/" + m.Id + ".png";
-                m.ImageUrl = imgurl;
-                appdb.SaveChanges();
+                // m.Image = c.ImageData;
+                string s = DateTime.Now.ToString().Replace(@"/", "-").Replace(':', '-');
+                image.save_category_images(c.ImageData,s);
+                var imgurl = "/Content/admin/category/" + s + ".png";
+                m.ImageUrl = imgurl;               
             }
-           
+            appdb.SaveChanges();
             return Ok();
         }
 
@@ -142,31 +141,32 @@ namespace CafeteriaApp.Web.Controllers
             }
 
             var existingCategory = appdb.Categories.Where(x => x.Id == c.Id).FirstOrDefault<Category>();
-           // var oldimage = existingCategory.Image;
             if (existingCategory != null)
             {
                 existingCategory.Id = c.Id;
                 existingCategory.Name = c.Name;
-               // existingCategory.Image = c.ImageData;
+                if (existingCategory.ImageUrl != null)
+                {
+                    image.delete_image(existingCategory.ImageUrl);
+                }
+                if (c.ImageData != null)
+                {
+                    if (existingCategory.ImageUrl != null)
+                    {
+                        image.delete_image(existingCategory.ImageUrl);
+                    }
+                    string s = DateTime.Now.ToString().Replace(@"/", "-").Replace(':', '-');
+                    image.save_category_images(c.ImageData, s);
+                    var imgurl = "/Content/admin/category/" + s + ".png";
+                    existingCategory.ImageUrl = imgurl;
+                }
+                // existingCategory.Image = c.ImageData;
             }
             else
             {
                 return NotFound();
             }
-            if (c.ImageData != null)
-            {
-               // if (oldimage != c.ImageData)
-                //{
-                    image.save_category_images(c.ImageData, c.Id);
-                    //if (oldimage == null)
-                   // {
-                        var imgurl = "/Content/admin/category/" + c.Id + ".png";
-                        existingCategory.ImageUrl = imgurl;
-                        
-                   // }
-                //}
-            appdb.SaveChanges();
-            }       
+            appdb.SaveChanges();   
             return Ok();
         }
 

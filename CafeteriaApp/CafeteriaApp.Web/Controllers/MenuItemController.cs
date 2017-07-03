@@ -204,16 +204,15 @@ namespace CafeteriaApp.Web.Controllers
                 Price = menuitem.Price,
                 Type = menuitem.Type
             });
-            appdb.SaveChanges();
             if (menuitem.ImageData != null)
             {
                 //m.Image = menuitem.ImageData;
-                image.save_menuitem_images(menuitem.ImageData, m.Id);
-                var imgurl = "/Content/admin/menuitem/" + m.Id + ".png";
+                string s = DateTime.Now.ToString().Replace(@"/", "-").Replace(':', '-');
+                image.save_menuitem_images(menuitem.ImageData,s);
+                var imgurl = "/Content/admin/menuitem/" + s + ".png";
                 m.ImageUrl = imgurl;
-                appdb.SaveChanges();
             }
-            
+            appdb.SaveChanges();
             return Ok();
         }
 
@@ -242,15 +241,14 @@ namespace CafeteriaApp.Web.Controllers
             }
             if (menuitem.ImageData != null)
             {
-                //if (oldimage != menuitem.ImageData)
-                //{
-                    image.save_menuitem_images(menuitem.ImageData, menuitem.Id);
-                    //if (oldimage == null)
-                    //{
-                        var imgurl = "/Content/admin/menuitem/" + menuitem.Id + ".png";
-                        existingMenuitem.ImageUrl = imgurl;
-                    //}
-                //}
+                if (existingMenuitem.ImageUrl != null)
+                {
+                    image.delete_image(existingMenuitem.ImageUrl);
+                }
+                string s = DateTime.Now.ToString().Replace(@"/", "-").Replace(':', '-');
+                image.save_menuitem_images(menuitem.ImageData,s);
+                var imgurl = "/Content/admin/menuitem/" + s + ".png";
+                existingMenuitem.ImageUrl = imgurl;
             }
             appdb.SaveChanges();
             return Ok();

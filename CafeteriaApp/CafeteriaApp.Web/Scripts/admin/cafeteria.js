@@ -99,7 +99,7 @@ function CafeteriaEditViewModel(id) {
     self.menuItems = ko.observableArray();
     self.name = ko.observable();
     self.imageurl = ko.observable();
-
+    self.chooseimageclicked = ko.observable(0);
     ko.fileBindings.defaultOptions.buttonText = "Choose Image";
 
     self.fileData = ko.observable({
@@ -107,7 +107,7 @@ function CafeteriaEditViewModel(id) {
         // Read the files (all are optional, e.g: if you're certain that it is a text file, use only text:
        // binaryString: ko.observable(), // FileReader.readAsBinaryString(Blob|File) - The result property will contain the file/blob's data as a binary string. Every byte is represented by an integer in the range [0..255].
         //text: ko.observable(), // FileReader.readAsText(Blob|File, opt_encoding) - The result property will contain the file/blob's data as a text string. By default the string is decoded as 'UTF-8'. Use the optional encoding parameter can specify a different format.
-        //dataURL: ko.observable(), // FileReader.readAsDataURL(Blob|File) - The result property will contain the file/blob's data encoded as a data URL.
+        dataURL: ko.observable(), // FileReader.readAsDataURL(Blob|File) - The result property will contain the file/blob's data encoded as a data URL.
         //arrayBuffer: ko.observable(), // FileReader.readAsArrayBuffer(Blob|File) - The result property will contain the file/blob's data as an ArrayBuffer object.
 
         // a special observable (optional)
@@ -157,7 +157,8 @@ function CafeteriaEditViewModel(id) {
             console.log(data.cafeteria);
             self.model().name(data.cafeteria.Name);
             self.model().imageurl(data.cafeteria.ImageUrl);
-            //self.fileData().dataURL('data:image/gif;base64,' + data.cafeteria.ImageData);
+            console.log(self.model().imageurl());
+            self.fileData().dataURL('data:image/gif;base64,' + data.cafeteria.ImageData);
             //self.fileData().base64String(data.cafeteria.ImageData);
         }).fail(self.showError);
     };
@@ -180,7 +181,7 @@ function CafeteriaEditViewModel(id) {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function (result) {
-                document.location = '/admin/cafeteria/index';
+                document.location = '/admin/cafeteria/index';                
             }).fail(self.showError);
         } else {
             alertify.error("Error,Some fields are invalid !");
@@ -247,9 +248,13 @@ function CafeteriaEditViewModel(id) {
             alertify.error("Error, You must delete menuitems of " + self.name() + " category first!");
         }
     }
-
-
-
+    console.log(self.chooseimageclicked());
+    $("#file").on('change' , function() {
+        self.chooseimageclicked(1);
+        console.log(self.chooseimageclicked());
+    });
+    
+    
 }
 
 function CafeteriaNewViewModel() {

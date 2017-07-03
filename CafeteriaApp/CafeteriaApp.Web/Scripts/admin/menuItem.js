@@ -55,6 +55,7 @@ function MenuItemEditViewModel(id) {
     self.additionIdToDelete = ko.observable();
     self.name = ko.observable();
     self.imageurl = ko.observable();
+    self.chooseimageclicked = ko.observable(0);
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
         price: ko.observable().extend({ required: true,pattern:'^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$'}),
@@ -207,7 +208,10 @@ function MenuItemEditViewModel(id) {
         }).fail(self.showError);
     }
 
-
+    $("#file").on('change', function () {
+        self.chooseimageclicked(1);
+        console.log(self.chooseimageclicked());
+    });
  
 }
 

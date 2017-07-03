@@ -61,16 +61,23 @@ namespace CafeteriaApp.Web.Controllers
             if (existingCafeteria != null)
             {
                 existingCafeteria.Id = cafeteria.Id;
-                existingCafeteria.Name = cafeteria.Name;
-                 image.save_cafeteria_images(cafeteria.ImageData, cafeteria.Id);
-                var imgurl = "/Content/admin/cafeteria/" + cafeteria.Id + ".png";
-                existingCafeteria.ImageUrl = imgurl;
+                existingCafeteria.Name = cafeteria.Name;                          
             }
             else
             {
                 return NotFound();
             }
-            
+            if (cafeteria.ImageData != null)
+            {
+                if (existingCafeteria.ImageUrl != null)
+                {
+                    image.delete_image(existingCafeteria.ImageUrl);
+                }
+                string s = DateTime.Now.ToString().Replace(@"/", "-").Replace(':', '-');
+                image.save_cafeteria_images(cafeteria.ImageData, s);
+                var imgurl = "/Content/admin/cafeteria/" + s + ".png";
+                existingCafeteria.ImageUrl = imgurl;
+            }
             appdb.SaveChanges();
             return Ok();
         }
@@ -108,12 +115,9 @@ namespace CafeteriaApp.Web.Controllers
                 Id = cafeteria.Id,
                 Name = cafeteria.Name          
             });
-
-            appdb.SaveChanges();
-
-            image.save_cafeteria_images(cafeteria.ImageData, m.Id);
-
-            var imgurl = "/Content/admin/cafeteria/" + m.Id + ".png";
+            string s = DateTime.Now.ToString().Replace(@"/", "-").Replace(':', '-');
+            image.save_cafeteria_images(cafeteria.ImageData,s);
+            var imgurl = "/Content/admin/cafeteria/" + s + ".png";
             m.ImageUrl = imgurl;
             appdb.SaveChanges();
 

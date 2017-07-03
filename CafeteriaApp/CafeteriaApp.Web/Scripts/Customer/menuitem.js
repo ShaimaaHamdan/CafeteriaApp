@@ -1,7 +1,7 @@
 ﻿function CustomerMenuItemViewModel(id) {
     var self = this;
     self.categoryId = ko.observable(id);
-    self.customerId = ko.observable(6);
+    self.customerId = ko.observable(7);
     self.menuItemId = ko.observable();
     self.orderId = ko.observable();
     self.showfavorite = ko.observable();
@@ -14,13 +14,16 @@
     self.chosenpaymentmethod = ko.observable();
     self.deliveryplace = ko.observable();
     self.menuItems = ko.observableArray();
-    self.menuItem=ko.observable();
+    //self.menuItem = ko.observable();
+    self.currentmenuitemId = ko.observable();
+    self.viewdetailsclicked = ko.observable();
     self.favoriteItems = ko.observableArray();
     //--------------------------------------------
     self.commentId = ko.observable();
     self.comments = ko.observableArray();
     self.comment_data = ko.observable();
     self.commentedit_data = ko.observable();
+    self.viewcommentsclicked = ko.observable();
     self.editcommentclicked = ko.observable(0);
     //--------------------------------------------
     self.cafeteriaId = ko.observable();
@@ -86,8 +89,6 @@
         var button = $(event.relatedTarget)[0];
         self.orderitemtodelete_id(button.attributes["orderitemtodelete_id"].value)
         self.orderitemtodelete_name(button.attributes["orderitemtodelete_name"].value)
-       // console.log(self.name());
-       // self.getCategoryByCafeteriaId();
     });
 
     self.getCategory = function () {
@@ -166,6 +167,17 @@
         }
     })();
 
+    self.viewdetails = function (menuitem) {
+        self.viewdetailsclicked(1);
+        self.viewcommentsclicked(0);
+        if (self.currentmenuitemId() != menuitem.Id) {
+            self.currentmenuitemId(menuitem.Id);
+        }
+    };
+    self.hidedetails = function (menuitem) {
+        self.viewdetailsclicked(0);
+        self.currentmenuitemId(-1);
+    };
     // orders
 
     (self.initialorder = function () {
@@ -480,10 +492,11 @@
                 url: '/api/Comment/GetByMenuItem/' + menuItem.Id,
                 contentType: 'application/json; charset=utf-8'
             }).done(function (data) {
-                self.menuItem(menuItem);
+               // self.menuItem(menuItem);
                 self.menuItemId(menuItem.Id);
                 self.comments(data.comments)  ///!!!
                 self.init();
+                self.viewcommentsclicked(1);
             }).fail(self.showError);
 
         }
@@ -526,6 +539,7 @@
         if (self.menuItemId() == menuitem.Id) {
             self.comments(null);
         }
+        self.viewcommentsclicked(0);
     }
     self.showcommenteditbox = function (comment) {
         self.commentId(comment.Id);

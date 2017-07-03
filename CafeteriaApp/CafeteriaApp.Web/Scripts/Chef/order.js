@@ -10,6 +10,7 @@
     self.paymentmethod = ko.observable();
     self.orderstatus = ko.observable();
     self.deliveryplace = ko.observable();
+    self.finishedorderId = ko.observable();
     self.showError = function (jqXHR) {
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
         var response = jqXHR.responseJSON;
@@ -30,6 +31,10 @@
             if (response.error_description) self.errors.push(response.error_description);
         }
     }
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)[0];
+        self.finishedorderId(button.attributes["finishedorderId"].value);
+    });
     self.getAllOrders = function () {
         $.ajax({
             type: 'Get',
@@ -104,6 +109,7 @@
             data: JSON.stringify(data)
         }).done(function (data) {
             console.log(data);
+            $('#myModal').modal('hide')
             self.getAllOrders();
             self.finishclicked(1);
         }).fail(self.showError);

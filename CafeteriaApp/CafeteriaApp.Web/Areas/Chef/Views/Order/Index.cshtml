@@ -1,51 +1,69 @@
-﻿<table>
-    <tbody>
+﻿<table width="100" class="table table-bordered table-hover" id="dataTables-cafeteria">
+    <thead>
         <tr>
-            <th>
-                OrderId
-                <span>&nbsp;&nbsp;</span>
-            </th>
-            
-            <th>
-                OrderItem
-                <span>&nbsp;&nbsp;</span>
-            </th>
-            <th>
-                Quantity
-                <span>&nbsp;&nbsp;</span>
-            </th>
-            <th>
-                Order Status
-            </th>
+            <th>OrderId</th>
+
+            <th>OrderItem (Quantity)</th>
+
+            @*<th>Quantity</th>*@
+
+            <th>Order Status</th>
+
+            <th>Actions</th>
         </tr>
-     </tbody>
+    </thead>
+    @*<tbody>
+       
+    </tbody>*@
     <tbody data-bind="foreach:orders">
-        <tr data-bind="visible:OrderItems.length>0 && OrderStatus!='completed'" class="odd gradeX">
+        <tr data-bind="visible:OrderItems.length>0 && OrderStatus!='completed'" class="well">
             <td data-bind="text:Id"></td>
             <td data-bind="foreach:OrderItems">
-                <div data-bind="text:MenuItem.Name">
-               </div>
-              <td data-bind="foreach:OrderItems">
-                  <div data-bind="text:Quantity"></div>
-                </td>
-            <td data-bind="text:OrderStatus">
-
+                <div>
+                    <span data-bind="text:MenuItem.Name">
+                    </span>
+                    <span> (</span>
+                    <span data-bind="text:Quantity"></span>
+                    <span>)</span>
+                </div>
             </td>
+            @*<td data-bind="foreach:OrderItems">
+                <div data-bind="text:Quantity"></div>
+            </td>*@
+            <td data-bind="text:OrderStatus"></td>
 
-                  
-            
-            <td><button type="button" id="myButton" data-bind="click:$root.inprogress" class="btn btn-success">inprogress</button>
-                <span>&nbsp;&nbsp;</span>
+            <td>
+                <button type="button" id="myButton" data-bind="click:$root.waiting" class="btn btn-success">waiting</button>
+
+                <button type="button" id="myButton" data-bind="click:$root.inprogress" class="btn btn-success">inprogress</button>
+                                       
+                <button type="button" id="myButton" data-bind="click:$root.finish" class="btn btn-success" data-toggle="modal" data-target="#myModal">finish</button>               
             </td>
-
-            <td><button type="button" id="myButton" data-bind="click:$root.finish" class="btn btn-success">finish</button></td>
-            <td><button type="button" id="myButton" data-bind="click:$root.waiting" style="margin-left:+10px" class="btn btn-success">waiting</button></td>
-            <td><br /><hr /></td>
-            
         </tr>
 
     </tbody>
 </table>
+ <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="right: 50%">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning !!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are You Sure You Want To Delete This Order Item?.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bind="click:finish">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <script> 
     var app = new orderViewModel();
     ko.applyBindings(app);

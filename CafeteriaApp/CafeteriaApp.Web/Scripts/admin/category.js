@@ -74,7 +74,7 @@ function CategoryEditViewModel(id) {
     self.cafeteriaId = ko.observable();
     self.name = ko.observable();
     self.imageurl = ko.observable();
-    
+    self.chooseimageclicked = ko.observable(0);
     ko.fileBindings.defaultOptions.buttonText = "Choose Image";
     self.fileData = ko.observable({
         //file: ko.observable(), // will be filled with a File object
@@ -201,7 +201,10 @@ function CategoryEditViewModel(id) {
             }).fail(self.showError);
 
         }
-
+        $("#file").on('change', function () {
+            self.chooseimageclicked(1);
+            console.log(self.chooseimageclicked());
+        });
 
     }
 
