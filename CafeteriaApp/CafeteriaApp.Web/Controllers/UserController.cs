@@ -72,16 +72,16 @@ namespace CafeteriaApp.Web.Controllers
             return Ok(new { user = userModel });
         }
 
-        [Route("Getallroles")]
-        public IHttpActionResult Getallroles()
-        {
-            var roles = appdb.Roles.Select(role => new RoleViewModel()
-            {
-                Id = role.Id,
-                Name = role.Name
-            }).ToList();
-            return Ok(new { roles = roles });
-        }
+        //[Route("Getallroles")]
+        //public IHttpActionResult Getallroles()
+        //{
+        //    var roles = appdb.Roles.Select(role => new RoleViewModel()
+        //    {
+        //        Id = role.Id,
+        //        Name = role.Name
+        //    }).ToList();
+        //    return Ok(new { roles = roles });
+        //}
 
         [HttpPost]
         public IHttpActionResult Add(UserViewModel user)
@@ -115,7 +115,7 @@ namespace CafeteriaApp.Web.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult PUT([FromBody]UserViewModel user)
+        public IHttpActionResult PUT(UserViewModel user)
         {
             if (!ModelState.IsValid)
             {
@@ -140,29 +140,6 @@ namespace CafeteriaApp.Web.Controllers
                 existingUser.LockoutEndDateUtc = user.LockoutEndDateUtc??DateTime.Now;
                 existingUser.LockoutEnabled = user.LockoutEnabled;
                 existingUser.SecurityStamp = user.SecurityStamp;
-                if (existingUser.Roles.Count()==0)
-                {
-                    existingUser.Roles.Add(new Role()
-                    {
-                        //Id = user.Roles.FirstOrDefault().Id,
-                        Id=1,
-                        Name="Customer"
-                        //Name = user.Roles.FirstOrDefault().Name
-                    });
-                }
-                else
-                {
-                    existingUser.Roles.Clear();
-                    existingUser.Roles.Add(new Role() {
-                        Id=user.Roles[0].Id,
-                        Name=user.Roles[0].Name
-                    });
-                }
-                //appdb.userRoles.Add(new UserRole()
-                //{
-                  //  UserId=user.Id,
-                   // RoleId="1"
-                //});
                 appdb.SaveChanges();
             }
             else
@@ -171,6 +148,27 @@ namespace CafeteriaApp.Web.Controllers
             }
             return Ok();
         }
+
+        //[Route("assignRoles")]
+        //public IHttpActionResult assignRoles(UserViewModel user)
+        //{
+        //    var existingUser = appdb.Persons.FirstOrDefault(u => u.Id == user.Id);
+        //    if (existingUser != null)
+        //    {
+        //        foreach (var role in user.Roles)
+        //        {
+        //            var roleToAdd = appdb.Roles.FirstOrDefault(r => r.Id == role.Id);
+        //            existingUser.Roles.Add(roleToAdd);
+        //        }
+        //        appdb.SaveChanges();
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return NotFound();
+        //    }       
+        //}
+
 
         [HttpDelete]
         public IHttpActionResult Delete(string id)

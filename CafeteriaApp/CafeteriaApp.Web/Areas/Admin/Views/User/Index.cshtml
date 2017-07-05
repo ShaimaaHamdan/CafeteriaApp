@@ -35,6 +35,13 @@
                                 @*<button type="button" id="myButton" data-bind="attr:{userid:Id,name:User.UserName}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>*@
                                 <a id="myButton" data-bind="attr:{href:'/admin/user/edit/'+Id}" class="btn btn-success">Edit</a>
                                 @*<select type="text" class="form-control" data-bind="options:roles,value:selectedRole">Assign Role</select>*@
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <select type="text" class="form-control" multiple="multiple" data-bind="options:model().roles,selectedOptions:model().selectedRoles,optionsText:'Name'"></select>
+                                </div>
+                                <div>
+                                    <button data-bind="click:$root.assignRoles">Assign Role</button>
+                                </div>
                             </td>
                         </tr>
 

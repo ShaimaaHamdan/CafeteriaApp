@@ -3,7 +3,8 @@
     self.users = ko.observableArray();
     self.userId = ko.observable();
     self.name = ko.observable();
-    
+    self.roles = ko.observableArray();
+    self.selectedRoles = ko.observableArray();
 
 
     self.showError = function (jqXHR) {
@@ -41,6 +42,40 @@
     };
 
     self.getAllusers();
+
+    self.getAllRoles = function () {
+        $.ajax({
+            type: 'Get',
+            url: '/api/user/Getallroles',
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (data) {
+            console.log(data)
+            self.roles(data.roles);
+        }).fail(function () {
+            self.showError
+        });
+    };
+    self.getAllRoles();
+
+
+    self.assignRoles = function (user) {
+        var data = {
+            id: user.Id(),
+            Roles: self.selectedRoles() 
+        }
+
+        $.ajax({
+            type: 'put',
+            url: '/api/user/assignRoles/' + user.Id(),
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (data) {
+            alertify.success("Roles are assigned successfully");
+        }).fail(function () {
+            self.showError
+        });
+    };
+   
 
 
     $('#myModal').on('show.bs.modal', function (event) {
@@ -105,8 +140,8 @@ function userEditViewModel(id) {
         username: ko.observable(),//.extend({ required: true, maxLength: 100 }),
         firstname: ko.observable(),//.extend({ required: true, maxLength: 100 }),
         lastname: ko.observable(),//.extend({ required: true, maxLength: 100 }),
-        roles: ko.observableArray(),
-        selectedRoles: ko.observableArray(),
+        //roles: ko.observableArray(),
+        //selectedRoles: ko.observableArray(),
         //userName: ko.observable().extend({ required: true, maxLength: 100 }),
         //email: ko.observable().extend({ required: true, pattern: '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$' }),
         phoneNumber: ko.observable()//.extend({ required: true, pattern: '^01[0-2]{1}[0-9]{8}' }),
@@ -181,19 +216,7 @@ function userEditViewModel(id) {
     //        console.log(self.roles());
     //    }).fail(self.showError());
     //}
-    self.getAllRoles = function () {
-        $.ajax({
-            type: 'Get',
-            url: '/api/user/Getallroles',
-            contentType: 'application/json; charset=utf-8',
-        }).done(function (data) {
-            console.log(data)
-            self.model().roles(data.roles);
-        }).fail(function () {
-            self.showError
-        });
-    };
-    self.getAllRoles();
+    
 
     self.save = function () {
 
@@ -206,7 +229,7 @@ function userEditViewModel(id) {
                     lastName: self.model().lastname(),
                     //email: self.model().email(),
                     userName: self.model().username(),
-                    Roles: self.model().selectedRoles(),
+                    //Roles: self.model().selectedRoles(),
                         
                     //password: self.model().password(),
                     phoneNumber: self.model().phoneNumber(),
@@ -216,7 +239,7 @@ function userEditViewModel(id) {
                 //credit: self.model().credit(),
                 //limitedcredit: self.model().limitedcredit()
             
-            console.log(self.model().selectedRoles());
+            //console.log(self.model().selectedRoles());
             $.ajax({
                 type: 'PUT',
                 url: '/api/user/' + self.userId(),
