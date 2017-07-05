@@ -200,6 +200,10 @@
     <Compile Include="Migrations\201706211325550_AddImageUrlToCategoryAndMenuitem.Designer.cs">
       <DependentUpon>201706211325550_AddImageUrlToCategoryAndMenuitem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707041834391_Make_LockoutEndDateUtc_Nullable.cs" />
+    <Compile Include="Migrations\201707041834391_Make_LockoutEndDateUtc_Nullable.Designer.cs">
+      <DependentUpon>201707041834391_Make_LockoutEndDateUtc_Nullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Addition.cs" />
     <Compile Include="Models\Cafeteria.cs" />
@@ -330,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706211325550_AddImageUrlToCategoryAndMenuitem.resx">
       <DependentUpon>201706211325550_AddImageUrlToCategoryAndMenuitem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707041834391_Make_LockoutEndDateUtc_Nullable.resx">
+      <DependentUpon>201707041834391_Make_LockoutEndDateUtc_Nullable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable.resources" />
     <EmbeddedResource Include="obj\Debug\CafeteriaApp.Data.Migrations.AddCategoryTable1.resources" />

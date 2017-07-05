@@ -7,7 +7,8 @@ using System.Web.Http;
 using CafeteriaApp.Data.Contexts;
 using CafeteriaApp.Data.Models;
 using CafeteriaApp.Web.Models;
-
+using System.Web.Security;
+//using System.Collections;
 namespace CafeteriaApp.Web.Controllers
 {
     [RoutePrefix("api/User")]
@@ -25,15 +26,15 @@ namespace CafeteriaApp.Web.Controllers
                     LastName = user.LastName,
                     UserName = user.UserName,
                     Email = user.Email,
-                    EmailConfirmed = user.EmailConfirmed,
+                    //EmailConfirmed = user.EmailConfirmed,
                     PasswordHash = user.PasswordHash,
                     PhoneNumber = user.PhoneNumber,
-                    PhoneNumberConfirmed = user.PhoneNumberConfirmed,
-                    AccessFailedCount = user.AccessFailedCount,
-                    TwoFactorEnabled = user.TwoFactorEnabled,
+                    //PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                    //AccessFailedCount = user.AccessFailedCount,
+                    //TwoFactorEnabled = user.TwoFactorEnabled,
                     LockoutEndDateUtc = user.LockoutEndDateUtc,
-                    LockoutEnabled = user.LockoutEnabled,
-                    SecurityStamp = user.SecurityStamp
+                    //LockoutEnabled = user.LockoutEnabled,
+                    //SecurityStamp = user.SecurityStamp
                     
                 })
                 .ToList();
@@ -71,6 +72,17 @@ namespace CafeteriaApp.Web.Controllers
             return Ok(new { user = userModel });
         }
 
+        [Route("Getallroles")]
+        public IHttpActionResult Getallroles()
+        {
+            var roles = appdb.Roles.Select(role => new RoleViewModel()
+            {
+                Id = role.Id,
+                Name = role.Name
+            }).ToList();
+            return Ok(new { roles = roles });
+        }
+
         [HttpPost]
         public IHttpActionResult Add(UserViewModel user)
         {
@@ -93,7 +105,7 @@ namespace CafeteriaApp.Web.Controllers
                 PhoneNumberConfirmed = user.PhoneNumberConfirmed,
                 AccessFailedCount = user.AccessFailedCount,
                 TwoFactorEnabled = user.TwoFactorEnabled,
-                LockoutEndDateUtc = user.LockoutEndDateUtc,
+                LockoutEndDateUtc = user.LockoutEndDateUtc??DateTime.Now, // assign default value when it's null
                 LockoutEnabled = user.LockoutEnabled,
                 SecurityStamp = user.SecurityStamp
 
@@ -103,7 +115,7 @@ namespace CafeteriaApp.Web.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult PUT(UserViewModel user)
+        public IHttpActionResult PUT([FromBody]UserViewModel user)
         {
             if (!ModelState.IsValid)
             {
@@ -125,9 +137,32 @@ namespace CafeteriaApp.Web.Controllers
                 existingUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
                 existingUser.AccessFailedCount = user.AccessFailedCount;
                 existingUser.TwoFactorEnabled = user.TwoFactorEnabled;
-                existingUser.LockoutEndDateUtc = user.LockoutEndDateUtc;
+                existingUser.LockoutEndDateUtc = user.LockoutEndDateUtc??DateTime.Now;
                 existingUser.LockoutEnabled = user.LockoutEnabled;
                 existingUser.SecurityStamp = user.SecurityStamp;
+                if (existingUser.Roles.Count()==0)
+                {
+                    existingUser.Roles.Add(new Role()
+                    {
+                        //Id = user.Roles.FirstOrDefault().Id,
+                        Id=1,
+                        Name="Customer"
+                        //Name = user.Roles.FirstOrDefault().Name
+                    });
+                }
+                else
+                {
+                    existingUser.Roles.Clear();
+                    existingUser.Roles.Add(new Role() {
+                        Id=user.Roles[0].Id,
+                        Name=user.Roles[0].Name
+                    });
+                }
+                //appdb.userRoles.Add(new UserRole()
+                //{
+                  //  UserId=user.Id,
+                   // RoleId="1"
+                //});
                 appdb.SaveChanges();
             }
             else

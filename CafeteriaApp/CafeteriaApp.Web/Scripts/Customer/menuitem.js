@@ -1,7 +1,7 @@
 ﻿function CustomerMenuItemViewModel(id) {
     var self = this;
     self.categoryId = ko.observable(id);
-    self.customerId = ko.observable(7);
+    self.customerId = ko.observable(23);
     self.menuItemId = ko.observable();
     self.orderId = ko.observable();
     self.showfavorite = ko.observable();

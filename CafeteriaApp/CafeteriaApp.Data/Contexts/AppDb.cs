@@ -14,7 +14,8 @@ namespace CafeteriaApp.Data.Contexts
             Configuration.LazyLoadingEnabled = true;
 
         }
-
+        public DbSet<Role> Roles { get; set; }
+        //public DbSet<UserRole> userRoles { get; set; }
         public DbSet<Addition> Additions { get; set; }
         public DbSet<Cafeteria> Cafeterias { get; set; }
         public DbSet<Category> Categories { get; set; }

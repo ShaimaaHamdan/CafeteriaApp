@@ -211,6 +211,7 @@
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\SuperAdminAuthorize.cs" />
     <Compile Include="Areas\Chef\ChefAreaRegistration.cs" />
     <Compile Include="Areas\Chef\Controllers\OrderController.cs" />
@@ -399,6 +400,7 @@
     <Content Include="Scripts\admin\cafeteria.js" />
     <Content Include="Scripts\admin\login.js" />
     <Content Include="Scripts\admin\menuItem.js" />
+    <Content Include="Scripts\admin\user.js" />
     <Content Include="Scripts\alertify\alertify.js" />
     <Content Include="Scripts\alertify\alertify.min.js" />
     <Content Include="Scripts\app.js" />
@@ -496,6 +498,9 @@
     <Content Include="Areas\Customer\Views\Profile\AddChildRestriction.cshtml" />
     <Content Include="Areas\Chef\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Chef\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Create.cshtml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppDemo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppDemo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />

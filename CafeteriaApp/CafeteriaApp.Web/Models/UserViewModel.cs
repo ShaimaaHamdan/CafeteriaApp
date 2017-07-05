@@ -23,7 +23,7 @@ namespace CafeteriaApp.Web.Models
 
         public Boolean TwoFactorEnabled { get; set; }
 
-        public DateTime LockoutEndDateUtc { get; set; }
+        public DateTime? LockoutEndDateUtc { get; set; }
 
         public Boolean LockoutEnabled { get; set; }
 

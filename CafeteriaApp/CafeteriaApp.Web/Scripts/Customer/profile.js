@@ -1,6 +1,6 @@
 ﻿function ProfileEditeViewModel() {
     var self = this;
-    self.customerId = ko.observable(6);
+    self.customerId = ko.observable(23);
     self.childeren = ko.observableArray();
     self.childIdToDelete = ko.observable();
     self.chosenschoolyear = ko.observable();
