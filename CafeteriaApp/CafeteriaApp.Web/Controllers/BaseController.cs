@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace CafeteriaApp.Web.Controllers
 {
@@ -26,6 +29,24 @@ namespace CafeteriaApp.Web.Controllers
 
 
             return base.BeginExecuteCore(callback, state);
+        }
+
+        public string GetUserId()
+        {
+            var userName = User.Identity.Name;
+
+            if(!string.IsNullOrEmpty(userName))
+            {
+                var context = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                if(context != null)
+                {
+                    var user = context.FindByName(userName);
+                    return user.Id;
+                }
+            }
+
+            return null;
         }
     }
 }
