@@ -1,47 +1,45 @@
-﻿<div data-bind="foreach:categories">
+﻿<section id="pricing" class="pricing" style="margin-top: 170px;">
+  <div id="w">
+    <div class="pricing-filter">
+      <div class="pricing-filter-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="section-header">
+                <h2 class="pricing-title">Our Cafeterias</h2>
 
-    <div class="grid_4">
-        @*<div class="gall_block">
-            <div class="maxheight">*@
-
-        <a style="margin-bottom:50px" data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="gall_item">
-            <img  height="170" data-bind="attr: { src: ImageUrl }" alt="">
-        </a>
-        <div class="gall_bot">
-            <div class="text1">
-                <a href="#">
-                    <span style="margin-bottom:50px" data-bind="text:Name"></span>
-                </a>
+              </div>
             </div>
-            Rehoncus. Aliquam nibh antegestas id ictum a, commodo. Praesenterto faucibus maleada faucibusnec laeet metus id laoreet
-            <br>
-            <a data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="btn">more</a>
+          </div>
         </div>
+      </div>
     </div>
 
-</div>
-  
-
-
-@*<div class="grid_4">
-    <div class="gall_block">
-        <div class="maxheight">
-            <a data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="gall_item"><img src="/Scripts/CustomerTheme/images/page2_img1.jpg" alt=""></a>
-            <div class="gall_bot">
-                <div class="text1">
-                    <a href="#">
-                        <span data-bind="text:Name"></span>
-                    </a>
+    <div class="container" >
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <ul id="menu-pricing" class="menu-price">
+            <!-- ko foreach: categories -->
+            <li class="item" style="display:inline-block">
+              <a data-bind="attr:{href:'/Customer/Category/show/'+Id}">
+                <img style="height:200px" data-bind="attr: { src: ImageUrl }" class="img-responsive" alt="Food">
+                <div class="menu-desc text-center">
+                  <span>
+                    <h3><span data-bind="text:Name"></span></h3>
+                    short desc
+                  </span>
                 </div>
-                Rehoncus. Aliquam nibh antegestas id ictum a, commodo. Praesenterto faucibus maleada faucibusnec laeet metus id laoreet
-                <br>
-                <a data-bind="attr:{href:'/Customer/Category/show/'+Id}" class="btn">more</a>
-            </div>
+              </a>
+              <h2 class="white"><span data-bind="text:Name"></h2>
+            </li>
+            <!-- /ko -->
+
+          </ul>
         </div>
+      </div>
     </div>
-</div>*@
-
-
+  </div>
+</section>
 
 <script>
     //var app = new CategoryViewModel();
