@@ -66,7 +66,7 @@
 
     self.deleteCafeteria = function () {
 
-        if (self.categories().length == 0) {
+        if (self.categories().length== 0) {
             console.log(self.categories().length)
             console.log("id=" + self.cafeteriaId());
             $.ajax({
