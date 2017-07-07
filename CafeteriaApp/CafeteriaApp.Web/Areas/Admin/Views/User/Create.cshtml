@@ -14,7 +14,31 @@
             </div>
             <div class="panel-body">
 
-                @using (Html.BeginForm("Register", "Login", new {area = ""},FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+
+                <form role="form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" autofocus="autofocus" data-bind="textInput:model().email" name="name" id="name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" autofocus="autofocus" data-bind="textInput:model().password" name="name" id="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" autofocus="autofocus" data-bind="textInput:model().passwordConfirm" name="name" id="name" required />
+                    </div>
+
+
+                    <div class="form-group" style="float: right">
+                        <button data-bind="click:save" class="btn btn-primary">Save</button>
+                        <button data-bind="click:cancel" class="btn btn-danger">Cancel</button>
+                    </div>
+
+                </form>
+
+                @*@using (Html.BeginForm("Register", "Login", new {area = ""},FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     <h4>Create a new account.</h4>
@@ -44,7 +68,9 @@
                             <input type="button" class="btn btn-danger" value="Cancel" />
                         </div>
                     </div>
-                }
+                }*@
+
+
             </div>
         </div>
     </div>
@@ -54,3 +80,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    var app = new userNewViewModel();
+    ko.applyBindings(app);
+
+</script>
