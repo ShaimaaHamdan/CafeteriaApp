@@ -7,10 +7,10 @@ using CafeteriaApp.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 using CafeteriaApp.Data.Contexts;
->>>>>>> origin/master
+//>>>>>>> origin/master
 using CafeteriaApp.Data.Models;
 
 namespace CafeteriaApp.Web.Controllers
@@ -192,20 +192,24 @@ namespace CafeteriaApp.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-<<<<<<< HEAD
-                    if (Request.UrlReferrer.PathAndQuery != "/admin/user/create")
+                    //<<<<<<< HEAD
+                    if (Request.UrlReferrer.PathAndQuery != "/admin/user/create") // need authorization here
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToAction("Index", "Cafeteria", new { area = "Customer" });
                     }
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-=======
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    else
+                    {
+                        return RedirectToAction("Index", "User", new { area = "Admin" });
+                    }
+                    //=======
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     //Create Customer and Assign User to Customer Role
                     UserManager.AddToRole(user.Id, "Customer");
-                    var customer = new Customer() {
+                    var customer = new Customer()
+                    {
                         UserId = user.Id,
                         LimitedCredit = 0,
                         Credit = 0,
@@ -213,18 +217,16 @@ namespace CafeteriaApp.Web.Controllers
 
                     appdb.Customers.Add(customer);
                     appdb.SaveChanges();
-                    
->>>>>>> origin/master
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    else
-                    {
-                        return RedirectToAction("Index", "User", new { area = "Admin" });
-                    }
                 }
+
+                //>>>>>>> origin/master
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                
+                
                 AddErrors(result);
             }
 
