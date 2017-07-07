@@ -7,15 +7,18 @@ using System.Web.Http;
 using CafeteriaApp.Data.Contexts;
 using CafeteriaApp.Data.Models;
 using CafeteriaApp.Web.Models;
-using System.Web.Security;
-//using System.Collections;
+using Microsoft.AspNet.Identity;
+using CafeteriaApp.Web.Controllers;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+
 namespace CafeteriaApp.Web.Controllers
 {
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
         public AppDb appdb = new AppDb();
-
+        //[Authorize]
         public IHttpActionResult Get()
         {
             //lamda expression
@@ -113,10 +116,16 @@ namespace CafeteriaApp.Web.Controllers
             appdb.SaveChanges();
             return Ok();
         }
+        
 
         [HttpPut]
         public IHttpActionResult PUT(UserViewModel user)
         {
+            //var login = new LoginController();
+            //var User = login.UserManager.FindById(user.Id);
+            //User.Email = user.Email;
+            //login.UserManager.Update(User);
+             
             if (!ModelState.IsValid)
             {
                 return BadRequest("Not a valid data");
@@ -131,15 +140,15 @@ namespace CafeteriaApp.Web.Controllers
                 existingUser.LastName = user.LastName;
                 existingUser.UserName = user.UserName;
                 existingUser.Email = user.Email;
-                existingUser.EmailConfirmed = user.EmailConfirmed;
-                existingUser.PasswordHash = user.PasswordHash;
+                //existingUser.EmailConfirmed = user.EmailConfirmed;
+                //existingUser.PasswordHash = user.PasswordHash;
                 existingUser.PhoneNumber = user.PhoneNumber;
-                existingUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
-                existingUser.AccessFailedCount = user.AccessFailedCount;
-                existingUser.TwoFactorEnabled = user.TwoFactorEnabled;
-                existingUser.LockoutEndDateUtc = user.LockoutEndDateUtc??DateTime.Now;
-                existingUser.LockoutEnabled = user.LockoutEnabled;
-                existingUser.SecurityStamp = user.SecurityStamp;
+                //existingUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
+                //existingUser.AccessFailedCount = user.AccessFailedCount;
+                //existingUser.TwoFactorEnabled = user.TwoFactorEnabled;
+                //existingUser.LockoutEndDateUtc = user.LockoutEndDateUtc??DateTime.Now;
+                //existingUser.LockoutEnabled = user.LockoutEnabled;
+                //existingUser.SecurityStamp = user.SecurityStamp;
                 appdb.SaveChanges();
             }
             else
@@ -148,7 +157,19 @@ namespace CafeteriaApp.Web.Controllers
             }
             return Ok();
         }
-        
+
+        //[HttpPut]
+        //[Route("updateEmail")]
+        //public IHttpActionResult updateEmail(UserViewModel user)
+        //{
+        //    var existingUser = appdb.Persons.FirstOrDefault(u => u.Id == user.Id);
+        //    existingUser.Email = user.Email;
+        //    appdb.SaveChanges();
+        //    return Ok();
+        //}
+       
+
+
         [Route("assignRoles/{id}")]
         [HttpPut]
         public IHttpActionResult assignRoles([FromBody]UserViewModel user)

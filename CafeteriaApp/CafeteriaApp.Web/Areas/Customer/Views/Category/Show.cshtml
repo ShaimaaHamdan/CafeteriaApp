@@ -4,15 +4,15 @@
     <div class="container">
         <div class="row">
             <div class="grid_8">
-                <h2>@Resources.reserveyourtable</h2>
-                <img src="/Scripts/CustomerTheme/images/page3_img1.jpg" alt="" class="img_inner fleft inn__1">
+                @*<h2>@Resources.reserveyourtable</h2>
+                <img src="/Scripts/CustomerTheme/images/page3_img1.jpg" alt="" class="img_inner fleft inn__1">*@
                 @*<div class="extra_wrapper">
                     <div class="text1 tx__1"><a href="#">Vivamus at magna non nunc </a></div>
                     <p>Rehoncus. Aliquam nibh antegestas id ictum ado. Praesenterto faucibus maleada faucibusnec laeetert metus id laoreet </p>
                     <p>Nullam consectetur orci sed nulla facilisisequaterto. Curabitur vel lorem sit amet nulla perermentum. Aliquam nibh ante, egestas id dictum a, commodo luctus libero.</p>
                     Praesent faucibus malesuada faucibus. Donecertolin laoreet metus id laoreet malesuada.  orem ipsum dolor sit amet, consectetur adipiscing elit.
                 </div>*@
-                <div style="float: right;margin-right: -380px;margin-top: -95px">
+                <div style="float: right;margin-right: -40px;margin-top:70px">
                     
                    
 
@@ -58,7 +58,7 @@
                                         <td data-bind="text:Quantity"></td>
 
                                         <td>
-                                            <button type="submit" style="float: right;margin-top: -5px" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item" data-toggle="modal" data-target="#myModal">Remove this item</button>
+                                            <button type="submit" style="float: right;margin-top: -5px" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item" data-toggle="modal" data-target="#myModal">Remove</button>
 
                                             <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger btn-circle" title="Decrease Quantity"><i class="fa fa-minus"></i></button>                                            
 
@@ -210,8 +210,10 @@
 
                 <!-- Menu Items -->
 
-                <h2>@Resources.MenuItems</h2>
-                <div class="grid_4">
+                
+                <div style="float: left;margin-top:50px;margin-left:-150px">
+                    
+                    <h2 style="margin-right:200px">@Resources.MenuItems</h2>
                     <div data-bind="foreach:menuItems">
                         @*<div class="gall_bot">
             <div class="text1">*@
@@ -323,7 +325,8 @@
                         <br /><br /><br />
                         </div>
                     </div>
-            </div>
+                </div>
+            
 
         </div>
 
