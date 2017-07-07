@@ -36,6 +36,6 @@ namespace CafeteriaApp.Web.Models
         public string LastName { get; set; }
 
         public string ImageData { get; set; }
-        public List<RoleViewModel> Roles { get; internal set; } 
+        public List<RoleViewModel> Roles { get; set; } 
     }
 }

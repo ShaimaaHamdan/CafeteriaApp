@@ -109,25 +109,7 @@ namespace CafeteriaApp.Web.Controllers
             //}
         }
 
-        [HttpPut]
-        [AllowAnonymous]
-        public async Task<ActionResult> updateEmail(UserViewModel u)
-        {
-            var userapi = new UserController();
-            var user = userapi.appdb.Persons.Where(p => p.Id == u.Id).FirstOrDefault<User>();
-            user.Email = u.Email;
-            user.UserName = u.UserName;
-            userapi.appdb.SaveChanges();
-            var existingUser = UserManager.FindById(u.Id);
-            existingUser.Email = u.Email;
-            existingUser.UserName = u.Email;
-            UserManager.Update(existingUser);
-            //var signInManager = SignInManager.Pa
-            //var signininfo = SignInManager.UserManager.FindById(u.Id);
-            //signininfo.Email
-            return RedirectToAction("Index", "User", new { area = "Admin" });
-        }
-
+        
         //
         // GET: /Login/VerifyCode
         [AllowAnonymous]
@@ -192,18 +174,6 @@ namespace CafeteriaApp.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //<<<<<<< HEAD
-                    if (Request.UrlReferrer.PathAndQuery != "/admin/user/create") // need authorization here
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToAction("Index", "Cafeteria", new { area = "Customer" });
-                    }
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    else
-                    {
-                        return RedirectToAction("Index", "User", new { area = "Admin" });
-                    }
-                    //=======
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     //Create Customer and Assign User to Customer Role
@@ -217,16 +187,17 @@ namespace CafeteriaApp.Web.Controllers
 
                     appdb.Customers.Add(customer);
                     appdb.SaveChanges();
+
+                    return RedirectToAction("Index", "Cafeteria", new { area = "Customer" });
+
                 }
 
-                //>>>>>>> origin/master
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                
-                
+
                 AddErrors(result);
             }
 
