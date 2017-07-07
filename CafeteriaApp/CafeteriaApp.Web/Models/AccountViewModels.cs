@@ -35,6 +35,7 @@ namespace CafeteriaApp.Web.Models
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+        public string UserId { get; internal set; }
     }
 
     public class UserLoginInfoViewModel
