@@ -18,42 +18,51 @@
   <script src="~/Content/Customer/js/jquery-1.11.2.min.js"></script>
   <script type="text/javascript" src="~/Content/Customer/js/jquery.flexslider.min.js"></script>
   <script type="text/javascript">
-            $(window).load(function() {
-                $('.flexslider').flexslider({
-                 animation: "slide",
-                 controlsContainer: ".flexslider-container"
-                });
-            });
+    $(window).load(function () {
+      $('.flexslider').flexslider({
+        animation: "slide",
+        controlsContainer: ".flexslider-container"
+      });
+    });
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWCELLIcb0NIoSa61V_QuFGrkKKMAcu14"></script>
 
   <script>
-            function initialize() {
-                var mapCanvas = document.getElementById('map-canvas');
-                var mapOptions = {
-                    center: new google.maps.LatLng(24.909439, 91.833800),
-                    zoom: 16,
-                    scrollwheel: false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
-                var map = new google.maps.Map(mapCanvas, mapOptions)
+    function initialize() {
+      var mapCanvas = document.getElementById('map-canvas');
+      var mapOptions = {
+        center: new google.maps.LatLng(24.909439, 91.833800),
+        zoom: 16,
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+      var map = new google.maps.Map(mapCanvas, mapOptions)
 
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(24.909439, 91.833800),
-                    title:"Mamma's Kitchen Restaurant"
-                });
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(24.909439, 91.833800),
+        title: "Mamma's Kitchen Restaurant"
+      });
 
-                // To add the marker to the map, call setMap();
-                marker.setMap(map);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
+      // To add the marker to the map, call setMap();
+      marker.setMap(map);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
   </script>
 <<<<<<< HEAD
+@*<<<<<<< HEAD*@
     @Scripts.Render("~/bundles/app")
 =======
   @Scripts.Render("~/bundles/app")
   <link rel="stylesheet" href="~/Content/knockout-file-bindings.css" />
->>>>>>> edb57834300744c2fe22bc697d93afb4233a8481
+@*>>>>>>> edb57834300744c2fe22bc697d93afb4233a8481*@
+=======
+  <<<<<<< HEAD
+  @Scripts.Render("~/bundles/app")
+  =======
+  @Scripts.Render("~/bundles/app")
+  <link rel="stylesheet" href="~/Content/knockout-file-bindings.css" />
+  >>>>>>> edb57834300744c2fe22bc697d93afb4233a8481
+>>>>>>> origin/master
 </head>
 <body data-spy="scroll" data-target="#template-navbar">
   <!--== 4. Navigation ==-->
@@ -74,6 +83,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="Food-fair-toggle">
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="~/Home/Index">Home</a></li>
           <li><a href="#about">about</a></li>
           <li><a href="#pricing">pricing</a></li>
           <li><a href="#great-place-to-enjoy">beer</a></li>
@@ -81,7 +91,19 @@
           <li><a href="#featured-dish">featured</a></li>
           <li><a href="#reserve">reservation</a></li>
           <li><a href="#contact">contact</a></li>
-          <li><a href="/Login/Login">login</a></li>
+<<<<<<< HEAD
+          <li><a href="~/Customer/Profile/Index">Profile</a></li>
+=======
+          @if (!User.Identity.IsAuthenticated)
+          {
+              <li><a href="/Login/Login">login</a></li>
+          }
+          else
+          {
+              <li><a href="/customer/profile" >profile</a></li>
+              <li><a href="#  " onclick="gotologout()">logout</a></li>
+          }
+>>>>>>> origin/master
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.row -->
@@ -111,7 +133,20 @@
   <script type="text/javascript" src="~/Content/Customer/js/jquery.hoverdir.js"></script>
   <script type="text/javascript" src="~/Content/Customer/js/jQuery.scrollSpeed.js"></script>
   <script src="~/Content/Customer/js/script.js"></script>
- 
+  <script>
+    function gotologout() {
+      $.post("/Login/LogOff")
+        .done(function (response, status, jqxhr) {
+          // this is the "success" callback
+          document.location = "/Customer/Cafeteria/Index"
+        })
+        .fail(function (jqxhr, status, error) {
+          // this is the ""error"" callback
+        })
+    }
+  </script>
+
+
 
 </body>
 </html>
