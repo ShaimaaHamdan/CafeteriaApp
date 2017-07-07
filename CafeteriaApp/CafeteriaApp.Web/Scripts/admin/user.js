@@ -114,7 +114,8 @@ function userEditViewModel(id) {
     var self = this;
     self.userId = ko.observable(id);
 
-    
+    self.password = ko.observable(null),
+    self.confirmPassword = ko.observable(null),
     //self.selectedRole = ko.observable();
     //self.selectedRole = ko.observable();
     //self.imageurl = ko.observable();
@@ -144,11 +145,13 @@ function userEditViewModel(id) {
         //roles: ko.observableArray(),
         //selectedRoles: ko.observableArray(),
         //userName: ko.observable().extend({ required: true, maxLength: 100 }),
-        //email: ko.observable().extend({ required: true, pattern: '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$' }),
-        phoneNumber: ko.observable()//.extend({ required: true, pattern: '^01[0-2]{1}[0-9]{8}' }),
+        email: ko.observable().extend({ required: true, pattern: '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$' }),
+        phoneNumber: ko.observable(),//.extend({ required: true, pattern: '^01[0-2]{1}[0-9]{8}' }),
         //credit: ko.observable().extend({ required: true, pattern: '^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$' }),
         //limitedcredit: ko.observable().extend({ required: true, pattern: '^[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]{2})?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)$' }),
-        //password: ko.observable(),
+        
+        passwordHash: ko.observable(),
+        securityStamp: ko.observable()
         //roles: ko.observableArray(["Admin", "Employee", "Customer"]),
         //selectedRole: ko.observable()
         //imageurl: ko.observable()
@@ -191,8 +194,12 @@ function userEditViewModel(id) {
             self.model().username(data.user.UserName);
             self.model().firstname(data.user.FirstName);
             self.model().lastname(data.user.LastName);
-            //self.model().email(data.user.Email);            
-            //self.model().password(data.PasswordHash);
+            self.model().email(data.user.Email);
+            //console.log(data.user.Email);
+            //self.model().password(data.user.Password);
+            //console.log(data.user.Password);
+            self.model().passwordHash(data.user.PasswordHash);
+            self.model().securityStamp(data.user.SecurityStamp);
             self.model().phoneNumber(data.user.PhoneNumber);
             //self.model().credit(data.Credit);
             //self.model().limitedcredit(data.LimitedCredit);
@@ -223,37 +230,60 @@ function userEditViewModel(id) {
 
         
         
-            var data = {
-                id: self.userId(),
+        var data1 = {
+            id: self.userId(),
                 
-                    firstName: self.model().firstname(),
-                    lastName: self.model().lastname(),
-                    //email: self.model().email(),
-                    userName: self.model().username(),
-                    //Roles: self.model().selectedRoles(),
+            firstName: self.model().firstname(),
+            lastName: self.model().lastname(),
+            email: self.model().email(),
+            userName: self.model().username(),
+            ////Roles: self.model().selectedRoles(),
                         
-                    //password: self.model().password(),
-                    phoneNumber: self.model().phoneNumber(),
-                }
-                    //imageData: self.fileData().base64String()
-                //},
-                //credit: self.model().credit(),
-                //limitedcredit: self.model().limitedcredit()
-            
-            //console.log(self.model().selectedRoles());
+            ////Password: self.model().password(),
+            //PasswordHash: self.model().passwordHash(),
+            phoneNumber: self.model().phoneNumber(),
+            //SecurityStamp: self.model().securityStamp()
+        }
+        var data2 = {
+            id: self.userId(),
+            Email: self.model().email(),
+            Password: self.password(),
+            }
+        console.log(self.model().email());
+
+        if (self.model().email() != null) {
             $.ajax({
                 type: 'PUT',
-                url: '/api/user/' + self.userId(),
+                url: '/login/updateEmail/',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function (result) {
-                //console.log("Done !")
-                document.location = '/admin/user/index';
-            }).fail(self.showError);
-        //} else {
-        //    alertify.error("Error,Some fields are invalid !");
-        //}
-
+                data: JSON.stringify(data1)
+            }).done(function () {
+                console.log("done")
+            }).fail(function () { });
+        }
+            //if (self.model().username() != null || self.model().firstname() != null || self.model().lastname() != null || self.model().phoneNumber() != null) {
+            //    $.ajax({
+            //        type: 'PUT',
+            //        url: '/api/user/' + self.userId(),
+            //        contentType: 'application/json; charset=utf-8',
+            //        data: JSON.stringify(data1)
+            //    }).done(function (result) {
+            //        //console.log("Done !")
+            //        document.location = '/admin/user/index';
+            //    }).fail(self.showError);
+            //}
+            //if ((self.password() != null && self.confirmPassword()==self.password()) || self.model().email!=null ) {
+            //    $.ajax({
+            //        type: 'PUT',
+            //        url: '/api/login/editEmailAndPassword/'+self.userId(),
+            //        contentType: 'application/json; charset=utf-8',
+            //        data: JSON.stringify(data2)
+            //    }).done(function (result) {
+            //        //console.log("Done !")
+            //        document.location = '/admin/user/index';
+            //    }).fail(self.showError);
+            //}
+      
         
     }
 

@@ -17,7 +17,7 @@
                         <form role="form">
                             <div class="form-group">
                                 <label>User Name</label>
-                                <input type="text" class="form-control" data-bind="textInput:model().username" name="username" id="name" required>
+                                <input type="text" class="form-control" data-bind="textInput:model().email" name="username" id="name" required>
                             </div>
                             <div class="form-group">
                                 <label>First Name</label>
@@ -27,10 +27,10 @@
                                 <label>Last Name</label>
                                 <input type="text" class="form-control" data-bind="textInput:model().lastname" name="lastname" id="name" required>
                             </div>                            
-                            @*<div class="form-group">
+                            <div class="form-group">
                                 <label>Email</label>
                                 <input type="text" class="form-control" data-bind="textInput:model().email" name="email" id="name" required>
-                            </div>*@
+                            </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
                                 <input type="text" class="form-control" data-bind="textInput:model().phoneNumber" name="phoneNumber" id="name" required>
@@ -42,15 +42,19 @@
                             <div class="form-group">
                                 <label>Limited Credit</label>
                                 <input type="text" class="form-control" data-bind="textInput:model().limitedcredit" name="limitedcredit" id="name" required>
-                            </div>
-                            <div class="ui-select">
+                            </div>*@
+                            @*<div class="ui-select">
                                 <label>Role</label>
                                 <select type="text" class="form-control" data-bind="options:model().roles,value:model().selectedRole"></select>
                             </div>*@
-                            @*<div class="form-group">
+                            <div class="form-group">
                                 <label>Password</label>
-                                <input type="text" class="form-control" data-bind="textInput:model().password" name="password" id="name" required>
-                            </div>*@
+                                <input type="text" class="form-control" data-bind="textInput:password" name="password" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="text" class="form-control" data-bind="textInput:confirmPassword" name="password" id="name" required>
+                            </div>
                             @*<div data-bind="fileDrag: fileData">
                                 <div class="image-upload-preview">
                                     <img width="370" height="266" data-bind="attr: { src: fileData().dataURL },visible: chooseimageclicked()==1 ">

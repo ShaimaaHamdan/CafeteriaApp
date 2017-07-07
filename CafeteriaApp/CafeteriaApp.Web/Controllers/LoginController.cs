@@ -3,10 +3,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using CafeteriaApp.Web.Models;
+using CafeteriaApp.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+//<<<<<<< HEAD
+//=======
 using CafeteriaApp.Data.Contexts;
+//>>>>>>> origin/master
 using CafeteriaApp.Data.Models;
 
 namespace CafeteriaApp.Web.Controllers
@@ -82,20 +86,46 @@ namespace CafeteriaApp.Web.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+            //if (Request.UrlReferrer.PathAndQuery != "/admin/edit/user/{id}")
+            //{
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+            //}
+            //else
+            //{
+
+            //}
+        }
+
+        [HttpPut]
+        [AllowAnonymous]
+        public async Task<ActionResult> updateEmail(UserViewModel u)
+        {
+            var userapi = new UserController();
+            var user = userapi.appdb.Persons.Where(p => p.Id == u.Id).FirstOrDefault<User>();
+            user.Email = u.Email;
+            user.UserName = u.UserName;
+            userapi.appdb.SaveChanges();
+            var existingUser = UserManager.FindById(u.Id);
+            existingUser.Email = u.Email;
+            existingUser.UserName = u.Email;
+            UserManager.Update(existingUser);
+            //var signInManager = SignInManager.Pa
+            //var signininfo = SignInManager.UserManager.FindById(u.Id);
+            //signininfo.Email
+            return RedirectToAction("Index", "User", new { area = "Admin" });
         }
 
         //
@@ -162,11 +192,24 @@ namespace CafeteriaApp.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //<<<<<<< HEAD
+                    if (Request.UrlReferrer.PathAndQuery != "/admin/user/create") // need authorization here
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        return RedirectToAction("Index", "Cafeteria", new { area = "Customer" });
+                    }
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    else
+                    {
+                        return RedirectToAction("Index", "User", new { area = "Admin" });
+                    }
+                    //=======
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     //Create Customer and Assign User to Customer Role
                     UserManager.AddToRole(user.Id, "Customer");
-                    var customer = new Customer() {
+                    var customer = new Customer()
+                    {
                         UserId = user.Id,
                         LimitedCredit = 0,
                         Credit = 0,
@@ -174,21 +217,24 @@ namespace CafeteriaApp.Web.Controllers
 
                     appdb.Customers.Add(customer);
                     appdb.SaveChanges();
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Cafeteria", new { area = "Customer" });
                 }
+
+                //>>>>>>> origin/master
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                
+                
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+       
 
         //
         // GET: /Login/ConfirmEmail
