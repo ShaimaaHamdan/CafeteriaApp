@@ -7,6 +7,10 @@ using CafeteriaApp.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+<<<<<<< HEAD
+=======
+using CafeteriaApp.Data.Contexts;
+>>>>>>> origin/master
 using CafeteriaApp.Data.Models;
 
 namespace CafeteriaApp.Web.Controllers
@@ -16,9 +20,12 @@ namespace CafeteriaApp.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        public AppDb appdb;
+
 
         public LoginController()
         {
+           appdb = new AppDb();
         }
 
         public LoginController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -185,6 +192,7 @@ namespace CafeteriaApp.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+<<<<<<< HEAD
                     if (Request.UrlReferrer.PathAndQuery != "/admin/user/create")
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -192,6 +200,21 @@ namespace CafeteriaApp.Web.Controllers
                     }
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
+=======
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+                    //Create Customer and Assign User to Customer Role
+                    UserManager.AddToRole(user.Id, "Customer");
+                    var customer = new Customer() {
+                        UserId = user.Id,
+                        LimitedCredit = 0,
+                        Credit = 0,
+                    };
+
+                    appdb.Customers.Add(customer);
+                    appdb.SaveChanges();
+                    
+>>>>>>> origin/master
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

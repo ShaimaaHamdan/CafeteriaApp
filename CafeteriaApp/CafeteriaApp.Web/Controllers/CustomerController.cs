@@ -50,9 +50,9 @@ namespace CafeteriaApp.Web.Controllers
 
         }
 
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(string id)
         {
-            var customer = appdb.Customers.FirstOrDefault(c => c.Id == id);
+            var customer = appdb.Customers.FirstOrDefault(c => c.UserId == id);
             if (customer == null)
             {
                 return NotFound();
@@ -123,10 +123,11 @@ namespace CafeteriaApp.Web.Controllers
         }
 
         [Route("GetDependentByCustomer/{id}")]
-        public IHttpActionResult GetDependentByCustomer(int id)
+        public IHttpActionResult GetDependentByCustomer(string id)
         {
-            var customer = appdb.Customers.FirstOrDefault(c => c.Id == id);
-            var dependents = appdb.Dependents.Where(item => item.CustomerId == id)
+
+            var customer = appdb.Customers.FirstOrDefault(c => c.UserId == id);
+            var dependents = appdb.Dependents.Where(item => item.Customer.UserId == id)
                 .Select(dependent => new DependentViewModel()
                 {
                     Name = dependent.Name,

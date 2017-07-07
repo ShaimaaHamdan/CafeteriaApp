@@ -1,7 +1,9 @@
-﻿function ProfileEditeViewModel() {
+﻿function ProfileEditeViewModel(userId) {
     var self = this;
-    self.customerId = ko.observable(23);
+    self.userId = ko.observable(userId);
+    self.customerId = ko.observable();
     self.childeren = ko.observableArray();
+    self.name = ko.observable();
     self.childIdToDelete = ko.observable();
     self.chosenschoolyear = ko.observable();
     self.model = ko.validatedObservable({
@@ -55,10 +57,10 @@
     }
 
     self.getCustomerById = function () {
-        console.log(self.customerId());
+        console.log(self.userId());
         $.ajax({
             type: 'Get',
-            url: '/api/Customer/' + self.customerId(),
+            url: '/api/Customer/' + self.userId(),
             contentType: 'application/json; charset=utf-8'
         }).done(function (result) {
             var data = result.customer;
@@ -70,7 +72,7 @@
             self.model().password(data.User.PasswordHash);
             self.model().phoneNumber(data.User.PhoneNumber);
             self.model().credit(data.LimitedCredit);
-           
+            self.customerId(data.Id);           
             self.fileData().dataURL('data:image/gif;base64,' + data.User.ImageData);
             self.fileData().base64String(data.User.ImageData);
            }).fail(self.showError);
@@ -82,6 +84,7 @@
             var data = {
                 id: self.customerId(),
                 user: {
+
                     firstName: self.model().firstName(),
                     lastName: self.model().lastName(),
                     email: self.model().email(),
@@ -116,10 +119,10 @@
     }
 
     self.getChildByCustomerId = function () {
-        console.log(self.customerId()),
+        console.log(self.userId()),
         $.ajax({
             type: 'Get',
-            url: '/api/Customer/GetDependentByCustomer/' + self.customerId(),
+            url: '/api/Customer/GetDependentByCustomer/' + self.userId(),
             contentType: 'application/json; charset=utf-8'
         }).done(function (data) {
             console.log(data);
@@ -133,30 +136,31 @@
     $('#mydeleteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)[0];
         self.childIdToDelete(button.attributes["childid"].value);
-        
+        self.name(button.attributes["name"].value)
     });
 
     self.deleteCustomerChild = function () {
-        var model = {childId: self.childIdToDelete(), customerId: self.customerId()};
+        console.log("id=" + self.childIdToDelete());
         $.ajax({
             type: 'Delete',
-            url: '/api/Customer/DeleteCustomerDependent/',
+            url: '/api/Customer/DeleteCustomerDependent/' + self.childIdToDelete(),
             contentType: 'application/json; charset=utf-8',
-            data: ko.toJSON(model)
+            
         }).done(function (data) {
             console.log(data)
             $('#mydeleteModal').modal('hide')
-            alertify.success("Child is deleted");
+            alertify.success(self.name() + " is deleted");
             self.getChildByCustomerId();
         }).fail(self.showError);
     }
 }
 
-function ChildNewViewModel() {
+function ChildNewViewModel(userId) {
     var self = this;
     self.schoolYear = ko.observableArray(["First", "Second","Third"]);
     self.chosenschoolyear = ko.observable();
-    self.customerId = ko.observable(6);
+    self.userId = ko.observable(userId);
+    self.customerId = ko.observable();
    // self.schoolYear = ko.observable();
     self.model = ko.validatedObservable({
         name: ko.observable().extend({ required: true, maxLength: 100 }),
@@ -202,6 +206,19 @@ function ChildNewViewModel() {
             if (response.error_description) self.errors.push(response.error_description);
         }
     }
+    self.getCustomerById = function () {
+        console.log(self.userId());
+        $.ajax({
+            type: 'Get',
+            url: '/api/Customer/' + self.userId(),
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (result) {
+            var data = result.customer;
+            console.log(data);            
+            self.customerId(data.Id);            
+        }).fail(self.showError);
+    };
+    self.getCustomerById();
     self.save = function () {
         if (self.model.isValid()) {
             var data = {
@@ -230,9 +247,10 @@ function ChildNewViewModel() {
     }
 }
 
-function ChildEditViewModel(id) {
+function ChildEditViewModel(id,userId) {
     self.result = ko.observable();
-    self.customerId = ko.observable(6);
+    self.userId = ko.observable(userId);    
+    self.customerId = ko.observable();
     self.childId = ko.observable(id);
     self.restrictionId = ko.observable();
     self.restrictions = ko.observableArray();
@@ -285,8 +303,22 @@ function ChildEditViewModel(id) {
             if (response.error_description) self.errors.push(response.error_description);
         }
     }
+    self.getCustomerById = function () {
+        console.log(self.userId());
+        $.ajax({
+            type: 'Get',
+            url: '/api/Customer/' + self.userId(),
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (result) {
+            var data = result.customer;
+            console.log(data);
+            self.customerId(data.Id);
+        }).fail(self.showError);
+    };
+    self.getCustomerById();
     //Get Child by id
     self.getChildById = function () {
+
         console.log(self.childId());
         $.ajax({
             type: 'Get',

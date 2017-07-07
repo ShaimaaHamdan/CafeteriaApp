@@ -17,6 +17,8 @@ using Microsoft.Owin.Security.OAuth;
 using CafeteriaApp.Web.Models;
 using CafeteriaApp.Web.Providers;
 using CafeteriaApp.Web.Results;
+using CafeteriaApp.Data.Models;
+using CafeteriaApp.Data.Contexts;
 
 namespace CafeteriaApp.Web.Controllers
 {
@@ -26,9 +28,12 @@ namespace CafeteriaApp.Web.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        public AppDb appdb;
+
 
         public AccountController()
         {
+            appdb = new AppDb();
         }
 
         public AccountController(ApplicationUserManager userManager,
@@ -337,6 +342,18 @@ namespace CafeteriaApp.Web.Controllers
             {
                 return GetErrorResult(result);
             }
+
+            UserManager.AddToRole(user.Id, "Customer");
+
+            var customer = new Customer()
+            {
+                UserId = user.Id,
+                LimitedCredit = 0,
+                Credit = 0,
+            };
+
+            appdb.Customers.Add(customer);
+            appdb.SaveChanges();
 
             return Ok();
         }
