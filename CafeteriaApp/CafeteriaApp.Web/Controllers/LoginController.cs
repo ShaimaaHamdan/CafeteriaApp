@@ -6,6 +6,8 @@ using CafeteriaApp.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using CafeteriaApp.Data.Contexts;
+using CafeteriaApp.Data.Models;
 
 namespace CafeteriaApp.Web.Controllers
 {
@@ -14,9 +16,12 @@ namespace CafeteriaApp.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        public AppDb appdb;
+
 
         public LoginController()
         {
+           appdb = new AppDb();
         }
 
         public LoginController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -158,6 +163,17 @@ namespace CafeteriaApp.Web.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+                    //Create Customer and Assign User to Customer Role
+                    UserManager.AddToRole(user.Id, "Customer");
+                    var customer = new Customer() {
+                        UserId = user.Id,
+                        LimitedCredit = 0,
+                        Credit = 0,
+                    };
+
+                    appdb.Customers.Add(customer);
+                    appdb.SaveChanges();
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

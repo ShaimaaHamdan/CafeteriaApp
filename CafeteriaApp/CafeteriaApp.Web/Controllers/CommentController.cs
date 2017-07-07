@@ -124,36 +124,5 @@ namespace CafeteriaApp.Web.Controllers
             appdb.SaveChanges();
             return Ok();
         }
-
-
-
-
-
-
-
-        //------------------------------------------------------------------------------------
-        // GET: api/Comment
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET: api/Comment/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST: api/Comment
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-
-
-        //// DELETE: api/Comment/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

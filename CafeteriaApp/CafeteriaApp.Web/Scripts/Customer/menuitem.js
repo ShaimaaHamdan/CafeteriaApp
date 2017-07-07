@@ -4,6 +4,7 @@
     self.userId = ko.observable(userId);  
     self.customerId = ko.observable();
     self.menuItemId = ko.observable();
+    self.menuItem = ko.observable();
     self.orderId = ko.observable();
     self.showfavorite = ko.observable();
     self.currentorder = ko.observable();
@@ -19,9 +20,11 @@
     self.currentmenuitemId = ko.observable();
     self.viewdetailsclicked = ko.observable();
     self.favoriteItems = ko.observableArray();
+    self.favoriteItemsLength = ko.observable(0);
     //--------------------------------------------
     self.commentId = ko.observable();
-    self.comments = ko.observableArray();
+    self.comments = ko.observableArray([]);
+    self.commentslength = ko.observable();
     self.comment_data = ko.observable();
     self.commentedit_data = ko.observable();
     self.viewcommentsclicked = ko.observable();
@@ -43,9 +46,9 @@
         //file: ko.observable(), // will be filled with a File object
         // Read the files (all are optional, e.g: if you're certain that it is a text file, use only text:
         //binaryString: ko.observable(), // FileReader.readAsBinaryString(Blob|File) - The result property will contain the file/blob's data as a binary string. Every byte is represented by an integer in the range [0..255].
-       // text: ko.observable(), // FileReader.readAsText(Blob|File, opt_encoding) - The result property will contain the file/blob's data as a text string. By default the string is decoded as 'UTF-8'. Use the optional encoding parameter can specify a different format.
-       // dataURL: ko.observable(), // FileReader.readAsDataURL(Blob|File) - The result property will contain the file/blob's data encoded as a data URL.
-       // arrayBuffer: ko.observable(), // FileReader.readAsArrayBuffer(Blob|File) - The result property will contain the file/blob's data as an ArrayBuffer object.
+        // text: ko.observable(), // FileReader.readAsText(Blob|File, opt_encoding) - The result property will contain the file/blob's data as a text string. By default the string is decoded as 'UTF-8'. Use the optional encoding parameter can specify a different format.
+        // dataURL: ko.observable(), // FileReader.readAsDataURL(Blob|File) - The result property will contain the file/blob's data encoded as a data URL.
+        // arrayBuffer: ko.observable(), // FileReader.readAsArrayBuffer(Blob|File) - The result property will contain the file/blob's data as an ArrayBuffer object.
 
         // a special observable (optional)
         base64String: ko.observable(), // just the base64 string, without mime type or anything else
@@ -119,7 +122,7 @@
 
     self.getCategory();
 
-    self.getMenuItemByCategoryId = function () {
+    (self.getMenuItemByCategoryId = function () {
         $.ajax({
             type: 'Get',
             url: '/api/MenuItem/GetByCategory/' + self.categoryId(),
@@ -128,7 +131,7 @@
             console.log(data)
             self.menuItems(data.menuItems)
         }).fail(self.showError);
-    };
+    });
 
     self.getMenuItemByCategoryId();
 
@@ -168,6 +171,7 @@
                     self.orderId(data.order.Id);
                     self.currentorder(data.order);
                     self.currentorderstatus(data.order.OrderStatus);
+                    //self.comments()
                     self.deliveryplace(data.order.DeliveryPlace);
                 }
             }).fail(self.showError);
@@ -188,6 +192,7 @@
         self.viewcommentsclicked(0);
         if (self.currentmenuitemId() != menuitem.Id) {
             self.currentmenuitemId(menuitem.Id);
+            self.menuItem(menuitem);
         }
     };
     self.hidedetails = function (menuitem) {
@@ -476,7 +481,27 @@
 
     // comments   
     
-    self.addcomment = function (menuitem) {
+
+    self.getCommentByMenuItemId = function (menuItem) {
+        if (menuItem.Comments != null) {
+            $.ajax({
+                type: 'Get',
+                url: '/api/Comment/GetByMenuItem/' + menuItem.Id,
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (data) {
+                self.menuItemId(menuItem.Id);
+                self.comments(data.comments);
+                self.commentslength(self.comments().length);
+                if (self.comments().length != 0) {
+                    self.viewcommentsclicked(1);
+                }
+            }).fail(self.showError);
+        }
+    }
+
+
+
+    self.addcomment = function (menuitem) {      
         if (self.comment_data() == null) {
             alertify.error("Please Enter Comment");
         }
@@ -493,30 +518,14 @@
                 data: JSON.stringify(data)
             }).done(function (result) {
                 alertify.success("Your comment is added");
-                self.init();
-                self.getCommentByMenuItemId(menuitem);
                 self.comment_data(null);
+                self.getCommentByMenuItemId(menuitem);
             }).fail(self.showError);
         }
 
     }  
 
-    self.getCommentByMenuItemId = function (menuItem) {
-        if (menuItem.Comments.length!=0) {
-            $.ajax({
-                type: 'Get',
-                url: '/api/Comment/GetByMenuItem/' + menuItem.Id,
-                contentType: 'application/json; charset=utf-8'
-            }).done(function (data) {
-               // self.menuItem(menuItem);
-                self.menuItemId(menuItem.Id);
-                self.comments(data.comments)  ///!!!
-                self.init();
-                self.viewcommentsclicked(1);
-            }).fail(self.showError);
-
-        }
-    }  
+   
   
     self.editcomment = function (comment) {
         var data = {
@@ -545,7 +554,12 @@
             contentType: 'application/json; charset=utf-8',
             data: { id: comment.Id }
         }).done(function (data) {
+            self.commentslength(self.commentslength()-1);
             self.getCommentByMenuItemId(self.menuItem());
+            self.viewcommentsclicked(1);
+            if (self.commentslength() == 0) {
+                self.viewcommentsclicked(0);
+            }
             alertify.success("Your Comment is deleted");
         }).fail(self.showError);
     }
@@ -584,19 +598,31 @@
                 data: JSON.stringify(data)
             }).done(function () {
                 alertify.success("MenuItem is added to your Favorite Items");
+                if (self.favoriteItemsLength() == 0) {
+                    self.favoriteItemsLength(1);
+                }
+                else {
+                    self.favoriteItemsLength(self.favoriteItemsLength()+1);
+                }
                 self.getfavorite();
+                
             }).fail(self.showError);
         }
     }
     self.getfavorite = function () {
-            self.showfavorite(1);
             $.ajax({
                 type: 'Get',
                 url: '/api/FavoriteItem/GetbyCustomerId/' + self.customerId(),
                 contentType: 'application/json; charset=utf-8'
             }).done(function (data) {
                 self.favoriteItems(data.favoriteitems);
+                self.favoriteItemsLength(self.favoriteItems().length);
+                if (self.favoriteItemsLength() != 0) {
+                    self.showfavorite(1);
+                }
             }).fail(self.showError);
+            
+        //}
     }
 
     self.deletefavorite = function (favoriteitem) {
@@ -606,7 +632,11 @@
             contentType: 'application/json; charset=utf-8',
             data: { id: favoriteitem.Id }
         }).done(function () {
+            self.favoriteItemsLength(self.favoriteItemsLength()-1);
             self.getfavorite();
+            if (self.favoriteItemsLength() == 0) {
+                self.showfavorite(0);
+            }
         }).fail(self.showError);
     }
 

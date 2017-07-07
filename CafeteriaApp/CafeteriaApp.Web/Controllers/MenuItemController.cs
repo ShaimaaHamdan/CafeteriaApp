@@ -294,6 +294,8 @@ namespace CafeteriaApp.Web.Controllers
 
     }
 
+
+
     public class MenuItemAdditionViewModel
     {
         public int MenuItemId { get; set; }

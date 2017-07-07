@@ -72,16 +72,16 @@ namespace CafeteriaApp.Web.Controllers
             return Ok(new { user = userModel });
         }
 
-        //[Route("Getallroles")]
-        //public IHttpActionResult Getallroles()
-        //{
-        //    var roles = appdb.Roles.Select(role => new RoleViewModel()
-        //    {
-        //        Id = role.Id,
-        //        Name = role.Name
-        //    }).ToList();
-        //    return Ok(new { roles = roles });
-        //}
+        [Route("Getallroles")]
+        public IHttpActionResult Getallroles()
+        {
+            var roles = appdb.Roles.Select(role => new RoleViewModel()
+            {
+                Id = role.Id,
+                Name = role.Name
+            }).ToList();
+            return Ok(new { roles = roles });
+        }
 
         [HttpPost]
         public IHttpActionResult Add(UserViewModel user)
@@ -148,26 +148,27 @@ namespace CafeteriaApp.Web.Controllers
             }
             return Ok();
         }
-
-        //[Route("assignRoles")]
-        //public IHttpActionResult assignRoles(UserViewModel user)
-        //{
-        //    var existingUser = appdb.Persons.FirstOrDefault(u => u.Id == user.Id);
-        //    if (existingUser != null)
-        //    {
-        //        foreach (var role in user.Roles)
-        //        {
-        //            var roleToAdd = appdb.Roles.FirstOrDefault(r => r.Id == role.Id);
-        //            existingUser.Roles.Add(roleToAdd);
-        //        }
-        //        appdb.SaveChanges();
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        return NotFound();
-        //    }       
-        //}
+        
+        [Route("assignRoles/{id}")]
+        [HttpPut]
+        public IHttpActionResult assignRoles([FromBody]UserViewModel user)
+        {
+            var existingUser = appdb.Persons.FirstOrDefault(u => u.Id == user.Id);
+            if (existingUser != null)
+            {
+                foreach (var role in user.Roles)
+                {
+                    var roleToAdd = appdb.Roles.FirstOrDefault(r => r.Id == role.Id);
+                    existingUser.Roles.Add(roleToAdd);
+                }
+                appdb.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
 
         [HttpDelete]
