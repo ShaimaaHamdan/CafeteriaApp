@@ -77,16 +77,35 @@
           <li><a href="#featured-dish">featured</a></li>
           <li><a href="#reserve">reservation</a></li>
           <li><a href="#contact">contact</a></li>
-          <li><a href="~/Customer/Profile/Index">Profile</a></li>
+
           @if (!User.Identity.IsAuthenticated)
           {
               <li><a href="/Login/Login">login</a></li>
           }
           else
           {
-              <li><a href="/customer/profile">profile</a></li>
-              <li><a href="#  " onclick="gotologout()">logout</a></li>
+          <!-- /.dropdown -->
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+
+                  <li><a href="/customer/profile"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#" onclick="gotologout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+
+                  @*<li>
+                      <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>*@
+
+                </ul>
+
+                <!-- /.dropdown-user -->
+              </li>
           }
+
+
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.row -->
