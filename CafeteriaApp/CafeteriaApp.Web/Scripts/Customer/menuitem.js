@@ -88,27 +88,7 @@
             if (response.error_description) self.errors.push(response.error_description);
         }
     }
-    self.getCustomerById = function () {
-        console.log(self.userId());
-        $.ajax({
-            type: 'Get',
-            url: '/api/Customer/' + self.userId(),
-            contentType: 'application/json; charset=utf-8'
-        }).done(function (result) {
-            var data = result.customer;
-            console.log(data);
-            self.customerId(data.Id);
-            console.log(self.customerId());
-        }).fail(self.showError);
-    };
-    self.getCustomerById();
-
-    $('#myModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)[0];
-        self.orderitemtodelete_id(button.attributes["orderitemtodelete_id"].value)
-        self.orderitemtodelete_name(button.attributes["orderitemtodelete_name"].value)
-    });
-
+   console.log(self.userId());
     self.getCategory = function () {
         $.ajax({
             type: 'Get',
@@ -119,9 +99,7 @@
             self.name(data.category.Name);
         }).fail(self.showError);
     };
-
     self.getCategory();
-
     (self.getMenuItemByCategoryId = function () {
         $.ajax({
             type: 'Get',
@@ -131,50 +109,25 @@
             console.log(data)
             self.menuItems(data.menuItems)
         }).fail(self.showError);
-    });
-
-    self.getMenuItemByCategoryId();
-
-    //self.getCustomerById = function () {
-    //    $.ajax({
-    //        type: 'Get',
-    //        url: '/api/Customer/' + self.customerId(),
-    //        contentType: 'application/json; charset=utf-8'
-    //    }).done(function (result) {
-    //        var data = result.customer;
-    //        console.log(data);
-    //        self.model().limitedCredit(data.LimitedCredit);
-    //        self.model().firstName(data.User.FirstName);
-    //        self.model().lastName(data.User.LastName);
-    //        self.model().email(data.User.Email);
-    //        self.model().userName(data.User.UserName);
-    //        self.model().password(data.User.PasswordHash);
-    //        self.model().phoneNumber(data.User.PhoneNumber);
-    //        //self.fileData().dataURL('data:image/gif;base64,' + data.User.ImageData);
-    //        //self.fileData().base64String(data.User.ImageData);
-    //    }).fail(self.showError);
-    //};
-
-    //self.getCustomerById();
-
-    (self.init = function () {
+    })();
+    self.init = function () {
         //Get orderitems for current users for last order not checked out.
         /* if (self.customerId()!=7) {*/ // if it's logged in user not from outside
         console.log(self.customerId());
         $.ajax({
-                type: 'Get',
-                url: '/api/order/GetbyCustomerId/' + self.customerId(),
-                contentType: 'application/json; charset=utf-8'
-            }).done(function (data) {  
-                if (data.order != undefined) {
-                    self.orderItems(data.order.OrderItems);
-                    self.orderId(data.order.Id);
-                    self.currentorder(data.order);
-                    self.currentorderstatus(data.order.OrderStatus);
-                    //self.comments()
-                    self.deliveryplace(data.order.DeliveryPlace);
-                }
-            }).fail(self.showError);
+            type: 'Get',
+            url: '/api/order/GetbyCustomerId/' + self.customerId(),
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (data) {
+            if (data.order != undefined) {
+                self.orderItems(data.order.OrderItems);
+                self.orderId(data.order.Id);
+                self.currentorder(data.order);
+                self.currentorderstatus(data.order.OrderStatus);
+                //self.comments()
+                self.deliveryplace(data.order.DeliveryPlace);
+            }
+        }).fail(self.showError);
         //}
         //else {
         //    $.ajax({
@@ -185,8 +138,29 @@
         //        self.casherorders(data.orders);
         //    }).fail(self.showError);
         //}
-    })();
-
+    };
+    self.getCustomerById = function () {
+        if (self.userId() != undefined && self.userId() != '') {
+            console.log(self.userId());
+            $.ajax({
+                type: 'Get',
+                url: '/api/Customer/' + self.userId(),
+                contentType: 'application/json; charset=utf-8'
+            }).done(function(result) {
+                var data = result.customer;
+                console.log(data);
+                self.customerId(data.Id);
+                console.log(self.customerId());
+                self.init();
+            }).fail(self.showError);
+        }
+    };
+    self.getCustomerById();
+   $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)[0];
+        self.orderitemtodelete_id(button.attributes["orderitemtodelete_id"].value)
+        self.orderitemtodelete_name(button.attributes["orderitemtodelete_name"].value)
+    });
     self.viewdetails = function (menuitem) {
         self.viewdetailsclicked(1);
         self.viewcommentsclicked(0);
@@ -200,7 +174,6 @@
         self.currentmenuitemId(-1);
     };
     // orders
-
     (self.initialorder = function () {
         if (self.makeorderclicked() == 1) {
             $.ajax({
@@ -310,28 +283,29 @@
     // order items
 
     self.addToCart = function (menuItem) {
-        var x=self.orderItems().filter(e=>  e.MenuItemId == menuItem.Id)[0];
-        if (x!=null) {
-            self.addanother(x);
-        }
-        else {
-            var data = {
-                quantity: self.quantity(),
-                menuItemid: menuItem.Id,
-                orderid: self.orderId(),
-                customerid: self.customerId()
+        if (self.userId() != undefined && self.userId() != '') {
+            var x = self.orderItems().filter(e => e.MenuItemId == menuItem.Id)[0];
+            if (x != null) {
+                self.addanother(x);
+            } else {
+                var data = {
+                    quantity: self.quantity(),
+                    menuItemid: menuItem.Id,
+                    orderid: self.orderId(),
+                    customerid: self.customerId()
+                }
+                $.ajax({
+                    type: 'Post',
+                    url: '/api/OrderItem',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function(result) {
+                    self.init();
+                    self.initialorder();
+                }).fail(self.showError);
             }
-            $.ajax({
-                type: 'Post',
-                url: '/api/OrderItem',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function (result) {
-                self.init();
-                self.initialorder();
-            }).fail(self.showError);
         }
-        
+        else { document.location = '/login/login';}
     }
 
     self.addanother = function (orderitem) {
@@ -421,7 +395,15 @@
         }
     }
 
+    self.total = ko.computed(function () {
+        var total = 0;
+        for (var p = 0; p < self.orderItems().length; ++p) {
+            total += (self.orderItems()[p].MenuItem.Price) * (self.orderItems()[p].Quantity);
+        }
+        return total;
+    });
     self.checkOut = function () {
+
         if (self.total() < self.model().limitedCredit()) {
 
             var result = self.model().limitedCredit() - self.total();
@@ -429,15 +411,15 @@
             console.log(result);
             var data = {
                 id: self.customerId(),
-                user: {
-                    firstName: self.model().firstName(),
-                    lastName: self.model().lastName(),
-                    email: self.model().email(),
-                    userName: self.model().userName(),
-                    password: self.model().password(),
-                    phoneNumber: self.model().phoneNumber(),
-                    imageData: self.fileData().base64String()
-                },
+                //user: {
+                //    firstName: self.model().firstName(),
+                //    lastName: self.model().lastName(),
+                //    email: self.model().email(),
+                //    userName: self.model().userName(),
+                //    password: self.model().password(),
+                //    phoneNumber: self.model().phoneNumber(),
+                //    imageData: self.fileData().base64String()
+                //},
                 limitedCredit: result
             }
             $.ajax({
@@ -452,33 +434,12 @@
         } else {
             alertify.error("Error,");
         }
-        //self.checkOut = function () {
-        //    console.log(self.credit());
-        //    console.log(self.total());
-        //    if (self.total() > self.credit()) {
-        //        alertify.error("Error,");
-        //        } else {
-        //        alertify.success("Done");
-        //        var result = self.credit() - self.total();
-        //        self.credit(result);
-        //        console.log(result);
-        //    }
-        //};
-
     }
 
     self.cancel = function () {
         document.location = '/Customer/Cafeteria/Index';
     }
-
-    self.total = ko.computed(function () {
-        var total = 0;
-        for (var p = 0; p < self.orderItems().length; ++p) {
-            total += (self.orderItems()[p].MenuItem.Price) * (self.orderItems()[p].Quantity);
-        }
-        return total;
-    });
-
+    
     // comments   
     
 
@@ -502,6 +463,7 @@
 
 
     self.addcomment = function (menuitem) {      
+        if (self.userId() != undefined && self.userId() != ''){
         if (self.comment_data() == null) {
             alertify.error("Please Enter Comment");
         }
@@ -522,28 +484,31 @@
                 self.getCommentByMenuItemId(menuitem);
             }).fail(self.showError);
         }
-
+        } else { document.location = '/login/login'; }
     }  
 
    
   
     self.editcomment = function (comment) {
-        var data = {
-            id: comment.Id,
-            data: self.commentedit_data(),
-            menuitemid: comment.MenuItemId,
-            customerid: self.customerId(),
+        if (self.userId() != undefined && self.userId() != '') {
+            var data = {
+                id: comment.Id,
+                data: self.commentedit_data(),
+                menuitemid: comment.MenuItemId,
+                customerid: self.customerId(),
+            }
+            $.ajax({
+                type: 'Put',
+                url: '/api/comment/' + comment.Id,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function() {
+                self.editcommentclicked(0);
+                self.getCommentByMenuItemId(self.menuItem());
+                self.commentedit_data(null);
+            }).fail(self.showError);
         }
-        $.ajax({
-            type: 'Put',
-            url: '/api/comment/' + comment.Id,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function () {
-            self.editcommentclicked(0);
-            self.getCommentByMenuItemId(self.menuItem());
-            self.commentedit_data(null);
-        }).fail(self.showError);
+        else { document.location = '/login/login'; }
     }
 
     //-------------------------------------------------------------------
@@ -582,34 +547,35 @@
     // favorite
     
     self.addfavorite = function (menuitem) {
-        var x = self.favoriteItems().filter(e=>  e.MenuItemId == menuitem.Id);
-        if (x.length != 0) {
-            alertify.error("This Item is already in your Favorite Items");
-        }
-        else {
-            var data = {
-                menuitemid: menuitem.Id,
-                customerid: self.customerId()
+        if (self.userId() != undefined && self.userId() != '') {
+            var x = self.favoriteItems().filter(e => e.MenuItemId == menuitem.Id);
+            if (x.length != 0) {
+                alertify.error("This Item is already in your Favorite Items");
+            } else {
+                var data = {
+                    menuitemid: menuitem.Id,
+                    customerid: self.customerId()
+                }
+                $.ajax({
+                    type: 'Post',
+                    url: '/api/FavoriteItem',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function() {
+                    alertify.success("MenuItem is added to your Favorite Items");
+                    if (self.favoriteItemsLength() == 0) {
+                        self.favoriteItemsLength(1);
+                    } else {
+                        self.favoriteItemsLength(self.favoriteItemsLength() + 1);
+                    }
+                    self.getfavorite();
+
+                }).fail(self.showError);
             }
-            $.ajax({
-                type: 'Post',
-                url: '/api/FavoriteItem',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function () {
-                alertify.success("MenuItem is added to your Favorite Items");
-                if (self.favoriteItemsLength() == 0) {
-                    self.favoriteItemsLength(1);
-                }
-                else {
-                    self.favoriteItemsLength(self.favoriteItemsLength()+1);
-                }
-                self.getfavorite();
-                
-            }).fail(self.showError);
-        }
+        } else { document.location = '/login/login'; }
     }
     self.getfavorite = function () {
+        if (self.userId() != undefined && self.userId() != ''){
             $.ajax({
                 type: 'Get',
                 url: '/api/FavoriteItem/GetbyCustomerId/' + self.customerId(),
@@ -621,8 +587,8 @@
                     self.showfavorite(1);
                 }
             }).fail(self.showError);
-            
-        //}
+        }
+        else { document.location = '/login/login'; }
     }
 
     self.deletefavorite = function (favoriteitem) {

@@ -224,16 +224,10 @@ namespace CafeteriaApp.Web.Controllers
             {
                 
                 existingcustomer.Credit = customer.Credit;
-                existingcustomer.LimitedCredit = customer.LimitedCredit;
-                
                 existingcustomer.User.FirstName = customer.User.FirstName;
                 existingcustomer.User.LastName = customer.User.LastName;
-                existingcustomer.User.UserName = customer.User.UserName;
-                existingcustomer.User.Email = customer.User.Email;
                 existingcustomer.User.PhoneNumber = customer.User.PhoneNumber;
-                existingcustomer.User.PasswordHash = customer.User.PasswordHash;
                 existingcustomer.User.Image = customer.User.ImageData;
-
                 appdb.SaveChanges();
             }
             else
