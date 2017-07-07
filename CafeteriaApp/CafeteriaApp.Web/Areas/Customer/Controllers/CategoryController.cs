@@ -21,6 +21,7 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
         public ActionResult Show(int id)
         {
             ViewBag.Id = id;
+            ViewBag.UserId = GetUserId();
             return View();
         }
 

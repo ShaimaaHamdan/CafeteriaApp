@@ -147,7 +147,7 @@
                         <td data-bind="text:DependentCredit"></td>
                         <td class="center">
                             <a id="myButton1" style="margin-top: -5px" data-bind="attr:{href:'/customer/profile/editchild/' + '/'+Id}" class="btn btn-success">Edit</a>
-                            <button type="button" id="myButton" style="margin-top: -5px" data-bind="attr:{childid:Id}" class="btn btn-danger" data-toggle="modal" data-target="#mydeleteModal">Delete</button>                            
+                            <button type="button" id="myButton" style="margin-top: -5px" data-bind="attr:{childid:Id, name:Name}" class="btn btn-danger" data-toggle="modal" data-target="#mydeleteModal">Delete</button>                            
                         </td>
                     </tr>
 
@@ -188,7 +188,7 @@
 
 
 <script>
-    var app = new ProfileEditeViewModel();
+    var app = new ProfileEditeViewModel("@ViewBag.UserId");
 
     ko.applyBindings(app);
 </script>

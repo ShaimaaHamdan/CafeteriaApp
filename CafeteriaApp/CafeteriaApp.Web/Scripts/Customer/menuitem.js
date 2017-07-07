@@ -1,7 +1,8 @@
-﻿function CustomerMenuItemViewModel(id) {
+﻿function CustomerMenuItemViewModel(id,userId) {
     var self = this;
     self.categoryId = ko.observable(id);
-    self.customerId = ko.observable(23);
+    self.userId = ko.observable(userId);  
+    self.customerId = ko.observable();
     self.menuItemId = ko.observable();
     self.orderId = ko.observable();
     self.showfavorite = ko.observable();
@@ -84,6 +85,20 @@
             if (response.error_description) self.errors.push(response.error_description);
         }
     }
+    self.getCustomerById = function () {
+        console.log(self.userId());
+        $.ajax({
+            type: 'Get',
+            url: '/api/Customer/' + self.userId(),
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (result) {
+            var data = result.customer;
+            console.log(data);
+            self.customerId(data.Id);
+            console.log(self.customerId());
+        }).fail(self.showError);
+    };
+    self.getCustomerById();
 
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)[0];
@@ -117,32 +132,33 @@
 
     self.getMenuItemByCategoryId();
 
-    self.getCustomerById = function () {
-        $.ajax({
-            type: 'Get',
-            url: '/api/Customer/' + self.customerId(),
-            contentType: 'application/json; charset=utf-8'
-        }).done(function (result) {
-            var data = result.customer;
-            console.log(data);
-            self.model().limitedCredit(data.LimitedCredit);
-            self.model().firstName(data.User.FirstName);
-            self.model().lastName(data.User.LastName);
-            self.model().email(data.User.Email);
-            self.model().userName(data.User.UserName);
-            self.model().password(data.User.PasswordHash);
-            self.model().phoneNumber(data.User.PhoneNumber);
-            //self.fileData().dataURL('data:image/gif;base64,' + data.User.ImageData);
-            //self.fileData().base64String(data.User.ImageData);
-        }).fail(self.showError);
-    };
+    //self.getCustomerById = function () {
+    //    $.ajax({
+    //        type: 'Get',
+    //        url: '/api/Customer/' + self.customerId(),
+    //        contentType: 'application/json; charset=utf-8'
+    //    }).done(function (result) {
+    //        var data = result.customer;
+    //        console.log(data);
+    //        self.model().limitedCredit(data.LimitedCredit);
+    //        self.model().firstName(data.User.FirstName);
+    //        self.model().lastName(data.User.LastName);
+    //        self.model().email(data.User.Email);
+    //        self.model().userName(data.User.UserName);
+    //        self.model().password(data.User.PasswordHash);
+    //        self.model().phoneNumber(data.User.PhoneNumber);
+    //        //self.fileData().dataURL('data:image/gif;base64,' + data.User.ImageData);
+    //        //self.fileData().base64String(data.User.ImageData);
+    //    }).fail(self.showError);
+    //};
 
-    self.getCustomerById();
+    //self.getCustomerById();
 
     (self.init = function () {
         //Get orderitems for current users for last order not checked out.
-        if (self.customerId()!=7) { // if it's logged in user not from outside
-            $.ajax({
+        /* if (self.customerId()!=7) {*/ // if it's logged in user not from outside
+        console.log(self.customerId());
+        $.ajax({
                 type: 'Get',
                 url: '/api/order/GetbyCustomerId/' + self.customerId(),
                 contentType: 'application/json; charset=utf-8'
@@ -155,16 +171,16 @@
                     self.deliveryplace(data.order.DeliveryPlace);
                 }
             }).fail(self.showError);
-        }
-        else {
-            $.ajax({
-                type: 'Get',
-                url: '/api/order/GetAllbyCustomerId/'+self.customerId(),
-                contentType: 'application/json; charset=utf-8'
-            }).done(function (data) {
-                self.casherorders(data.orders);
-            }).fail(self.showError);
-        }
+        //}
+        //else {
+        //    $.ajax({
+        //        type: 'Get',
+        //        url: '/api/order/GetAllbyCustomerId/'+ self.customerId(),
+        //        contentType: 'application/json; charset=utf-8'
+        //    }).done(function (data) {
+        //        self.casherorders(data.orders);
+        //    }).fail(self.showError);
+        //}
     })();
 
     self.viewdetails = function (menuitem) {
