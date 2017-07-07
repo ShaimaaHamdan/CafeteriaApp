@@ -10,7 +10,12 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
     public class OrderController : BaseController
     {
         // GET: Customer/Order
-        public ActionResult Index()
+        public ActionResult ReviewOrder()
+        {
+            ViewBag.UserId = GetUserId();
+            return View();
+        }
+        public ActionResult OrderStatus()
         {
             return View();
         }
@@ -27,7 +32,7 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
         //}
 
         // GET: Customer/Order/Create
-        public ActionResult Create()
+        public ActionResult orderstatus()
         {
             return View();
         }

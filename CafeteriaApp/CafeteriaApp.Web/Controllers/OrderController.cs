@@ -317,6 +317,7 @@ namespace CafeteriaApp.Web.Controllers
             var z = order;
             if (existingOrder != null)
             {
+                existingOrder.Customer.LimitedCredit = order.customer.LimitedCredit;
                 existingOrder.Id = order.Id;
                 existingOrder.OrderStatus = order.OrderStatus;
                 existingOrder.OrderTime = order.OrderTime;

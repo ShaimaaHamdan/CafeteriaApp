@@ -166,28 +166,29 @@
               <span>@Resources.Total</span>
               <span data-bind="text:total"></span>
               <br />
-              <br />
-              <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
+                <br />
+                @*Comment Delivery Place and Payment Method*@
+              @*<span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
               <br />
               <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
-              <br />
-              <div class="row">
-                <div class="col-md-12" style="margin-bottom:10px">
-                  <button data-bind="click:checkOut" class="btn btn-warning" data-type="submit">  @Resources.proceedtocheckout</button>
-                  <button data-bind="click:cancel" class="btn btn-danger" style="margin-left:10px"> @Resources.cancel</button>
+              <br />*@
+                <div class="row">
+                    <div class="col-md-12" style="margin-bottom:10px">
+                        <a href="/Customer/Order/ReviewOrder/" class="btn btn-warning">  @Resources.proceedtocheckout</a>
+                        @*Comment Cancel*@
+                        @*<button data-bind="click:cancel" class="btn btn-danger" style="margin-left:10px"> @Resources.cancel</button>*@
+                    </div>
 
                 </div>
-
-              </div>
-              <div class="row">
+                @*Comment Update Delivery Place and Payment Method*@
+              @*<div class="row">
                 <div class="col-md-12"  style="margin-bottom:10px">
                   <button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button>
-
                 </div>
-              </div>
+              </div>*@
             </form>
-
-            <div class="row">
+              @*Comment View My Favourite and Hide My Favourite*@
+            @*<div class="row">
               <div class="col-md-12"  style="margin-bottom:10px">
 
                 <button data-bind="click:getfavorite" class="btn btn-success">View My Favorite</button>
@@ -212,7 +213,7 @@
                   </table>
                 </div>
               </div>
-            </div>
+            </div>*@
 
           </div>
 

@@ -595,18 +595,20 @@
     <Content Include="Areas\Customer\Views\Profile\AddChildRestriction.cshtml" />
     <Content Include="Areas\Chef\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Chef\Views\Shared\_Layout.cshtml" />
-<!--<<<<<<< HEAD-->
+    <!--<<<<<<< HEAD-->
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\Create.cshtml" />
-<!--=======-->
+    <!--=======-->
     <Content Include="Content\Customer\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Customer\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\Customer\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\Customer\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\Customer\fonts\FontAwesome.otf" />
     <Content Include="Content\Customer\images\Thumbs.db" />
-<!-->>>>>>> origin/master-->
+    <Content Include="Areas\Customer\Views\Order\ReviewOrder.cshtml" />
+    <Content Include="Areas\Customer\Views\Order\OrderStatus.cshtml" />
+    <!-->>>>>>> origin/master-->
     <None Include="Properties\PublishProfiles\CafeteriaAppDemo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppDemo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />
@@ -746,7 +748,6 @@
     <Folder Include="Areas\Chef\Models\" />
     <Folder Include="Areas\Customer\Models\" />
     <Folder Include="Areas\Customer\Views\MenuItem\" />
-    <Folder Include="Areas\Customer\Views\Order\" />
     <Folder Include="Content\admin\cafeteria\" />
     <Folder Include="Content\admin\category\" />
     <Folder Include="Content\admin\menuitem\" />
