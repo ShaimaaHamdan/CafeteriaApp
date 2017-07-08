@@ -13,11 +13,11 @@
         <div class="panel-body">
             <span>Delivery Method:  <select type="text" class="form-control" data-bind="options:deliveryMethod,value:chosenDeliveryMethod"></select></span>
             @*Comment Delivery Place and Payment Method*@
-                <br/>
-                <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
-              <br />
+
+            <div data-bind="visible:chosenDeliveryMethod()=='Delivery'" ><span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span></div>
+              
               <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
-              <br />
+              
         </div>
     </div>
 </div>

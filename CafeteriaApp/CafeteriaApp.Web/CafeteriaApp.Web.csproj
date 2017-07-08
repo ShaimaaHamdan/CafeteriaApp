@@ -608,6 +608,7 @@
     <Content Include="Content\Customer\images\Thumbs.db" />
     <Content Include="Areas\Customer\Views\Order\ReviewOrder.cshtml" />
     <Content Include="Areas\Customer\Views\Order\OrderStatus.cshtml" />
+    <Content Include="Areas\Customer\Views\Profile\ViewChild.cshtml" />
     <!-->>>>>>> origin/master-->
     <None Include="Properties\PublishProfiles\CafeteriaAppDemo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppDemo - Web Deploy.pubxml" />

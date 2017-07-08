@@ -15,6 +15,11 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
             ViewBag.UserId = GetUserId();
             return View();
         }
+        public ActionResult ViewChild()
+        {
+            ViewBag.UserId = GetUserId();
+            return View();
+        }
         // GET: Customer/Profile/Create
         public ActionResult Create()
         {

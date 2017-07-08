@@ -32,11 +32,7 @@ namespace CafeteriaApp.Web.Areas.Customer.Controllers
         //}
 
         // GET: Customer/Order/Create
-        public ActionResult orderstatus()
-        {
-            return View();
-        }
-
+      
     //    //// POST: Customer/Order/Create
     //    //[HttpPost]
     //    //public ActionResult Create(FormCollection collection)
