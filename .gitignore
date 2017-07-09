@@ -215,3 +215,6 @@ CafeteriaApp/CafeteriaApp.Web/Web.config
 *.config
 *.config
 CafeteriaApp/CafeteriaApp.Data/App.config
+CafeteriaApp/CafeteriaApp.Data/App.config
+CafeteriaApp/CafeteriaApp.Web/Web.config
+*.png

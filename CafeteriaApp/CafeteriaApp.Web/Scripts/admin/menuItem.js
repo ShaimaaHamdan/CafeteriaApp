@@ -2,7 +2,7 @@
     var self = this;
     self.menuItems = ko.observableArray();
     self.menuItemId = ko.observable();
-
+    self.name = ko.observable();
     self.showError = function (jqXHR) {
 
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
@@ -38,9 +38,27 @@
     };
 
     self.getAllMenuItems();
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)[0];
+        self.menuItemId(button.attributes["menuItemid"].value)
+        self.name(button.attributes["name"].value)
+    });
 
+    self.deleteMenuItem = function () {
+        console.log("id=" + self.menuItemId());
+        $.ajax({
+            type: 'Delete',
+            url: '/api/MenuItem/' + self.menuItemId(),
+            contentType: 'application/json; charset=utf-8',
+            //data:{id:self.menuItemId()}
+        }).done(function (data) {
+            console.log(data)
+            $('#myModal').modal('hide')
+            alertify.success(self.name() + " menuitem is deleted ");
+            self.getAllMenuItems();
+        }).fail(self.showError);
 
-   
+    }
 
 }
 
