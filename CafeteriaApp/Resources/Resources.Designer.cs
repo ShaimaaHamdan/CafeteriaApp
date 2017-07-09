@@ -322,7 +322,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to proceed to checkout.
+        ///   Looks up a localized string similar to Checkout.
         /// </summary>
         public static string proceedtocheckout {
             get {
