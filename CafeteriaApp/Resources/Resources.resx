@@ -202,7 +202,7 @@
     <value>Price</value>
   </data>
   <data name="proceedtocheckout" xml:space="preserve">
-    <value>proceed to checkout</value>
+    <value>Checkout</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>

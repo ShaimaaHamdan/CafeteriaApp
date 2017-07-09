@@ -1,133 +1,124 @@
-﻿<br/>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<div>
-    <div class="panel panel-success">
+﻿<!--== 15. Reserve A Table! ==-->
+<section id="reserve" class="reserve" style="margin-top:200px;margin-left:10%">
+
+  <div class="wrapper">
+    <div class="container-fluid">
+      <div class="row dis-table">
+        <div class="col-xs-4 col-sm-4 dis-table-cell color-bg">
+          <h2 class="section-title">Order Info.</h2>
+        </div>
+        <div class="col-xs-6 col-sm-6 dis-table-cell section-bg">
+
+        </div>
+      </div> <!-- /.dis-table -->
+    </div> <!-- /.row -->
+  </div> <!-- /.wrapper -->
+</section> <!-- /#reserve -->
+<section class="content" style="margin-top:50px">
+  <div class="container">
+    <div>
+      <div class="panel panel-success">
         <div class="panel-heading">
-            <h3 class="panel-title">Order Information<span style="margin-left:10px"></span></h3>
+          <h3 class="panel-title">Order Information<span style="margin-left:10px"></span></h3>
         </div>
         <div class="panel-body">
-            <span>Delivery Method:  <select type="text" class="form-control" data-bind="options:deliveryMethod,value:chosenDeliveryMethod"></select></span>
-            @*Comment Delivery Place and Payment Method*@
+          <span>Delivery Method:  <select type="text" class="form-control" data-bind="options:deliveryMethod,value:chosenDeliveryMethod"></select></span>
+          @*Comment Delivery Place and Payment Method*@
 
-            <div data-bind="visible:chosenDeliveryMethod()=='Delivery'" ><span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span></div>
-              
-              <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
-              
+          <div data-bind="visible:chosenDeliveryMethod()=='Delivery'"><span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span></div>
+
+          <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
+
         </div>
+      </div>
     </div>
-</div>
-<div>
-    <div class="panel panel-success">
+    <div>
+      <div class="panel panel-success">
         <div class="panel-heading">
-            <h3 class="panel-title">
-                @Resources.YourOrder<span data-bind="text:orderId" style="margin-left:10px"></span>
-            </h3>
+          <h3 class="panel-title">
+            @Resources.YourOrder<span data-bind="text:orderId" style="margin-left:10px"></span>
+          </h3>
         </div>
         <div class="panel-body">
-            <form id="bookingForm">
-                <table width="100" class="table table-striped table-bordered table-hover" id="dataTables-cafeteria">
-                    <thead>
-                    <tr>
-                        @if (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft())
-                        {
-                            <th>@Resources.Price</th>
+          <form id="bookingForm">
+            <table width="100" class="table table-striped table-bordered table-hover" id="dataTables-cafeteria">
+              <thead>
+                <tr>
+                  @if (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft())
+                  {
+                      <th>@Resources.Price</th>
 
-                            <th>@Resources.item</th>
+                      <th>@Resources.item</th>
 
-                            <th>@Resources.Quantity</th>
+                      <th>@Resources.Quantity</th>
 
-                            <th>Actions</th>
-                        }
-                        else
-                        {
-                            <th>@Resources.item</th>
+                      <th>Actions</th>
+                  }
+                  else
+                  {
+                      <th>@Resources.item</th>
 
-                            <th>@Resources.Price</th>
+                      <th>@Resources.Price</th>
 
-                            <th>@Resources.Quantity</th>
+                      <th>@Resources.Quantity</th>
 
-                            <th>Actions</th>
-                        }
-                    </tr>
-                    </thead>
+                      <th>Actions</th>
+                  }
+                </tr>
+              </thead>
 
 
 
-                    <tbody data-bind="visible:orderItems().length>0,foreach:orderItems">
-                    <tr class="odd gradex">
-                        <td data-bind="text:MenuItem.Name"></td>
+              <tbody data-bind="visible:orderItems().length>0,foreach:orderItems">
+                <tr class="odd gradex">
+                  <td data-bind="text:MenuItem.Name"></td>
 
-                        <td data-bind="text:MenuItem.Price"></td>
+                  <td data-bind="text:MenuItem.Price"></td>
 
-                        <td data-bind="text:Quantity"></td>
+                  <td data-bind="text:Quantity"></td>
 
-                        <td>
-                            <button type="submit" style="float: right;margin-top: -5px" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item" data-toggle="modal" data-target="#myModal">Remove this item</button>
+                  <td>
+                    <button type="submit" style="float: right;margin-top: -5px" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item" data-toggle="modal" data-target="#myModal">Remove this item</button>
 
-                            <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger btn-circle" title="Decrease Quantity"><i class="fa fa-minus"></i></button>
+                    <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger btn-circle" title="Decrease Quantity"><i class="fa fa-minus"></i></button>
 
-                            <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Increase Quantity"><i class="fa fa-plus"></i></button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div data-bind="visible:chosenDeliveryMethod()=='Delivery'">
-                    <span> Delivery fee	</span>  
-                    <span data-bind ="text:deliveryFee"></span>
-                </div>
-                <span>@Resources.Total</span>
-                <span data-bind="text:total"></span>
-                <br />
-                <br />
-               
-                <div class="row">
-                    <div class="col-md-12" style="margin-bottom:10px">
-                        <button data-bind="click:checkOut" class="btn btn-warning">  @Resources.proceedtocheckout</button>
-                        @*Comment Cancel*@
-                        @*<button data-bind="click:cancel" class="btn btn-danger" style="margin-left:10px"> @Resources.cancel</button>*@
-                    </div>
-
-                </div>
-                           </form>
-            @*Comment View My Favourite and Hide My Favourite*@
-            @*<div class="row">
-              <div class="col-md-12"  style="margin-bottom:10px">
-
-                <button data-bind="click:getfavorite" class="btn btn-success">View My Favorite</button>
-                <button data-bind="click:hidefavorite" style="margin-left:+40px" class="btn btn-warning">Hide My Favorite</button>
-
-                <div data-bind="visible:showfavorite()==1">
-                  <table class="table table-striped table-bordered table-hover" id="dataTables-cafeteria">
-                    <thead>
-                      <tr>
-                        <th>Item</th>
-                        <th>Actions</th>
-
-                      </tr>
-
-                    </thead>
-                    <tbody data-bind="visible:favoriteItems().length>0,foreach:favoriteItems">
-                      <tr class="odd-gradex">
-                        <td data-bind="text:MenuItem.Name"></td>
-                        <td><a data-bind="click:$root.deletefavorite" class="btn btn-danger" style="cursor:pointer">Delete</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                    <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Increase Quantity"><i class="fa fa-plus"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="alert alert-warning">
+              <div class="row" style="margin-left:10px" data-bind="visible:chosenDeliveryMethod()=='Delivery'">
+                <span style="color:green;font-weight:bold;margin-right:10px">Delivery Fees</span>
+                <span data-bind="text:deliveryFee" style="margin-right:10px;color:red;font-weight:bold;"></span> LE
               </div>
-            </div>*@
+              <br />
+              <div class="row" style="margin-left:10px">
+                <span style="color:green;font-weight:bold">@Resources.Total</span>
 
+                <span style="color:red;margin-left:10px;font-weight:bold;margin-right:10px" data-bind="text:total"></span>LE
+              </div>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="row">
+              <div class="col-md-12" style="margin-bottom:10px">
+                <button data-bind="click:checkOut" class="btn btn-warning pull-right">  @Resources.proceedtocheckout</button>
+              </div>
+              <div data-bind="visible:errorMessage()!=''" class="alert alert-danger" style="margin-top: 50px;margin-left: 10px;margin-right: 10px;">
+                <span data-bind="text:errorMessage"></span>
+
+              </div>
+            </div>
+          </form>
         </div>
 
+      </div>
     </div>
-
-</div>
-
+  </div>
+</section>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog" style="right: 50%">

@@ -76,6 +76,7 @@
     self.orderitemtodelete_id = ko.observable();
     self.orderitemtodelete_name = ko.observable();
     self.casherorders = ko.observableArray();
+    self.errorMessage = ko.observable('');
     self.showError = function(jqXHR) {
 
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
@@ -415,7 +416,9 @@
 
     }
 
-    self.checkOut = function() {
+    self.checkOut = function () {
+      self.errorMessage('')
+      console.log(self.userId())
         if (self.userId() != undefined && self.userId() != '') {
             console.log(self.total());
             console.log(self.model().limitedCredit());
@@ -447,8 +450,12 @@
                     alertify.success('Delivery Place and Payment Method are Updated');
                 }).fail(self.showError);
             } else {
-                document.location = '/login/login';
+              self.errorMessage("Error :Total Order is larger than total credit !")
             }
+
+        }
+        else {
+          document.location = '/login/login';
         }
     }
     self.cancel = function() {
