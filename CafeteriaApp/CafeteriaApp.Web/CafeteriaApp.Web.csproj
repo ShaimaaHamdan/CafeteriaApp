@@ -613,10 +613,10 @@
     <Content Include="Areas\Customer\Views\Profile\ViewChild.cshtml" />
     <!-->>>>>>> origin/master-->
     <Content Include="Areas\Customer\Views\Profile\viewFavorite.cshtml" />
-    <Content Include="Areas\Casher\Views\web.config" />
     <Content Include="Areas\Casher\Views\Category\Show.cshtml" />
     <Content Include="Areas\Casher\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Casher\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Casher\Views\web.config" />
     <None Include="Properties\PublishProfiles\CafeteriaAppDemo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppDemo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CafeteriaAppTest - Web Deploy %282%29.pubxml" />

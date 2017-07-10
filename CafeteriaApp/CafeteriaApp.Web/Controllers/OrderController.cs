@@ -317,7 +317,7 @@ namespace CafeteriaApp.Web.Controllers
             var z = order;
             if (existingOrder != null)
             {
-                existingOrder.Customer.LimitedCredit = order.customer.LimitedCredit;
+                if(order.customer != null) existingOrder.Customer.LimitedCredit = order.customer.LimitedCredit;
                 existingOrder.Id = order.Id;
                 existingOrder.OrderStatus = order.OrderStatus;
                 existingOrder.OrderTime = order.OrderTime;
@@ -325,6 +325,7 @@ namespace CafeteriaApp.Web.Controllers
                 existingOrder.DeliveryPlace = order.DeliveryPlace;
                 existingOrder.PaymentMethod = order.PaymentMethod;
                 existingOrder.PaymentDone = order.PaymentDone;
+                
                 appdb.SaveChanges();
             }
             else
