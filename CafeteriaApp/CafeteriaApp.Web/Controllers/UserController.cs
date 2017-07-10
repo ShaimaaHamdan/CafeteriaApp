@@ -18,7 +18,6 @@ namespace CafeteriaApp.Web.Controllers
     public class UserController : ApiController
     {
         public AppDb appdb = new AppDb();
-        //[Authorize]
         public IHttpActionResult Get()
         {
             //lamda expression
@@ -30,7 +29,7 @@ namespace CafeteriaApp.Web.Controllers
                     UserName = user.UserName,
                     Email = user.Email,
                     //EmailConfirmed = user.EmailConfirmed,
-                    PasswordHash = user.PasswordHash,
+                    //PasswordHash = user.PasswordHash,
                     PhoneNumber = user.PhoneNumber,
                     //PhoneNumberConfirmed = user.PhoneNumberConfirmed,
                     //AccessFailedCount = user.AccessFailedCount,
@@ -67,16 +66,6 @@ namespace CafeteriaApp.Web.Controllers
                     });
                 }
             }
-            //RoleViewModel[] r = new RoleViewModel[roles.Count()];
-            //int j = 0;
-            //for(int i = 0;i<roles.Count();i++)
-            //{
-            //    r[i]=new RoleViewModel()
-            //    {
-            //        Id=roles[i].Id
-            //    }
-            //}
-
             var userModel = new UserViewModel()
             {
                 Id = user.Id,
@@ -106,7 +95,6 @@ namespace CafeteriaApp.Web.Controllers
             {
                 Id = role.Id,
                 Name = role.Name,
-                //Persons = role.Persons;
             }).ToList();
             return Ok(new { roles = roles });
         }
@@ -146,11 +134,6 @@ namespace CafeteriaApp.Web.Controllers
         [HttpPut]
         public IHttpActionResult PUT(UserViewModel user)
         {
-            //var login = new LoginController();
-            //var User = login.UserManager.FindById(user.Id);
-            //User.Email = user.Email;
-            //login.UserManager.Update(User);
-             
             if (!ModelState.IsValid)
             {
                 return BadRequest("Not a valid data");
@@ -207,39 +190,29 @@ namespace CafeteriaApp.Web.Controllers
             user.LastName = u.LastName;
             user.Id = u.Id;
             user.PhoneNumber = u.PhoneNumber;
-            //user.Email = u.Email;
-
             appdb.SaveChanges();
-            //int f = 0;
             foreach(var u1 in UserManager.Users)
             {
                 if (u1.Email == u.Email && u.Id!=u1.Id)
                 {
-                    //ModelState.AddModelError("", "email must be unique");
-                    //f = 1;
                     return Ok(0);
                 }
             }
-            //if (f == 0)
-            //{
-                var existingUser = UserManager.FindById(u.Id);
-                existingUser.Email = u.Email;
-                existingUser.UserName = u.Email;
-                if (existingUser.Roles.Count() > 0)
-                {
-                    var roles = UserManager.GetRoles(u.Id);
-                    UserManager.RemoveFromRoles(existingUser.Id, roles.ToArray());
-                    //UserManager.Update(existingUser);
-                }
-                string[] s = new string[u.Roles.Count()];
-                for (int i = 0; i < u.Roles.Count(); i++)
-                {
-                    s[i] = u.Roles[i].Name;
-                }
-                UserManager.AddToRoles(u.Id, s);
-                //ModelState.AddModelError("", "email must be unique");
-                UserManager.Update(existingUser);          
-            //}
+            var existingUser = UserManager.FindById(u.Id);
+            existingUser.Email = u.Email;
+            existingUser.UserName = u.Email;
+            if (existingUser.Roles.Count() > 0)
+            {
+                var roles = UserManager.GetRoles(u.Id);
+                UserManager.RemoveFromRoles(existingUser.Id, roles.ToArray());
+            }
+            string[] s = new string[u.Roles.Count()];
+            for (int i = 0; i < u.Roles.Count(); i++)
+            {
+                s[i] = u.Roles[i].Name;
+            }
+            UserManager.AddToRoles(u.Id, s);
+            UserManager.Update(existingUser);          
             return Ok(1);
         }
 
@@ -247,24 +220,17 @@ namespace CafeteriaApp.Web.Controllers
         [Route("createUser")]
         public IHttpActionResult createUser(RegisterViewModel user)
         {
-            //int f = 0;
             foreach(var u in UserManager.Users)
             {
                 if (u.Email == user.Email)
                 {
-                    //ModelState.AddModelError("", "email must be unique");
-                    //f = 1;
                     return Ok(0);
-                    //return View(user);
                 }
             }
-            //if (f == 0)
-            //{
-                UserManager.Create(new ApplicationUser { Email = user.Email, UserName = user.Email });
-                var newuser = UserManager.FindByEmail(user.Email);
-                UserManager.AddPassword(newuser.Id, user.Password);
-                UserManager.Update(newuser);
-            //}
+            UserManager.Create(new ApplicationUser { Email = user.Email, UserName = user.Email });
+            var newuser = UserManager.FindByEmail(user.Email);
+            UserManager.AddPassword(newuser.Id, user.Password);
+            UserManager.Update(newuser);
             return Ok(1);
         }
 

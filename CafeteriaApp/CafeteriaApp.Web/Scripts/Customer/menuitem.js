@@ -562,13 +562,36 @@
             self.commentId(comment.Id);
             self.editcommentclicked(1);
         }
-        self.hidecommenteditbox = function(comment) {
+        self.hidecommenteditbox = function (comment) {
             self.editcommentclicked(0);
         }
 
         // favorite
 
-        self.addfavorite = function(menuitem) {
+
+        self.getfavorite = function () {
+            if (self.userId() != undefined && self.userId() != '') {
+                $.ajax({
+                    type: 'Get',
+                    url: '/api/FavoriteItem/getByUserId/' + self.userId(),
+                    contentType: 'application/json; charset=utf-8'
+                }).done(function (data) {
+                    self.favoriteItems(data.favoriteitems);
+                    self.favoriteItemsLength(self.favoriteItems().length);
+                    if (self.favoriteItemsLength() != 0) {
+                        self.showfavorite(1);
+                    }
+                    console.log(self.favoriteItems());
+                }).fail(self.showError);
+            } else {
+                document.location = '/login/login';
+            }
+        };
+
+        self.getfavorite();
+
+        self.addfavorite = function (menuitem) {
+            console.log(self.favoriteItems());
             if (self.userId() != undefined && self.userId() != '') {
                 var x = self.favoriteItems().filter(e => e.MenuItemId == menuitem.Id);
                 if (x.length != 0) {
@@ -583,7 +606,7 @@
                         url: '/api/FavoriteItem',
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(data)
-                    }).done(function() {
+                    }).done(function () {
                         alertify.success("MenuItem is added to your Favorite Items");
                         if (self.favoriteItemsLength() == 0) {
                             self.favoriteItemsLength(1);
@@ -597,42 +620,6 @@
             } else {
                 document.location = '/login/login';
             }
-        }
-        self.getfavorite = function() {
-            if (self.userId() != undefined && self.userId() != '') {
-                $.ajax({
-                    type: 'Get',
-                    url: '/api/FavoriteItem/GetbyCustomerId/' + self.customerId(),
-                    contentType: 'application/json; charset=utf-8'
-                }).done(function(data) {
-                    self.favoriteItems(data.favoriteitems);
-                    self.favoriteItemsLength(self.favoriteItems().length);
-                    if (self.favoriteItemsLength() != 0) {
-                        self.showfavorite(1);
-                    }
-                }).fail(self.showError);
-            } else {
-                document.location = '/login/login';
-            }
-        }
-
-        self.deletefavorite = function(favoriteitem) {
-            $.ajax({
-                type: 'Delete',
-                url: '/api/FavoriteItem/' + favoriteitem.Id,
-                contentType: 'application/json; charset=utf-8',
-                data: { id: favoriteitem.Id }
-            }).done(function() {
-                self.favoriteItemsLength(self.favoriteItemsLength() - 1);
-                self.getfavorite();
-                if (self.favoriteItemsLength() == 0) {
-                    self.showfavorite(0);
-                }
-            }).fail(self.showError);
-        }
-
-        self.hidefavorite = function() {
-            self.showfavorite(0);
         }
 
     

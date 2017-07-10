@@ -1,0 +1,365 @@
+﻿<!--== 15. Reserve A Table! ==-->
+<section id="reserve" class="reserve" style="margin-top:200px;margin-left:20%">
+    <img class="img-responsive section-icon hidden-sm hidden-xs" src="~/Content/Customer/images/icons/reserve_black.png">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row dis-table">
+                <div class="col-xs-6 col-sm-6 dis-table-cell color-bg">
+                    <h2 class="section-title">Order Now !</h2>
+                </div>
+                <div class="col-xs-6 col-sm-6 dis-table-cell section-bg">
+
+                </div>
+            </div> <!-- /.dis-table -->
+        </div> <!-- /.row -->
+    </div> <!-- /.wrapper -->
+</section> <!-- /#reserve -->
+<section class="content" style="margin-top:50px">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div data-bind="foreach:menuItems">
+                    <div class="well" style="width:550px">
+                        <div><img height="170" width="180" data-bind="attr: { src: ImageUrl }" alt="" class="gall_item"></div>
+                        <h3><span data-bind="text:Name" style="cursor:pointer"></span><span data-bind="text:Price"></span><span>$</span></h3>
+
+                        <span>
+                            <button title="Add Item To Cart" id="addToCart" data-bind="click:$root.addToCart"
+                                    class="btn btn-success btn-circle">
+                                Add To Cart
+                            </button>
+                        </span>
+                        @*<span data-bind="visible:$root.customerId()!=7">
+                            <button title="Add to Favorite" id="addToCart" data-bind="click:$root.addfavorite"
+                                    class="btn btn-success btn-circle">
+                                Add to Favorite
+                            </button>
+                        </span>*@
+                        <br /><br />
+                        <div class="gall_bot">
+                            <div class="text1">
+                                <a data-bind="click:$root.viewdetails">
+                                    <span style="cursor:pointer">View More</span>
+                                </a>
+                                <span data-bind="visible:$root.viewdetailsclicked()==1 && $root.currentmenuitemId()==Id">
+                                    <a data-bind="click:$root.hidedetails">
+                                        <span style="cursor:pointer">Hide</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-bind="visible:$root.currentmenuitemId()==Id">
+
+                        <div>Price:<span data-bind="text:Price"></span><span>$</span></div>
+                        <br />
+                        <div>Type:<span data-bind="text:Type"></span></div>
+                        <br />
+                        <div>Description:<span data-bind="text:Description"></span></div>
+                        <br />
+                        <!-- Comments -->
+                        @*<div data-bind="visible:$root.customerId()!=7">
+
+                            <div><a data-bind="click:$root.getCommentByMenuItemId" style="cursor:pointer" title="View Comments">View Comments</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span data-bind="visible:$root.viewcommentsclicked()==1 && $root.currentmenuitemId()==Id"><a data-bind="click:$root.hidecomments" style="cursor:pointer" title="Hide Comments">Hide Comments</a><br /><br /></span></div>
+
+                            <div data-bind="visible:$root.menuItemId()==Id">
+
+                                <div data-bind="foreach:$root.comments">
+
+                                    <div class="well">
+
+                                        <span data-bind="text:Customer.User.FirstName"></span>
+                                        <span data-bind="text:Data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span data-bind="visible:$root.editcommentclicked()==0">
+                                            <span data-bind="visible:$root.customerId()==CustomerId">
+                                                <span><a data-bind="click:$root.showcommenteditbox" style="cursor:pointer" title="edit Comment">Edit</a></span>&nbsp;&nbsp;&nbsp;
+                                                <span><a data-bind="click:$root.deletecomment" style="cursor:pointer" title="Delete Comment">Delete</a></span>&nbsp;&nbsp;&nbsp;
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div data-bind="visible:$root.customerId()==CustomerId">
+
+                                        <span data-bind="visible:$root.editcommentclicked()==1 && $root.commentId()==Id">
+
+                                            <input type="text" class="form-control" data-bind="textInput:$root.commentedit_data" />
+
+                                            <button type="submit" class="btn btn-success" data-bind="click:$root.editcomment">Save</button>
+
+                                            <span data-bind="visible:$root.editcommentclicked()==1">
+
+                                                <button type="submit" class="btn btn-success" data-bind="click:$root.hidecommenteditbox">Cancel</button>
+
+                                            </span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <span>Add Comment:  <input type="text" class="form-control" data-bind="textInput:$root.comment_data" /> </span>
+                            <div type="submit" class="btn btn-success" data-bind="click:$root.addcomment">Add Comment</div>
+
+                            <br /><br /><br /><br /><br /><br />
+                        </div>*@
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Orders
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        @*<form id="bookingForm">
+                            <table width="100" class="table table-striped table-bordered table-hover" id="dataTables-cafeteria">
+                                <thead>
+                                    <tr>
+                                        @if (CafeteriaApp.Web.Helpers.CultureHelper.IsRighToLeft())
+                                        {
+                                            <th>Price</th>
+
+                                            <th>item</th>
+
+                                            <th>Quantity</th>
+
+                                            <th>Actions</th>
+                                        }
+                                        else
+                                        {
+                                            <th>item</th>
+
+                                            <th>Price</th>
+
+                                            <th>Quantity</th>
+
+                                            <th>Actions</th>
+                                        }
+                                    </tr>
+                                </thead>*@
+
+
+                        <div data-bind="foreach: casherorders">
+                            <span data-bind="text:Id" id="'+Id+'"></span>
+
+                            <span>
+                                <button data-bind="click:$root.editorder" class="btn">Edit</button>
+                            </span>
+                                    <span>
+                                        <button data-bind="click:$root.hide" class="btn">Hide</button>
+                                    </span>
+                                        <span>
+                                            <button data-bind="click:$root.deleteorder" class="btn">Delete</button>
+                                        </span>
+                            <div data-bind="if:$root.editorderclicked()==1 && $root.orderId()==Id">
+                                <br />
+                                <table width="100" class="table table-striped table-bordered table-hover" id="dataTables-cafeteria">
+                                    <thead>
+                                        <tr>
+                                            <th>@Resources.item</th>
+
+                                            <th>@Resources.Price</th>
+
+                                            <th>@Resources.Quantity</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:OrderItems">
+                                        <tr class="odd gradex">
+                                            <td data-bind="text:MenuItem.Name"></td>
+
+                                            <td data-bind="text:MenuItem.Price"></td>
+
+                                            <td data-bind="text:Quantity"></td>
+                                            <td>
+                                                <button type="submit" style="float: right;margin-top: -5px" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item" data-toggle="modal" data-target="#myModal">Remove this item</button>
+                                                <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="Decrease Quantity"><i class="fa fa-minus"></i></button>
+                                                <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Increase Quantity"><i class="fa fa-plus"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+
+
+
+
+
+                                @*<div data-bind="if:$root.customerId()==7">
+
+                     Casher Orders
+
+                    <h2>Orders</h2>
+
+                    <div data-bind="foreach:casherorders">
+
+                        <div data-bind="text:Id" style="margin-left:-30px;" id="'+Id+'">
+
+
+                        </div>
+                        <button data-bind="click:$root.editorder" class="btn" style="margin-right:-20px;margin-top:-39px">Edit</button>
+
+                        <button data-bind="click:$root.hide" class="btn" style="margin-left:+40px;margin-top:-39px">Hide</button>
+
+
+                        <button data-bind="click:$root.deleteorder" class="btn" style="margin-left:+20px;margin-top:-39px">Delete</button>
+                        <br />
+                        <br />
+                        <br />
+                        <div data-bind="if:$root.editorderclicked()==1 && $root.orderId()==Id">
+                            <table width="100" class="table table-striped table-bordered table-hover" id="dataTables-cafeteria">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+
+                                        <th>@Resources.Price</th>
+
+                                        <th>@Resources.Quantity</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach:OrderItems">
+                                    <tr class="odd gradex">
+                                        <td data-bind="text:MenuItem.Name"></td>
+
+                                        <td data-bind="text:MenuItem.Price"></td>
+
+                                        <td data-bind="text:Quantity"></td>
+                                        <td>
+                                            <button type="submit" style="float: right;margin-top: -5px" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item" data-toggle="modal" data-target="#myModal">Remove this item</button>
+                                            <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger" title="Decrease Quantity"><i class="fa fa-minus"></i></button>
+                                            <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Increase Quantity"><i class="fa fa-plus"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div data-bind="visible:$root.orderItems().length>0">
+                                <div>Total</div>
+                                <div data-bind="text:$root.total"></div>
+                                <span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:$root.deliveryplace" /></span>
+                                <br />
+
+
+
+
+                                <tbody data-bind="visible:orderItems().length>0,foreach:orderItems">
+                                    <tr class="odd gradex">
+                                        <td data-bind="text:MenuItem.Name"></td>
+
+                                        <td data-bind="text:MenuItem.Price"></td>
+
+                                        <td data-bind="text:Quantity"></td>
+
+                                        <td>
+                                            <button type="submit" style="float: right;margin-top: -5px" data-bind="click:$root.deleteall" class="btn btn-danger " title="Remove this item" data-toggle="modal" data-target="#myModal">Remove this item</button>
+
+                                            <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.deleteitem" class="btn btn-danger btn-circle" title="Decrease Quantity"><i class="fa fa-minus"></i></button>
+
+                                            <button type="submit" style="float: right;margin-top: -5px;margin-right: 10px" data-bind="click:$root.addanother" id="addToCart" class="btn btn-success btn-circle" title="Increase Quantity"><i class="fa fa-plus"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+            </table>
+            <span>Total</span>
+            <span data-bind="text:total"></span>
+            <br />
+            <br />
+            @*Comment Delivery Place and Payment Method*@
+                                @*<span>Delivery Place:  <input type="text" class="form-control" data-bind="textInput:deliveryplace" /></span>
+            <br />
+            <span>Payment Method:  <select type="text" class="form-control" data-bind="options:paymentmethod,value:chosenpaymentmethod"></select></span>
+            <br />*@
+                                @*<div class="row">
+            <div class="col-md-12" style="margin-bottom:10px">
+                <a href="/Customer/Order/ReviewOrder/" class="btn btn-warning">  proceedtocheckout</a>
+                @*Comment Cancel*@
+                                @*<button data-bind="click:cancel" class="btn btn-danger" style="margin-left:10px"> @Resources.cancel</button>*@
+                                @*</div>
+
+            </div>*@
+                                @*Comment Update Delivery Place and Payment Method*@
+                                @*<div class="row">
+              <div class="col-md-12"  style="margin-bottom:10px">
+                <button type="submit" class="btn btn-success" data-bind="click:enterdeliveryplaceandpaymentmethod">Update Delivery Place and Payment Method</button>
+              </div>
+            </div>*@
+                                @*</table>
+            </form>*@
+                                @*Comment View My Favourite and Hide My Favourite*@
+                                @*<div class="row">
+              <div class="col-md-12"  style="margin-bottom:10px">
+
+                <button data-bind="click:getfavorite" class="btn btn-success">View My Favorite</button>
+                <button data-bind="click:hidefavorite" style="margin-left:+40px" class="btn btn-warning">Hide My Favorite</button>
+
+                <div data-bind="visible:showfavorite()==1">
+                  <table class="table table-striped table-bordered table-hover" id="dataTables-cafeteria">
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Actions</th>
+
+                      </tr>
+
+                    </thead>
+                    <tbody data-bind="visible:favoriteItems().length>0,foreach:favoriteItems">
+                      <tr class="odd-gradex">
+                        <td data-bind="text:MenuItem.Name"></td>
+                        <td><a data-bind="click:$root.deletefavorite" class="btn btn-danger" style="cursor:pointer">Delete</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>*@
+
+                            </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="right: 50%">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning !!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are You Sure You Want To Delete This Order Item?.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bind="click:deleteall">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script>
+    var app = new CasherMenuItemViewModel(@ViewBag.id,"@ViewBag.UserId");
+    ko.applyBindings(app);
+
+</script>

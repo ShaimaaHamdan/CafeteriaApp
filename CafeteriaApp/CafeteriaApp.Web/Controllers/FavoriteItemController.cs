@@ -49,6 +49,39 @@ namespace CafeteriaApp.Web.Controllers
             return Ok(new { favoriteitems = favoriteitems1 });
         }
 
+
+        [HttpGet]
+        [Route("getByUserId/{id}")]
+        public IHttpActionResult getByUserId(string id)
+        {
+            var customer = appdb.Customers.Where(c => c.UserId == id).FirstOrDefault();
+            var favoriteitems = appdb.FavoriteItems.Where(f => f.CustomerId == customer.Id).ToList();
+            var favoriteitems1 = favoriteitems.Select(favoriteitem => new FavoriteItemViewModel()
+            {
+                Id = favoriteitem.Id,
+                MenuItemId = favoriteitem.MenuItemId,
+                MenuItem = new MenuItemViewModel()
+                {
+                    Id = favoriteitem.MenuItem.Id,
+                    Name = favoriteitem.MenuItem.Name,
+                    Description = favoriteitem.MenuItem.Description,
+                    Price = favoriteitem.MenuItem.Price,
+                    Type = favoriteitem.MenuItem.Type,
+                    CategoryId = favoriteitem.MenuItem.CategoryId
+                },
+                //CustomerId = favoriteitem.CustomerId,
+                //Customer = new CustomerViewModel()
+                //{
+                //    Id = favoriteitem.Customer.Id,
+                //    Credit = favoriteitem.Customer.Credit,
+                //    LimitedCredit = favoriteitem.Customer.LimitedCredit,
+                //    UserId = favoriteitem.Customer.UserId
+                //}
+            }).ToList();
+
+            return Ok(new { favoriteitems = favoriteitems1 });
+        }
+
         // GET: api/FavoriteItem/5
         public IHttpActionResult Get(int id)
         {

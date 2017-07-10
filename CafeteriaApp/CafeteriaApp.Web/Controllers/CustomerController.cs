@@ -321,7 +321,7 @@ namespace CafeteriaApp.Web.Controllers
 
 
         [HttpDelete]
-        [Route("DeleteCustomerDependent")]
+        [Route("DeleteCustomerDependent/{id}")]
         public IHttpActionResult DeleteCustomerDependent(int id)
         {
             var dependentToDelete = appdb.Dependents.FirstOrDefault(d => d.Id == id);

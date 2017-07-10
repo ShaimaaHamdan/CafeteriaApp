@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Favorite Items</title>
+</head>
+<body>
+
+   <div class="row">
+      <div class="col-md-12">
+
+        <div data-bind="visible:showfavorite()==1">
+          <table class="table table-striped table-bordered table-hover" id="dataTables-cafeteria"  style="margin-top:400px">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Actions</th>
+              </tr>
+
+            </thead>
+            <tbody data-bind="visible:favoriteItems().length>0,foreach:favoriteItems">
+              <tr class="odd-gradex">
+                <td data-bind="text:MenuItem.Name"></td>
+                <td><a data-bind="click:$root.deletefavorite" class="btn btn-danger" style="cursor:pointer">Delete</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+</body>
+</html>
+<script>
+    var app = new favoriteViewModel("@ViewBag.UserId");
+    ko.applyBindings(app);
+</script>
