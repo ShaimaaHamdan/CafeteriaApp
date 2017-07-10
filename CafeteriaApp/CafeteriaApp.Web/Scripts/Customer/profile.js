@@ -239,7 +239,7 @@ function ChildNewViewModel(userId) {
                 data: JSON.stringify(data)
             }).done(function (result) {
                 console.log(result);
-                document.location = '/customer/profile/index/';
+                document.location = '/customer/profile/ViewChild';
             }).fail(self.showError);
         } else {
             alertify.error("Error,Some fields are invalid !");
@@ -365,7 +365,7 @@ function ChildEditViewModel(id,userId) {
             }).done(function (result) {
 
                 alertify.success("Changes to your Child Info updated successfully !!");
-                document.location = '/customer/profile/index';
+                document.location = '/customer/profile/ViewChild';
             }).fail(self.showError);
         } else {
             alertify.error("Error,Some fields are invalid !");

@@ -22,7 +22,14 @@
             <tbody data-bind="visible:favoriteItems().length>0,foreach:favoriteItems">
               <tr class="odd-gradex">
                 <td data-bind="text:MenuItem.Name"></td>
-                <td><a data-bind="click:$root.deletefavorite" class="btn btn-danger" style="cursor:pointer">Delete</a></td>
+                  <td>
+                      <a data-bind="click:$root.deletefavorite" class="btn btn-danger" style="cursor:pointer">Delete</a>
+                      <button title="Add Item To Cart" id="addToCart" @*data-bind="click:$root.addToCart "*@
+                              class="btn btn-success btn-circle">
+                          @Resources.AddtoCart
+                      </button>
+                  </td>
+                  
               </tr>
             </tbody>
           </table>
